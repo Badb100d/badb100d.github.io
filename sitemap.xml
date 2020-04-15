@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://badb100d.com/about/</loc>
+    
+    <lastmod>2020-04-15T08:40:25.743Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://badb100d.com/404</loc>
     
     <lastmod>2020-01-15T09:55:49.706Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>https://badb100d.com/tags/</loc>
     
     <lastmod>2020-01-15T02:31:03.571Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://badb100d.com/about/</loc>
-    
-    <lastmod>2020-01-15T02:25:17.131Z</lastmod>
     
   </url>
   
