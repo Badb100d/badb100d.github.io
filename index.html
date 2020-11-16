@@ -198,7 +198,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://badb100d.com/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/">
+    <link itemprop="mainEntityOfPage" href="https://badb100d.com/2020/11/16/onemix3pro-screen-calibration/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -212,7 +212,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/" class="post-title-link" itemprop="url">一号本 OneMix3 Pro Ubuntu屏幕校正</a>
+            <a href="/2020/11/16/onemix3pro-screen-calibration/" class="post-title-link" itemprop="url">一号本 OneMix3 Pro Ubuntu屏幕校正</a>
         </h1>
 
         <div class="post-meta">
@@ -233,7 +233,7 @@
               </span>
 
           
-            <span id="/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/" class="post-meta-item leancloud_visitors" data-flag-title="一号本 OneMix3 Pro Ubuntu屏幕校正" title="Views">
+            <span id="/2020/11/16/onemix3pro-screen-calibration/" class="post-meta-item leancloud_visitors" data-flag-title="一号本 OneMix3 Pro Ubuntu屏幕校正" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -248,8 +248,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/11/16/onemix3pro-screen-calibration/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/16/onemix3pro-screen-calibration/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -272,10 +272,10 @@
 
 <p>可以写一个gnome启动项，控制gnome每次登陆的时候执行屏幕旋转。</p>
 <p>打开“启动应用程序”程序</p>
-<img src="/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/startup.jpg" class="">
+<img src="/2020/11/16/onemix3pro-screen-calibration/startup.jpg" class="">
 
 <p>或者<code>alt + F2</code>运行<code>gnome-session-properties</code>，在其中添加旋转屏幕命令</p>
-<img src="/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/startupapp.png" class="">
+<img src="/2020/11/16/onemix3pro-screen-calibration/startupapp.png" class="">
 
 <p>再或者直接shell里添加gnome启动项文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x@One-Mix3-Pro:~/.config/autostart$ cat export.desktop</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Type=Application</span><br><span class="line">Exec=export DISPLAY=:0;xrandr  --output eDP-1 --rotate left</span><br><span class="line">Hidden=false</span><br><span class="line">NoDisplay=false</span><br><span class="line">X-GNOME-Autostart-enabled=true</span><br><span class="line">Name[zh_CN]=screen rotate</span><br><span class="line">Name=screen rotate</span><br><span class="line">Comment[zh_CN]=aaa</span><br><span class="line">Comment=Rotate the default screen</span><br></pre></td></tr></table></figure>
