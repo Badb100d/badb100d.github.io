@@ -32,7 +32,7 @@
 <img src="/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/startup.jpg" class="">
 
 <p>或者<code>alt + F2</code>运行<code>gnome-session-properties</code>，在其中添加旋转屏幕命令</p>
-
+<img src="/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/startupapp.png" class="">
 
 <p>再或者直接shell里添加gnome启动项文件</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">x@One-Mix3-Pro:~/.config/autostart$ cat export.desktop</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Type=Application</span><br><span class="line">Exec=export DISPLAY=:0;xrandr  --output eDP-1 --rotate left</span><br><span class="line">Hidden=false</span><br><span class="line">NoDisplay=false</span><br><span class="line">X-GNOME-Autostart-enabled=true</span><br><span class="line">Name[zh_CN]=screen rotate</span><br><span class="line">Name=screen rotate</span><br><span class="line">Comment[zh_CN]=aaa</span><br><span class="line">Comment=Rotate the default screen</span><br></pre></td></tr></table></figure>
