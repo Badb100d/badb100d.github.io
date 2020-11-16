@@ -19,9 +19,9 @@
 ]]></content>
   </entry>
   <entry>
-    <title></title>
+    <title>一号本 OneMix3 Pro Ubuntu屏幕校正</title>
     <url>/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/</url>
-    <content><![CDATA[<h1 id="一号本-OneMix3-Pro-Ubuntu屏幕校正"><a href="#一号本-OneMix3-Pro-Ubuntu屏幕校正" class="headerlink" title="一号本 OneMix3 Pro Ubuntu屏幕校正"></a>一号本 OneMix3 Pro Ubuntu屏幕校正</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前在一号本（OneMix3 Pro）上装的Ubuntu系统因为懒得做环境分离，终于把环境搞乱了 T_T，遂重装一下Ubuntu顺便升到最新版20.04。</p>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前在一号本（OneMix3 Pro）上装的Ubuntu系统因为懒得做环境分离，终于把环境搞乱了 T_T，遂重装一下Ubuntu顺便升到最新版20.04。</p>
 <p>一号本有点ZZ，主板层面认为屏幕是竖着的，所以除原生 win10 ，加了grub之后，grub和ubuntu默认都是竖屏的。而之前装系统的时候没有做过程记录，所以忘了上次是怎么解决“竖屏”问题的了。。。</p>
 <p>重新google一番，主要发现以下方法。</p>
 <h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>最快速也是最丑的方法，Ubuntu默认有个服务<code>iio-sensor-proxy</code>，有点类似手机上的“屏幕旋转”，然而一号本的加速度传感器方向不是常规的方向，所以这个旋转总是往错误的方向翻转，可以卸载这个服务后，每次进入桌面手动设置屏幕方向。</p>
