@@ -47,27 +47,34 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="一号本 OneMix3 Pro Ubuntu屏幕校正背景之前在一号本（OneMix3 Pro）上装的Ubuntu系统因为懒得做环境分离，终于把环境搞乱了 T_T，遂重装一下Ubuntu顺便升到最新版20.04。 一号本有点ZZ，主板层面认为屏幕是竖着的，所以除原生 win10 ，加了grub之后，grub和ubuntu默认都是竖屏的。而之前装系统的时候没有做过程记录，所以忘了上次是怎么解决“竖屏”">
+<meta property="og:type" content="article">
 <meta property="og:title" content="神经慢游者">
-<meta property="og:url" content="https://badb100d.com/">
+<meta property="og:url" content="https://badb100d.com/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/">
 <meta property="og:site_name" content="神经慢游者">
+<meta property="og:description" content="一号本 OneMix3 Pro Ubuntu屏幕校正背景之前在一号本（OneMix3 Pro）上装的Ubuntu系统因为懒得做环境分离，终于把环境搞乱了 T_T，遂重装一下Ubuntu顺便升到最新版20.04。 一号本有点ZZ，主板层面认为屏幕是竖着的，所以除原生 win10 ，加了grub之后，grub和ubuntu默认都是竖屏的。而之前装系统的时候没有做过程记录，所以忘了上次是怎么解决“竖屏”">
 <meta property="og:locale">
+<meta property="og:image" content="https://badb100d.com/2020/11/16/images/startup.jpg">
+<meta property="og:image" content="https://badb100d.com/2020/11/16/images/startupapp.png">
+<meta property="article:published_time" content="2020-11-16T12:44:23.286Z">
+<meta property="article:modified_time" content="2020-11-16T14:41:58.350Z">
 <meta property="article:author" content="a">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://badb100d.com/2020/11/16/images/startup.jpg">
 
-<link rel="canonical" href="https://badb100d.com/">
+<link rel="canonical" href="https://badb100d.com/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false
+    isHome: false,
+    isPost: true
   };
 </script>
 
-  <title>神经慢游者</title>
+  <title> | 神经慢游者</title>
   
 
 
@@ -194,10 +201,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://badb100d.com/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -212,7 +219,6 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/" class="post-title-link" itemprop="url">Untitled</a>
         </h1>
 
         <div class="post-meta">
@@ -258,7 +264,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="一号本-OneMix3-Pro-Ubuntu屏幕校正"><a href="#一号本-OneMix3-Pro-Ubuntu屏幕校正" class="headerlink" title="一号本 OneMix3 Pro Ubuntu屏幕校正"></a>一号本 OneMix3 Pro Ubuntu屏幕校正</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前在一号本（OneMix3 Pro）上装的Ubuntu系统因为懒得做环境分离，终于把环境搞乱了 T_T，遂重装一下Ubuntu顺便升到最新版20.04。</p>
+        <h1 id="一号本-OneMix3-Pro-Ubuntu屏幕校正"><a href="#一号本-OneMix3-Pro-Ubuntu屏幕校正" class="headerlink" title="一号本 OneMix3 Pro Ubuntu屏幕校正"></a>一号本 OneMix3 Pro Ubuntu屏幕校正</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前在一号本（OneMix3 Pro）上装的Ubuntu系统因为懒得做环境分离，终于把环境搞乱了 T_T，遂重装一下Ubuntu顺便升到最新版20.04。</p>
 <p>一号本有点ZZ，主板层面认为屏幕是竖着的，所以除原生 win10 ，加了grub之后，grub和ubuntu默认都是竖屏的。而之前装系统的时候没有做过程记录，所以忘了上次是怎么解决“竖屏”问题的了。。。</p>
 <p>重新google一番，主要发现以下方法。</p>
 <h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>最快速也是最丑的方法，Ubuntu默认有个服务<code>iio-sensor-proxy</code>，有点类似手机上的“屏幕旋转”，然而一号本的加速度传感器方向不是常规的方向，所以这个旋转总是往错误的方向翻转，可以卸载这个服务后，每次进入桌面手动设置屏幕方向。</p>
@@ -333,116 +339,55 @@
 
 <p>再装些有的没的常用软件，差不多基本配置就OK了，后面各个环境全部docker化吧，Ubuntu环境乱了很难受。</p>
 
-      
     </div>
 
 
     <div>
       
+        
+
+      
     </div>
 
     
     
     
+        <div class="reward-container">
+  <div>谢谢老板打赏 Or2</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="a Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="a WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://badb100d.com/2020/01/15/hello-world/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="a">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="神经慢游者">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/15/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-01-15 17:39:36" itemprop="dateCreated datePublished" datetime="2020-01-15T17:39:36+08:00">2020-01-15</time>
-            </span>
-
-          
-            <span id="/2020/01/15/hello-world/" class="post-meta-item leancloud_visitors" data-flag-title="Hello World" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/01/15/hello-world/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/15/hello-world/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvLw==" title="https://hexo.io/">Hexo<i class="fa fa-external-link"></i></span>! This is your very first post. Check <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mv" title="https://hexo.io/docs/">documentation<i class="fa fa-external-link"></i></span> for more info. If you get any problems when using Hexo, you can find the answer in <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3MvdHJvdWJsZXNob290aW5nLmh0bWw=" title="https://hexo.io/docs/troubleshooting.html">troubleshooting<i class="fa fa-external-link"></i></span> or you can ask me on <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hleG9qcy9oZXhvL2lzc3Vlcw==" title="https://github.com/hexojs/hexo/issues">GitHub<i class="fa fa-external-link"></i></span>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mvd3JpdGluZy5odG1s" title="https://hexo.io/docs/writing.html">Writing<i class="fa fa-external-link"></i></span></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mvc2VydmVyLmh0bWw=" title="https://hexo.io/docs/server.html">Server<i class="fa fa-external-link"></i></span></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3MvZ2VuZXJhdGluZy5odG1s" title="https://hexo.io/docs/generating.html">Generating<i class="fa fa-external-link"></i></span></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mvb25lLWNvbW1hbmQtZGVwbG95bWVudC5odG1s" title="https://hexo.io/docs/one-command-deployment.html">Deployment<i class="fa fa-external-link"></i></span></p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/15/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-
-    <div>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
@@ -450,12 +395,10 @@
 
   </div>
 
-  
-
-
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -502,6 +445,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E5%8F%B7%E6%9C%AC-OneMix3-Pro-Ubuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E6%AD%A3"><span class="nav-number">1.</span> <span class="nav-text">一号本 OneMix3 Pro Ubuntu屏幕校正</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">1.2.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">1.3.</span> <span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%8A%A0"><span class="nav-number">1.4.</span> <span class="nav-text">附加</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E5%A4%A7grub%E5%AD%97%E4%BD%93"><span class="nav-number">1.4.1.</span> <span class="nav-text">增大grub字体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-tty-%E4%B8%8B%E6%97%8B%E8%BD%AC%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">修改 tty 下旋转模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0-tty-%E4%B8%8B%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E6%94%AF%E6%8C%81"><span class="nav-number">1.4.3.</span> <span class="nav-text">增加 tty 下中文字符支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0-rc-local-%E6%94%AF%E6%8C%81"><span class="nav-number">1.4.4.</span> <span class="nav-text">增加 rc.local 支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E4%B8%8D%E4%BC%91%E7%9C%A0"><span class="nav-number">1.4.5.</span> <span class="nav-text">无线网卡不休眠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85VNC%EF%BC%88%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E7%9A%84%E5%A4%AA%E8%BE%A3%E9%B8%A1%EF%BC%89"><span class="nav-number">1.4.6.</span> <span class="nav-text">安装VNC（系统自带的太辣鸡）</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

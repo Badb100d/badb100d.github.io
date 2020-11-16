@@ -2,38 +2,56 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://badb100d.com/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/</loc>
+    
+    <lastmod>2020-11-16</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://badb100d.com/about/</loc>
     
-    <lastmod>2020-04-15T08:54:32.308Z</lastmod>
+    <lastmod>2020-04-15</lastmod>
     
   </url>
   
   <url>
     <loc>https://badb100d.com/404</loc>
     
-    <lastmod>2020-01-15T09:55:49.706Z</lastmod>
+    <lastmod>2020-01-15</lastmod>
     
   </url>
   
   <url>
     <loc>https://badb100d.com/2020/01/15/hello-world/</loc>
     
-    <lastmod>2020-01-15T09:39:36.025Z</lastmod>
+    <lastmod>2020-01-15</lastmod>
     
   </url>
   
   <url>
     <loc>https://badb100d.com/categories/</loc>
     
-    <lastmod>2020-01-15T02:31:15.480Z</lastmod>
+    <lastmod>2020-01-15</lastmod>
     
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/</loc>
     
-    <lastmod>2020-01-15T02:31:03.571Z</lastmod>
+    <lastmod>2020-01-15</lastmod>
     
   </url>
+  
+
+  <url>
+    <loc>https://badb100d.com/</loc>
+    <lastmod>2020-11-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+
   
 </urlset>
