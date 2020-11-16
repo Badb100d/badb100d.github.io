@@ -29,9 +29,9 @@
 
 <p>可以写一个gnome启动项，控制gnome每次登陆的时候执行屏幕旋转。</p>
 <p>打开“启动应用程序”程序</p>
-<p><img src="~/projects/blog/hexo/badb100d.github.io/source/images/startup.jpg" alt="startup"></p>
+<p><img src="/.com//startup.jpg" alt="startup"></p>
 <p>或者<code>alt + F2</code>运行<code>gnome-session-properties</code>，在其中添加旋转屏幕命令</p>
-<p><img src="~/projects/blog/hexo/badb100d.github.io/source/images/startupapp.png" alt="startup"></p>
+<p><img src="/.com//startupapp.png" alt="startup"></p>
 <p>再或者直接shell里添加gnome启动项文件</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">x@One-Mix3-Pro:~/.config/autostart$ cat export.desktop</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Type=Application</span><br><span class="line">Exec=export DISPLAY=:0;xrandr  --output eDP-1 --rotate left</span><br><span class="line">Hidden=false</span><br><span class="line">NoDisplay=false</span><br><span class="line">X-GNOME-Autostart-enabled=true</span><br><span class="line">Name[zh_CN]=screen rotate</span><br><span class="line">Name=screen rotate</span><br><span class="line">Comment[zh_CN]=aaa</span><br><span class="line">Comment=Rotate the default screen</span><br></pre></td></tr></table></figure>
 
