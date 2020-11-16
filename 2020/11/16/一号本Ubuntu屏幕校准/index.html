@@ -54,13 +54,13 @@
 <meta property="og:site_name" content="神经慢游者">
 <meta property="og:description" content="背景之前在一号本（OneMix3 Pro）上装的Ubuntu系统因为懒得做环境分离，终于把环境搞乱了 T_T，遂重装一下Ubuntu顺便升到最新版20.04。 一号本有点ZZ，主板层面认为屏幕是竖着的，所以除原生 win10 ，加了grub之后，grub和ubuntu默认都是竖屏的。而之前装系统的时候没有做过程记录，所以忘了上次是怎么解决“竖屏”问题的了。。。 重新google一番，主要发现以下方">
 <meta property="og:locale">
-<meta property="og:image" content="https://badb100d.com/.com//startup.jpg">
-<meta property="og:image" content="https://badb100d.com/.com//startupapp.png">
+<meta property="og:image" content="https://badb100d.com/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/startup.jpg">
+<meta property="og:image" content="https://badb100d.com/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/startupapp.png">
 <meta property="article:published_time" content="2020-11-16T15:47:39.730Z">
 <meta property="article:modified_time" content="2020-11-16T15:47:39.730Z">
 <meta property="article:author" content="badb100d">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://badb100d.com/.com//startup.jpg">
+<meta name="twitter:image" content="https://badb100d.com/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/startup.jpg">
 
 <link rel="canonical" href="https://badb100d.com/2020/11/16/%E4%B8%80%E5%8F%B7%E6%9C%ACUbuntu%E5%B1%8F%E5%B9%95%E6%A0%A1%E5%87%86/">
 
@@ -271,9 +271,9 @@
 
 <p>可以写一个gnome启动项，控制gnome每次登陆的时候执行屏幕旋转。</p>
 <p>打开“启动应用程序”程序</p>
-<p><img src="/.com//startup.jpg" alt="startup"></p>
+<p><img src="startup.jpg" alt="startup"></p>
 <p>或者<code>alt + F2</code>运行<code>gnome-session-properties</code>，在其中添加旋转屏幕命令</p>
-<p><img src="/.com//startupapp.png" alt="startup"></p>
+<p><img src="startupapp.png" alt="startup"></p>
 <p>再或者直接shell里添加gnome启动项文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x@One-Mix3-Pro:~/.config/autostart$ cat export.desktop</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Type=Application</span><br><span class="line">Exec=export DISPLAY=:0;xrandr  --output eDP-1 --rotate left</span><br><span class="line">Hidden=false</span><br><span class="line">NoDisplay=false</span><br><span class="line">X-GNOME-Autostart-enabled=true</span><br><span class="line">Name[zh_CN]=screen rotate</span><br><span class="line">Name=screen rotate</span><br><span class="line">Comment[zh_CN]=aaa</span><br><span class="line">Comment=Rotate the default screen</span><br></pre></td></tr></table></figure>
 
