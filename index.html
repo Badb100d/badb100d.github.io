@@ -163,7 +163,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">2</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">3</span></a>
 
   </li>
         <li class="menu-item menu-item-rss">
@@ -194,6 +194,164 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://badb100d.com/2020/11/16/onemix3pro-init/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="a">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="神经慢游者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/16/onemix3pro-init/" class="post-title-link" itemprop="url">一号本 OneMix3 Pro Ubuntu屏幕校正</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-11-16 23:51:02 / Modified: 23:53:51" itemprop="dateCreated datePublished" datetime="2020-11-16T23:51:02+08:00">2020-11-16</time>
+            </span>
+
+          
+            <span id="/2020/11/16/onemix3pro-init/" class="post-meta-item leancloud_visitors" data-flag-title="一号本 OneMix3 Pro Ubuntu屏幕校正" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/11/16/onemix3pro-init/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/16/onemix3pro-init/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前在一号本（OneMix3 Pro）上装的Ubuntu系统因为懒得做环境分离，终于把环境搞乱了 T_T，遂重装一下Ubuntu顺便升到最新版20.04。</p>
+<p>一号本有点ZZ，主板层面认为屏幕是竖着的，所以除原生 win10 ，加了grub之后，grub和ubuntu默认都是竖屏的。而之前装系统的时候没有做过程记录，所以忘了上次是怎么解决“竖屏”问题的了。。。</p>
+<p>重新google一番，主要发现以下方法。</p>
+<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>最快速也是最丑的方法，Ubuntu默认有个服务<code>iio-sensor-proxy</code>，有点类似手机上的“屏幕旋转”，然而一号本的加速度传感器方向不是常规的方向，所以这个旋转总是往错误的方向翻转，可以卸载这个服务后，每次进入桌面手动设置屏幕方向。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 卸载服务</span></span><br><span class="line">x@One-Mix3-Pro:~$ sudo apt-get --purge remove iio-sensor-proxy</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看屏幕名称，这里看到是eDP-1</span></span><br><span class="line">x@One-Mix3-Pro:~$ xrandr --query</span><br><span class="line">Screen 0: minimum 320 x 200, current 2560 x 1600, maximum 16384 x 16384</span><br><span class="line">eDP-1 connected primary 2560x1600+0+0 left (normal left inverted right x axis y axis) 113mm x 181mm</span><br><span class="line">   1600x2560     55.86*+</span><br><span class="line">HDMI-1 disconnected (normal left inverted right x axis y axis)</span><br><span class="line">DP-1 disconnected (normal left inverted right x axis y axis)</span><br><span class="line">HDMI-2 disconnected (normal left inverted right x axis y axis)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 每次登陆执行屏幕翻转，可以写个自启动项</span></span><br><span class="line">x@One-Mix3-Pro:~$ xrandr --output eDP-1 --rotate left</span><br></pre></td></tr></table></figure>
+
+<p>可以写一个gnome启动项，控制gnome每次登陆的时候执行屏幕旋转。</p>
+<p>打开“启动应用程序”程序</p>
+<p><img src="/.com//startup.jpg" alt="startup"></p>
+<p>或者<code>alt + F2</code>运行<code>gnome-session-properties</code>，在其中添加旋转屏幕命令</p>
+<p><img src="/.com//startupapp.png" alt="startup"></p>
+<p>再或者直接shell里添加gnome启动项文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x@One-Mix3-Pro:~/.config/autostart$ cat export.desktop</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Type=Application</span><br><span class="line">Exec=export DISPLAY=:0;xrandr  --output eDP-1 --rotate left</span><br><span class="line">Hidden=false</span><br><span class="line">NoDisplay=false</span><br><span class="line">X-GNOME-Autostart-enabled=true</span><br><span class="line">Name[zh_CN]=screen rotate</span><br><span class="line">Name=screen rotate</span><br><span class="line">Comment[zh_CN]=aaa</span><br><span class="line">Comment=Rotate the default screen</span><br></pre></td></tr></table></figure>
+
+<p>Ubuntu 20.04上不知道为什么这个启动项经常不允许，老版本Ubuntu这个启动项还是有点用的。</p>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>上面的方法通过卸载“屏幕旋转”服务，使得屏幕不会被错误的旋转，但也造成屏幕没法自动旋转。不太喜欢这种因噎废食的做法，重新安装上<code>iio-sensor-proxy</code>，继续看了下其他方法。</p>
+<p>查阅了一些<span class="exturl" data-url="aHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvamljMjMvaWlvLmdpdC90cmVlL0RvY3VtZW50YXRpb24vQUJJL3Rlc3Rpbmcvc3lzZnMtYnVzLWlpbyNuMTYzOA==" title="https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git/tree/Documentation/ABI/testing/sysfs-bus-iio#n1638">文档<i class="fa fa-external-link"></i></span>，发现加速度传感器的矩阵可以手工校准，参考<span class="exturl" data-url="aHR0cHM6Ly93d3cucmVkZGl0LmNvbS9yL0dQRFBvY2tldC9jb21tZW50cy9jZTZqeHIvb25lbWl4XzNzX3lvZ2Ffd191YnVudHVfMTgwNDJfaG93X2RvX2lfdGVsbF9pdC8=" title="https://www.reddit.com/r/GPDPocket/comments/ce6jxr/onemix_3s_yoga_w_ubuntu_18042_how_do_i_tell_it/">reddit<i class="fa fa-external-link"></i></span>网友的帖子，先寻找加速度设备的名称：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# cat /sys/`udevadm info -q path -n /dev/iio:device0`/../modalias</span><br><span class="line">acpi:BOSC0200:BOSC0200:</span><br></pre></td></tr></table></figure>
+
+<p>获取到的设备名称为<code>acpi:BOSC0200:BOSC0200:</code>，增加<code>61-sensor-local.hwdb</code>配置文件，设备名为以下格式，并对<code>ACCEL_MOUNT_MATRIX</code>矩阵进行如下调整，更新硬件数据库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# cat /etc/udev/hwdb.d/61-sensor-local.hwdb      # 修改为如下内容</span><br><span class="line">sensor:modalias:acpi:BOSC0200*:dmi:*:*</span><br><span class="line"> ACCEL_MOUNT_MATRIX= -1, 0, 0; 0, 1, 0; 0, 0, 1  # 3x3矩阵</span><br><span class="line">root@One-Mix3-Pro:~# systemd-hwdb update                            # 更新硬件数据库</span><br></pre></td></tr></table></figure>
+
+<p>修改矩阵的时候可以参考<code>monitor-sensor</code>的内容，不断调整设备姿态，确定原生加速度传感器方向。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# monitor-sensor</span><br><span class="line">    Waiting for iio-sensor-proxy to appear</span><br><span class="line">+++ iio-sensor-proxy appeared</span><br><span class="line">=== Has accelerometer (orientation: left-up)</span><br><span class="line">=== No ambient light sensor</span><br><span class="line">    Accelerometer orientation changed: bottom-up</span><br><span class="line">    Accelerometer orientation changed: left-up</span><br><span class="line">    Accelerometer orientation changed: normal</span><br><span class="line">    Accelerometer orientation changed: right-up</span><br><span class="line">    Accelerometer orientation changed: normal</span><br><span class="line">    Accelerometer orientation changed: left-up</span><br><span class="line">    Accelerometer orientation changed: normal</span><br><span class="line">    Accelerometer orientation changed: left-up</span><br></pre></td></tr></table></figure>
+
+<p>重启并登陆以后，屏幕基本可以按正确的重力方向进行旋转了。那么这个时候新的问题就出现了😂，触屏会偶发性的没有跟随进行旋转，这样就会导致你点右边，左边的程序启动了。。。</p>
+<p>依旧查阅文档，发现有个输入设备的矩阵，查看当前输入设备：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">x@One-Mix3-Pro:~$ xinput --list</span><br><span class="line">⎡ Virtual core pointer                    	id=2	[master pointer  (3)]</span><br><span class="line">⎜   ↳ Virtual core XTEST pointer              	id=4	[slave  pointer  (2)]</span><br><span class="line">⎜   ↳ HAILUCK CO.,LTD USB KEYBOARD Mouse      	id=11	[slave  pointer  (2)]</span><br><span class="line">⎜   ↳ GXTP7386:00 27C6:0113                   	id=15	[slave  pointer  (2)]</span><br><span class="line">⎜   ↳ GXTP7386:00 27C6:0113 Stylus            	id=16	[slave  pointer  (2)]</span><br><span class="line">⎣ Virtual core keyboard                   	id=3	[master keyboard (2)]</span><br><span class="line">    ↳ Virtual core XTEST keyboard             	id=5	[slave  keyboard (3)]</span><br><span class="line">    ↳ Power Button                            	id=6	[slave  keyboard (3)]</span><br><span class="line">    ↳ Video Bus                               	id=7	[slave  keyboard (3)]</span><br><span class="line">    ↳ Power Button                            	id=8	[slave  keyboard (3)]</span><br><span class="line">    ↳ Sleep Button                            	id=9	[slave  keyboard (3)]</span><br><span class="line">    ↳ HAILUCK CO.,LTD USB KEYBOARD            	id=10	[slave  keyboard (3)]</span><br><span class="line">    ↳ HAILUCK CO.,LTD USB KEYBOARD System Control	id=12	[slave  keyboard (3)]</span><br><span class="line">    ↳ HAILUCK CO.,LTD USB KEYBOARD Consumer Control	id=13	[slave  keyboard (3)]</span><br><span class="line">    ↳ HAILUCK CO.,LTD USB KEYBOARD Wireless Radio Control	id=14	[slave  keyboard (3)]</span><br><span class="line">    ↳ GXTP7386:00 27C6:0113 Keyboard          	id=17	[slave  keyboard (3)]</span><br><span class="line">    ↳ AT Translated Set 2 keyboard            	id=18	[slave  keyboard (3)]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;shell</span><br><span class="line">x@One-Mix3-Pro:~$ xinput list-props 4</span><br><span class="line">Device &#39;GXTP7386:00 27C6:0113&#39;:</span><br><span class="line">	Device Enabled (168):	1</span><br><span class="line">	Coordinate Transformation Matrix (170):	0.000000, -1.000000, 1.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 1.000000</span><br><span class="line">	libinput Calibration Matrix (323):	1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000</span><br><span class="line">	libinput Calibration Matrix Default (324):	1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000</span><br><span class="line">	libinput Send Events Modes Available (288):	1, 0</span><br><span class="line">	libinput Send Events Mode Enabled (289):	0, 0</span><br><span class="line">	libinput Send Events Mode Enabled Default (290):	0, 0</span><br><span class="line">	Device Node (291):	&quot;&#x2F;dev&#x2F;input&#x2F;event6&quot;</span><br><span class="line">	Device Product ID (292):	10182, 275</span><br></pre></td></tr></table></figure>
+
+<p>最后写了个脚本，把屏幕旋转的部分和触摸屏识别旋转的部分合在一起，当触摸屏识别没有跟随旋转时执行一下。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Screen_rotate.sh  written by badb100d</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">portrait (left)</span></span><br><span class="line">export DISPLAY=:0</span><br><span class="line">xrandr --output eDP-1 --rotate left</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 15 is the touch screen id</span></span><br><span class="line">xinput set-prop 15 --type=float &quot;Coordinate Transformation Matrix&quot; 0 -1 1 1 0 0 0 0 1</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="附加"><a href="#附加" class="headerlink" title="附加"></a>附加</h2><h3 id="增大grub字体"><a href="#增大grub字体" class="headerlink" title="增大grub字体"></a>增大grub字体</h3><p>grub 貌似是没法旋转的（除非patch binary），所以将就一下这个颈椎病康复版grub。不过grub的字体还是可以调的，默认字号太小。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# apt install ttf-unifont -y</span><br><span class="line">root@One-Mix3-Pro:~# grub-mkfont -s 32 -o /boot/grub/fonts/unicode32.pf2 /usr/share/fonts/truetype/unifont/unifont.ttf</span><br><span class="line">root@One-Mix3-Pro:~# vim /etc/default/grub     # 增加 GRUB_FONT=/boot/grub/fonts/unicode32.pf2</span><br><span class="line">root@One-Mix3-Pro:~# update-grub							 # 更新grub，再重启</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="修改-tty-下旋转模式"><a href="#修改-tty-下旋转模式" class="headerlink" title="修改 tty 下旋转模式"></a>修改 tty 下旋转模式</h3><p>GUI下的屏幕旋转解决了，但是有时候纯CUI操作效率更高，也更节约资源。默认的 tty 界面（ctrl+alt+F3）也是旋转的，通过修改 grub 启动参数进行校正：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# cat &#x2F;etc&#x2F;default&#x2F;grub</span><br><span class="line"># If you change this file, run &#39;update-grub&#39; afterwards to update</span><br><span class="line"># &#x2F;boot&#x2F;grub&#x2F;grub.cfg.</span><br><span class="line"># For full documentation of the options in this file, see:</span><br><span class="line">#   info -f grub -n &#39;Simple configuration&#39;</span><br><span class="line"></span><br><span class="line">GRUB_DEFAULT&#x3D;0</span><br><span class="line">GRUB_TIMEOUT_STYLE&#x3D;hidden</span><br><span class="line">GRUB_TIMEOUT&#x3D;2</span><br><span class="line">GRUB_FONT&#x3D;&#x2F;boot&#x2F;grub&#x2F;fonts&#x2F;unicode32.pf2</span><br><span class="line">GRUB_DISTRIBUTOR&#x3D;&#96;lsb_release -i -s 2&gt; &#x2F;dev&#x2F;null || echo Debian&#96;</span><br><span class="line">#GRUB_CMDLINE_LINUX_DEFAULT&#x3D;&quot;quiet splash&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT&#x3D;&quot;video&#x3D;efifb fbcon&#x3D;rotate:3 fbcon&#x3D;rotate_all:1 quiet splash&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX&#x3D;&quot;net.ifnames&#x3D;0 biosdevname&#x3D;0 video&#x3D;efifb fbcon&#x3D;rotate:3 fbcon&#x3D;rotate_all:1&quot;</span><br><span class="line"></span><br><span class="line"># Uncomment to enable BadRAM filtering, modify to suit your needs</span><br><span class="line"># This works with Linux (no patch required) and with any kernel that obtains</span><br><span class="line"># the memory map information from GRUB (GNU Mach, kernel of FreeBSD ...)</span><br><span class="line">#GRUB_BADRAM&#x3D;&quot;0x01234567,0xfefefefe,0x89abcdef,0xefefefef&quot;</span><br><span class="line"></span><br><span class="line"># Uncomment to disable graphical terminal (grub-pc only)</span><br><span class="line">#GRUB_TERMINAL&#x3D;console</span><br><span class="line"></span><br><span class="line"># The resolution used on graphical terminal</span><br><span class="line"># note that you can use only modes which your graphic card supports via VBE</span><br><span class="line"># you can see them in real GRUB with the command &#96;vbeinfo&#39;</span><br><span class="line">#GRUB_GFXMODE&#x3D;640x480</span><br><span class="line"></span><br><span class="line"># Uncomment if you don&#39;t want GRUB to pass &quot;root&#x3D;UUID&#x3D;xxx&quot; parameter to Linux</span><br><span class="line">#GRUB_DISABLE_LINUX_UUID&#x3D;true</span><br><span class="line"></span><br><span class="line"># Uncomment to disable generation of recovery mode menu entries</span><br><span class="line">#GRUB_DISABLE_RECOVERY&#x3D;&quot;true&quot;</span><br><span class="line"></span><br><span class="line"># Uncomment to get a beep at grub start</span><br><span class="line">#GRUB_INIT_TUNE&#x3D;&quot;480 440 1&quot;</span><br></pre></td></tr></table></figure>
+
+<p>更新 grub 并重启</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# update-grub</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="增加-tty-下中文字符支持"><a href="#增加-tty-下中文字符支持" class="headerlink" title="增加 tty 下中文字符支持"></a>增加 tty 下中文字符支持</h3><p>安装<code>fbterm</code>，配置<code>~/.fbtermrc</code>，root和普通用户都配置一下。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">font-names=Ubuntu Mono</span><br><span class="line">font-size=40</span><br><span class="line">screen-rotate=3</span><br></pre></td></tr></table></figure>
+
+<p>配置<code>fbterm</code>权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setcap &#x27;cap_sys_tty_config+ep&#x27; /usr/bin/fbterm</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="增加-rc-local-支持"><a href="#增加-rc-local-支持" class="headerlink" title="增加 rc.local 支持"></a>增加 rc.local 支持</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# cat /etc/systemd/system/rc-local.service</span><br><span class="line">[Unit]</span><br><span class="line"> Description=/etc/rc.local Compatibility</span><br><span class="line"> ConditionPathExists=/etc/rc.local</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line"> Type=forking</span><br><span class="line"> ExecStart=/etc/rc.local start</span><br><span class="line"> TimeoutSec=0</span><br><span class="line"> StandardOutput=tty</span><br><span class="line"> RemainAfterExit=yes</span><br><span class="line"> SysVStartPriority=99</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line"> WantedBy=multi-user.target</span><br><span class="line"> </span><br><span class="line">root@One-Mix3-Pro:~# systemctl enable rc-local; touch /etc/rc.local; chmod +x /etc/rc.local</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="无线网卡不休眠"><a href="#无线网卡不休眠" class="headerlink" title="无线网卡不休眠"></a>无线网卡不休眠</h3><p>查看，并修改无线网卡状态（重启失效）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# iw dev wlan0 get power_save</span><br><span class="line">Power save: on</span><br><span class="line">root@One-Mix3-Pro:~# iw dev wlan0 set power_save off</span><br></pre></td></tr></table></figure>
+
+<p>修改无线网卡配置（重启不失效）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# cat /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf</span><br><span class="line">[connection]</span><br><span class="line">wifi.powersave = 2</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="安装VNC（系统自带的太辣鸡）"><a href="#安装VNC（系统自带的太辣鸡）" class="headerlink" title="安装VNC（系统自带的太辣鸡）"></a>安装VNC（系统自带的太辣鸡）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# wget https://www.realvnc.com/download/file/vnc.files/VNC-Server-6.7.2-Linux-x64.deb</span><br><span class="line">root@One-Mix3-Pro:~# dpkg -i VNC-Server-6.7.2-Linux-x64.deb</span><br></pre></td></tr></table></figure>
+
+
+
+<p>再装些有的没的常用软件，差不多基本配置就OK了，后面各个环境全部docker化吧，Ubuntu环境乱了很难受。</p>
+
+      
+    </div>
+
+
+    <div>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -516,7 +674,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
