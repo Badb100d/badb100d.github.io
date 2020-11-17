@@ -1,29 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/01/15/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvLw==" title="https://hexo.io/">Hexo<i class="fa fa-external-link"></i></span>! This is your very first post. Check <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mv" title="https://hexo.io/docs/">documentation<i class="fa fa-external-link"></i></span> for more info. If you get any problems when using Hexo, you can find the answer in <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3MvdHJvdWJsZXNob290aW5nLmh0bWw=" title="https://hexo.io/docs/troubleshooting.html">troubleshooting<i class="fa fa-external-link"></i></span> or you can ask me on <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hleG9qcy9oZXhvL2lzc3Vlcw==" title="https://github.com/hexojs/hexo/issues">GitHub<i class="fa fa-external-link"></i></span>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mvd3JpdGluZy5odG1s" title="https://hexo.io/docs/writing.html">Writing<i class="fa fa-external-link"></i></span></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mvc2VydmVyLmh0bWw=" title="https://hexo.io/docs/server.html">Server<i class="fa fa-external-link"></i></span></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3MvZ2VuZXJhdGluZy5odG1s" title="https://hexo.io/docs/generating.html">Generating<i class="fa fa-external-link"></i></span></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mvb25lLWNvbW1hbmQtZGVwbG95bWVudC5odG1s" title="https://hexo.io/docs/one-command-deployment.html">Deployment<i class="fa fa-external-link"></i></span></p>
-]]></content>
-  </entry>
-  <entry>
     <title>一号本 OneMix3 Pro Ubuntu屏幕校正</title>
     <url>/2020/11/16/onemix3pro-screen-calibration/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前在一号本（OneMix3 Pro）上装的Ubuntu系统因为懒得做环境分离，终于把环境搞乱了 T_T，遂重装一下Ubuntu顺便升到最新版20.04。</p>
 <p>一号本有点ZZ，主板层面认为屏幕是竖着的，所以除原生 win10 ，加了grub之后，grub和ubuntu默认都是竖屏的。而之前装系统的时候没有做过程记录，所以忘了上次是怎么解决“竖屏”问题的了。。。</p>
 <p>重新google一番，主要发现以下方法。</p>
+<a id="more"></a>
 <h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>最快速也是最丑的方法，Ubuntu默认有个服务<code>iio-sensor-proxy</code>，有点类似手机上的“屏幕旋转”，然而一号本的加速度传感器方向不是常规的方向，所以这个旋转总是往错误的方向翻转，可以卸载这个服务后，每次进入桌面手动设置屏幕方向。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 卸载服务</span></span><br><span class="line">x@One-Mix3-Pro:~$ sudo apt-get --purge remove iio-sensor-proxy</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看屏幕名称，这里看到是eDP-1</span></span><br><span class="line">x@One-Mix3-Pro:~$ xrandr --query</span><br><span class="line">Screen 0: minimum 320 x 200, current 2560 x 1600, maximum 16384 x 16384</span><br><span class="line">eDP-1 connected primary 2560x1600+0+0 left (normal left inverted right x axis y axis) 113mm x 181mm</span><br><span class="line">   1600x2560     55.86*+</span><br><span class="line">HDMI-1 disconnected (normal left inverted right x axis y axis)</span><br><span class="line">DP-1 disconnected (normal left inverted right x axis y axis)</span><br><span class="line">HDMI-2 disconnected (normal left inverted right x axis y axis)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 每次登陆执行屏幕翻转，可以写个自启动项</span></span><br><span class="line">x@One-Mix3-Pro:~$ xrandr --output eDP-1 --rotate left</span><br></pre></td></tr></table></figure>
 
@@ -98,5 +81,9 @@
 
 <p>再装些有的没的常用软件，差不多基本配置就OK了，后面各个环境全部docker化吧，Ubuntu环境乱了很难受。</p>
 ]]></content>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>linux</tag>
+      </tags>
   </entry>
 </search>
