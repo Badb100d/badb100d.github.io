@@ -203,7 +203,7 @@
   </entry>
   <entry>
     <title>一号本 OneMix3 Pro Ubuntu屏幕校正</title>
-    <url>/2020/11/16/onemix3pro-screen-calibration/</url>
+    <url>/2020/11/16/2020-11-16/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前在一号本（OneMix3 Pro）上装的Ubuntu系统因为懒得做环境分离，终于把环境搞乱了 T_T，遂重装一下Ubuntu顺便升到最新版20.04。</p>
 <p>一号本有点ZZ，主板层面认为屏幕是竖着的，所以除原生 win10 ，加了grub之后，grub和ubuntu默认都是竖屏的。而之前装系统的时候没有做过程记录，所以忘了上次是怎么解决“竖屏”问题的了。。。</p>
 <p>重新google一番，主要发现以下方法。</p>
@@ -213,10 +213,10 @@
 
 <p>可以写一个gnome启动项，控制gnome每次登陆的时候执行屏幕旋转。</p>
 <p>打开“启动应用程序”程序</p>
-<img src="/2020/11/16/onemix3pro-screen-calibration/startup.jpg" class="">
+<img src="/2020/11/16/2020-11-16/startup.jpg" class="">
 
 <p>或者<code>alt + F2</code>运行<code>gnome-session-properties</code>，在其中添加旋转屏幕命令</p>
-<img src="/2020/11/16/onemix3pro-screen-calibration/startupapp.png" class="">
+<img src="/2020/11/16/2020-11-16/startupapp.png" class="">
 
 <p>再或者直接shell里添加gnome启动项文件</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">x@One-Mix3-Pro:~/.config/autostart$ cat export.desktop</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Type=Application</span><br><span class="line">Exec=export DISPLAY=:0;xrandr  --output eDP-1 --rotate left</span><br><span class="line">Hidden=false</span><br><span class="line">NoDisplay=false</span><br><span class="line">X-GNOME-Autostart-enabled=true</span><br><span class="line">Name[zh_CN]=screen rotate</span><br><span class="line">Name=screen rotate</span><br><span class="line">Comment[zh_CN]=aaa</span><br><span class="line">Comment=Rotate the default screen</span><br></pre></td></tr></table></figure>
