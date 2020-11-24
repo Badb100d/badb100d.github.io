@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://badb100d.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="最近Digital Ocean的VPS直连一直连不上，怀疑是功夫王根据ssh的流量特征做了拦截，遂写了个脚本实现RC4加密的端口转发(主要目的是规避流量特征的分析)。python的asyncore库是一个异步的socket通信库。一个简单的使用示例如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python asyncore实现端口转发">
+<meta property="og:url" content="https://badb100d.com/2015/10/01/2015-10-01/">
+<meta property="og:site_name" content="神经慢游者">
+<meta property="og:description" content="最近Digital Ocean的VPS直连一直连不上，怀疑是功夫王根据ssh的流量特征做了拦截，遂写了个脚本实现RC4加密的端口转发(主要目的是规避流量特征的分析)。python的asyncore库是一个异步的socket通信库。一个简单的使用示例如下：">
+<meta property="og:locale">
+<meta property="article:published_time" content="2015-10-01T09:28:00.000Z">
+<meta property="article:modified_time" content="2015-10-01T09:28:01.000Z">
+<meta property="article:author" content="badb100d">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://badb100d.com/2015/10/01/2015-10-01/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>python asyncore实现端口转发 | 神经慢游者</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1ca2b5f92839d7e9bcc9959b6d203a0c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="神经慢游者" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">神经慢游者</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">neurolagger</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-rss">
+
+    <a href="/atom.xml" rel="section"><i class="fa fa-fw fa-rss"></i>rss</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>Sitemap</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://badb100d.com/2015/10/01/2015-10-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="badb100d">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="神经慢游者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python asyncore实现端口转发
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2015-10-01 17:28:00 / Modified: 17:28:01" itemprop="dateCreated datePublished" datetime="2015-10-01T17:28:00+08:00">2015-10-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2015/10/01/2015-10-01/" class="post-meta-item leancloud_visitors" data-flag-title="python asyncore实现端口转发" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2015/10/01/2015-10-01/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2015/10/01/2015-10-01/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近Digital Ocean的VPS直连一直连不上，怀疑是功夫王根据ssh的流量特征做了拦截，遂写了个脚本实现RC4加密的端口转发(主要目的是规避流量特征的分析)。<br>python的asyncore库是一个异步的socket通信库。<br>一个简单的使用示例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncore, socket</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HTTPClient</span>(<span class="params">asyncore.dispatcher</span>):</span>              <span class="comment"># 继承dispatcher类</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, host, path</span>):</span></span><br><span class="line">        asyncore.dispatcher.__init__(self)</span><br><span class="line">                                                    <span class="comment"># 这个示例是client端</span></span><br><span class="line">        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">        self.connect( (host, <span class="number">80</span>) )</span><br><span class="line">        self.buffer = <span class="string">&#x27;GET %s HTTP/1.0\r\n\r\n&#x27;</span> % path</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_connect</span>(<span class="params">self</span>):</span>                       <span class="comment"># 此成员在连接成功时被调用</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_close</span>(<span class="params">self</span>):</span>                         <span class="comment"># 远程关闭时被调用</span></span><br><span class="line">        self.close()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_read</span>(<span class="params">self</span>):</span>                          <span class="comment"># 默认情况下loop会循环调用此函数，可自定义readable成员实现条件控制</span></span><br><span class="line">        <span class="built_in">print</span> self.recv(<span class="number">8192</span>)                       <span class="comment"># 应该会阻塞在这</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">writable</span>(<span class="params">self</span>):</span>                             <span class="comment"># 可发送的条件控制成员</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="built_in">len</span>(self.buffer) &gt; <span class="number">0</span>)               <span class="comment"># 当发送队列不为空时</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_write</span>(<span class="params">self</span>):</span>                         <span class="comment"># 发送操作调用的回调</span></span><br><span class="line">        sent = self.send(self.buffer)</span><br><span class="line">        self.buffer = self.buffer[sent:]</span><br><span class="line">client = HTTPClient(<span class="string">&#x27;www.python.org&#x27;</span>, <span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">asyncore.loop()                                     <span class="comment"># 此调用会在asyncore内部开始异步通信</span></span><br></pre></td></tr></table></figure>
+<p>dispatcher父类中handle开头的成员都是回调类，可在子类中定义回调函数。</p>
+<p>在网上查了一些类似的程序都感觉代码写的不是很好，于是自己查了下manual重新造了遍轮子，发现还是挺别扭😂<br>大致代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> socket,asyncore,sys</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> ARC4</span><br><span class="line"><span class="keyword">from</span> Crypto.Hash <span class="keyword">import</span> SHA</span><br><span class="line">DEBUG=<span class="literal">False</span></span><br><span class="line">cipher_rc4_obj=<span class="literal">None</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Transmiter</span>(<span class="params">asyncore.dispatcher</span>):</span>                  <span class="comment">#数据交换类</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;数据交换类,两个此类的实例可互换tx和rx,若初始化socket则表示server,否则是client&#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,socket_info,transmitee=<span class="literal">None</span></span>):</span>     </span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;参数为socket_info,另一个交换实例&#x27;&#x27;&#x27;</span>\</span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;(作为client时socket_info为tuple(ip,port)，作为server时socket_info为accept得到的socket)&#x27;&#x27;&#x27;</span>\</span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;例如Transmiter((12.34.56.78,8080),transee)实例化了一个client端&#x27;&#x27;&#x27;</span>\</span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;Transmiter(socket_acptd,transee)实例化了一个server端&#x27;&#x27;&#x27;</span></span><br><span class="line">        self.buf_Tx=<span class="string">&#x27;&#x27;</span></span><br><span class="line">        self.buf_Rx=<span class="string">&#x27;&#x27;</span>                                              <span class="comment"># Reserved</span></span><br><span class="line">        self.transmitee=transmitee                                  <span class="comment"># transmitee是要与之交换数据的另一个对象</span></span><br><span class="line">        <span class="keyword">if</span> <span class="literal">None</span>!=transmitee <span class="keyword">and</span> <span class="literal">None</span>==transmitee.transmitee:</span><br><span class="line">            transmitee.transmitee=self                              <span class="comment"># transmitee与本实例交换数据</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(socket_info,socket.socket):                   <span class="comment"># server</span></span><br><span class="line">            asyncore.dispatcher.__init__(self,socket_info)</span><br><span class="line">            <span class="keyword">if</span> DEBUG:</span><br><span class="line">                <span class="built_in">print</span> <span class="string">&#x27;Transer server&#x27;</span></span><br><span class="line">        <span class="keyword">elif</span> <span class="built_in">isinstance</span>(socket_info[<span class="number">0</span>],<span class="built_in">str</span>) <span class="keyword">and</span> <span class="built_in">isinstance</span>(socket_info[<span class="number">1</span>],<span class="built_in">int</span>):</span><br><span class="line">            asyncore.dispatcher.__init__(self)                      <span class="comment"># client</span></span><br><span class="line">            self.create_socket(socket.AF_INET, socket.SOCK_STREAM)  <span class="comment"># 建立套接字</span></span><br><span class="line">            self.connect(socket_info)                               <span class="comment"># (ip,port)</span></span><br><span class="line">            <span class="keyword">if</span> DEBUG:</span><br><span class="line">                <span class="built_in">print</span> <span class="string">&#x27;Transer client&#x27;</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_read</span>(<span class="params">self</span>):</span>                  <span class="comment"># 读处理:recv并加入transee的发送队列或丢弃数据</span></span><br><span class="line">        read = self.recv(<span class="number">4096</span>)              <span class="comment"># 有数据可读时将读取的数据加入transee的发送队列，无transee则丢弃</span></span><br><span class="line">        <span class="keyword">if</span> DEBUG:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;Transer Read\t%d bytes&#x27;</span> % (<span class="built_in">len</span>(read))</span><br><span class="line">        <span class="keyword">if</span> <span class="literal">None</span>!=self.transmitee:</span><br><span class="line">            self.transmitee.buf_Tx += read</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;Transer Drop\t%d bytes&#x27;</span> % (<span class="built_in">len</span>(read))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">writable</span>(<span class="params">self</span>):</span>                     <span class="comment"># 可写判断:检测self的发送队列是否有数据</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="built_in">len</span>(self.buf_Tx) &gt; <span class="number">0</span> )</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_write</span>(<span class="params">self</span>):</span>                 <span class="comment"># 写处理:send发送队列，保留未发送成功的部分</span></span><br><span class="line">        sent = self.send(self.buf_Tx)</span><br><span class="line">        self.buf_Tx = self.buf_Tx[sent:]</span><br><span class="line">        <span class="keyword">if</span> DEBUG:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;Transer Write\t%d bytes&#x27;</span> % (sent)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_close</span>(<span class="params">self</span>):</span>                 <span class="comment"># 关闭状态处理，关闭self及transee</span></span><br><span class="line">        self.close()                        <span class="comment"># 远端关闭后关闭连接</span></span><br><span class="line">        <span class="keyword">if</span> DEBUG:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;Transer close&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="literal">None</span>!=self.transmitee:</span><br><span class="line">            self.transmitee.close()</span><br><span class="line">            <span class="keyword">if</span> DEBUG:</span><br><span class="line">                <span class="built_in">print</span> <span class="string">&#x27;Transer\&#x27;s transee close&#x27;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_error</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">if</span> DEBUG:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;Transer error occur&#x27;</span></span><br><span class="line">        self.handle_close()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_expt</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">if</span> DEBUG:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;Transer exception occur&#x27;</span></span><br><span class="line">        self.handle_close()</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Connector</span>(<span class="params"><span class="built_in">object</span></span>):</span>        <span class="comment"># 如果断开不太好重新建立连接</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,remoteaddr1,remoteaddr2</span>):</span></span><br><span class="line">        self.remoteaddr1=remoteaddr1</span><br><span class="line">        self.remoteaddr2=remoteaddr2</span><br><span class="line">        self.trans1=Transmiter(remoteaddr1)</span><br><span class="line">        self.trans2=Transmiter(remoteaddr2,self.trans1)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Listener</span>(<span class="params">asyncore.dispatcher</span>):</span>        <span class="comment"># 两个accepted组成一对trans</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,localaddr,backlog=<span class="number">5</span></span>):</span></span><br><span class="line">        asyncore.dispatcher.__init__(self)</span><br><span class="line">        self.lasttrans=<span class="literal">None</span></span><br><span class="line">        self.create_socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">        self.set_reuse_addr()</span><br><span class="line">        self.bind(localaddr)</span><br><span class="line">        self.listen(backlog)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_accept</span>(<span class="params">self</span>):</span></span><br><span class="line">        conn, addr = self.accept()</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;accepted %s&#x27;</span> % <span class="built_in">str</span>(addr)</span><br><span class="line">        <span class="keyword">if</span> <span class="literal">None</span>==self.lasttrans:                <span class="comment">#没有上一个trans</span></span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;wait for another&#x27;</span></span><br><span class="line">            self.lasttrans=Transmiter(conn)     <span class="comment">#记录此trans</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;paired to last one&#x27;</span></span><br><span class="line">            Transmiter(conn,self.lasttrans)     <span class="comment">#有记录的trans,配对</span></span><br><span class="line">            self.lasttrans=<span class="literal">None</span>                 <span class="comment">#清除记录</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Forwarder</span>(<span class="params">asyncore.dispatcher</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, localaddr, remoteaddr, backlog=<span class="number">5</span></span>):</span></span><br><span class="line">        asyncore.dispatcher.__init__(self)</span><br><span class="line">        self.remoteaddr=remoteaddr</span><br><span class="line">        self.create_socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">        self.set_reuse_addr()</span><br><span class="line">        self.bind(localaddr)</span><br><span class="line">        self.listen(backlog)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_accept</span>(<span class="params">self</span>):</span></span><br><span class="line">        conn, addr = self.accept()</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;Forward from %s to %s&#x27;</span> % (<span class="built_in">str</span>(addr),self.remoteaddr)</span><br><span class="line">        trans_Acptd=Transmiter(conn)</span><br><span class="line">        trans_toRemote=Transmiter(self.remoteaddr,trans_Acptd)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TransmiterWithCipher</span>(<span class="params">Transmiter</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,socket_info,cipher_obj=<span class="literal">None</span>,isEnc=<span class="literal">False</span>,transmitee=<span class="literal">None</span></span>):</span></span><br><span class="line">        Transmiter.__init__(self,socket_info,transmitee)</span><br><span class="line">        self.cipher_obj=cipher_obj</span><br><span class="line">        self.isEnc=isEnc</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_read</span>(<span class="params">self</span>):</span></span><br><span class="line">        read = self.recv(<span class="number">4096</span>)</span><br><span class="line">        <span class="keyword">if</span> DEBUG:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;Transer Read\t%d bytes&#x27;</span> % (<span class="built_in">len</span>(read))</span><br><span class="line">        <span class="keyword">if</span> <span class="literal">None</span>!=self.cipher_obj <span class="keyword">and</span> <span class="literal">False</span>!=self.isEnc:</span><br><span class="line">            read=self.cipher_obj.decrypt(read)</span><br><span class="line">        <span class="keyword">if</span> <span class="literal">None</span>!=self.transmitee:</span><br><span class="line">            <span class="keyword">if</span> <span class="literal">None</span> != self.transmitee.cipher_obj <span class="keyword">and</span> <span class="literal">False</span>!=self.transmitee.isEnc:</span><br><span class="line">                read = self.transmitee.cipher_obj.encrypt(read)</span><br><span class="line">            self.transmitee.buf_Tx +=read</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&#x27;Transer Drop\t%d bytes&#x27;</span> % (<span class="built_in">len</span>(read))</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ForwarderWithCipher</span>(<span class="params">Forwarder</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, localaddr, remoteaddr, cipher_obj=<span class="literal">None</span>,localenc=<span class="literal">False</span>,remoteenc=<span class="literal">False</span>,backlog=<span class="number">5</span></span>):</span></span><br><span class="line">        self.cipher_obj=cipher_obj</span><br><span class="line">        self.localenc=localenc</span><br><span class="line">        self.remoteenc=remoteenc</span><br><span class="line">        Forwarder.__init__(self, localaddr, remoteaddr, backlog)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_accept</span>(<span class="params">self</span>):</span></span><br><span class="line">        conn, addr = self.accept()</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;Forward from %s to %s&#x27;</span> % (<span class="built_in">str</span>(addr),self.remoteaddr)</span><br><span class="line">        trans_Acptd=TransmiterWithCipher(conn,self.cipher_obj,self.localenc)</span><br><span class="line">        trans_toRemote=TransmiterWithCipher(self.remoteaddr,self.cipher_obj,self.remoteenc,trans_Acptd)</span><br></pre></td></tr></table></figure>
+<p>由于是规避流量特征所以拿rc4凑合一下，根据自己的脑洞顺手写了个Connector和Listenner没有测试，拒绝填坑。最后通过其他连接渠道把脚本部到vps后发现直连还是会reset，估计是校长并没有看流量特征直接把vps的C段都断了。 (￣へ￣)<br><span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnB5dGhvbi5vcmcvMi9saWJyYXJ5L2FzeW5jb3JlLmh0bWw=" title="https://docs.python.org/2/library/asyncore.html">ref<i class="fa fa-external-link"></i></span></p>
+<p>发现了个小工具，socat，功能挺多。</p>
+
+    </div>
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>谢谢老板打赏 Or2</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="badb100d Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="badb100d WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>badb100d
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://badb100d.com/2015/10/01/2015-10-01/" title="python asyncore实现端口转发">https://badb100d.com/2015/10/01/2015-10-01/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2015/09/30/2015-09-30/" rel="prev" title="A shell trick">
+      <i class="fa fa-chevron-left"></i> A shell trick
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/01/24/2016-01-24/" rel="next" title="osx读写ntfs">
+      osx读写ntfs <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="badb100d"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">badb100d</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">badb100d</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: true,
+      notify: false,
+      appId: 'FKw4jJEUpTDi55S57eziGl3U-MdYXbMMI',
+      appKey: 'bTO2AX9NF2izaM70VOYSuTlb',
+      placeholder: "欢迎交流讨论...",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: true,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: true,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

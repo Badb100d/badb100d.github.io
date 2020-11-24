@@ -36,29 +36,176 @@
     
   </url>
   
+  <url>
+    <loc>https://badb100d.com/2017/08/29/2017-08-29/</loc>
+    
+    <lastmod>2017-08-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/2016/01/27/2016-01-27/</loc>
+    
+    <lastmod>2016-01-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/2016/01/24/2016-01-24/</loc>
+    
+    <lastmod>2016-01-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/2015/10/01/2015-10-01/</loc>
+    
+    <lastmod>2015-10-01</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/2015/09/30/2015-09-30/</loc>
+    
+    <lastmod>2015-09-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/2015/08/07/2015-08-07/</loc>
+    
+    <lastmod>2015-08-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/2015/07/22/2015-07-22/</loc>
+    
+    <lastmod>2015-07-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/2015/07/15/2015-07-15/</loc>
+    
+    <lastmod>2015-07-15</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/2015/04/08/2015-04-08/</loc>
+    
+    <lastmod>2015-04-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/2015/03/30/2015-03-30/</loc>
+    
+    <lastmod>2015-03-30</lastmod>
+    
+  </url>
+  
 
   <url>
     <loc>https://badb100d.com/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2020-11-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://badb100d.com/tags/ubuntu/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <loc>https://badb100d.com/tags/linux/</loc>
+    <lastmod>2020-11-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://badb100d.com/tags/linux/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <loc>https://badb100d.com/tags/vps/</loc>
+    <lastmod>2020-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/tools/</loc>
+    <lastmod>2020-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/python/</loc>
+    <lastmod>2020-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/tips/</loc>
+    <lastmod>2020-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/osx/</loc>
+    <lastmod>2020-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/macos/</loc>
+    <lastmod>2020-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/pentest/</loc>
+    <lastmod>2020-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/ubuntu/</loc>
+    <lastmod>2020-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/vulns/</loc>
+    <lastmod>2020-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/life/</loc>
+    <lastmod>2020-11-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
 
+  
+  <url>
+    <loc>https://badb100d.com/categories/tech/</loc>
+    <lastmod>2020-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/categories/life/</loc>
+    <lastmod>2020-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
   
 </urlset>
