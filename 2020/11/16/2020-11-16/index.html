@@ -351,7 +351,7 @@
 
 <h3 id="安装VNC（系统自带的太辣鸡）"><a href="#安装VNC（系统自带的太辣鸡）" class="headerlink" title="安装VNC（系统自带的太辣鸡）"></a>安装VNC（系统自带的太辣鸡）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# wget https://www.realvnc.com/download/file/vnc.files/VNC-Server-6.7.2-Linux-x64.deb</span><br><span class="line">root@One-Mix3-Pro:~# dpkg -i VNC-Server-6.7.2-Linux-x64.deb</span><br></pre></td></tr></table></figure>
 
-<h3 id="盒盖不休眠"><a href="#盒盖不休眠" class="headerlink" title="盒盖不休眠"></a>盒盖不休眠</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# echo &quot;HandleLidSwitchExternalPower=ignore&quot; &gt;&gt; /etc/systemd/logind.conf</span><br></pre></td></tr></table></figure>
+<h3 id="盒盖不休眠"><a href="#盒盖不休眠" class="headerlink" title="盒盖不休眠"></a>盒盖不休眠</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# echo &quot;HandleLidSwitchExternalPower=ignore&quot; &gt;&gt; /etc/systemd/logind.conf</span><br><span class="line">root@One-Mix3-Pro:~# systemctl restart systemd-logind</span><br></pre></td></tr></table></figure>
 
 <p>再装些有的没的常用软件，差不多基本配置就OK了，后面各个环境全部docker化吧，Ubuntu环境乱了很难受。</p>
 
