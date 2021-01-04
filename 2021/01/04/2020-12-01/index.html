@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://badb100d.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="最近计划搞一搞智能音箱，从网上买了一个二手的小米AI音箱（型号MDZ-25-DA）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小米AI音箱(小爱同学)root记录">
+<meta property="og:url" content="https://badb100d.com/2021/01/04/2020-12-01/">
+<meta property="og:site_name" content="神经慢游者">
+<meta property="og:description" content="最近计划搞一搞智能音箱，从网上买了一个二手的小米AI音箱（型号MDZ-25-DA）">
+<meta property="og:locale">
+<meta property="og:image" content="https://badb100d.com/2021/01/04/2020-12-01/xiaomi-ai.jpg">
+<meta property="og:image" content="https://badb100d.com/2021/01/04/2020-12-01/green-board.jpg">
+<meta property="og:image" content="https://badb100d.com/2021/01/04/2020-12-01/black-board.jpg">
+<meta property="article:published_time" content="2021-01-04T11:28:50.000Z">
+<meta property="article:modified_time" content="2021-01-04T14:16:31.867Z">
+<meta property="article:author" content="badb100d">
+<meta property="article:tag" content="iot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://badb100d.com/2021/01/04/2020-12-01/xiaomi-ai.jpg">
+
+<link rel="canonical" href="https://badb100d.com/2021/01/04/2020-12-01/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>小米AI音箱(小爱同学)root记录 | 神经慢游者</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1ca2b5f92839d7e9bcc9959b6d203a0c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="神经慢游者" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">神经慢游者</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">neurolagger</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-rss">
+
+    <a href="/atom.xml" rel="section"><i class="fa fa-fw fa-rss"></i>rss</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>Sitemap</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://badb100d.com/2021/01/04/2020-12-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="badb100d">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="神经慢游者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          小米AI音箱(小爱同学)root记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-04 19:28:50 / Modified: 22:16:31" itemprop="dateCreated datePublished" datetime="2021-01-04T19:28:50+08:00">2021-01-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/01/04/2020-12-01/" class="post-meta-item leancloud_visitors" data-flag-title="小米AI音箱(小爱同学)root记录" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2021/01/04/2020-12-01/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/04/2020-12-01/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近计划搞一搞智能音箱，从网上买了一个二手的小米AI音箱（型号MDZ-25-DA）</p>
+<img src="/2021/01/04/2020-12-01/xiaomi-ai.jpg" class="">
+
+<p>拆开看是绿板主板，应该是偏新的批次，主板外观如下图：</p>
+<img src="/2021/01/04/2020-12-01/green-board.jpg" class="">
+
+<p>参考<span class="exturl" data-url="aHR0cHM6Ly9iYnMuaGFzc2JpYW4uY29tL2ZvcnVtLnBocD9tb2Q9dmlld3RocmVhZCZ0aWQ9ODc1NCZwYWdlPTE=" title="https://bbs.hassbian.com/forum.php?mod=viewthread&tid=8754&page=1">hassbian<i class="fa fa-external-link"></i></span>的方法对设备进行root，记录一下。</p>
+<h3 id="1-拆机串口登录"><a href="#1-拆机串口登录" class="headerlink" title="1. 拆机串口登录"></a>1. 拆机串口登录</h3><p>从网上找了几个拆解图，基本知道螺丝位置后，正常进行拆解就行。调试串口为间距 1mm 的 3pin 口，淘宝买了根 SH 1.0mm 3pin 线，再焊接3根杜邦线接到 USB2TTL 设备上，波特率 115200 进入 tty，输入任意键，弹出 root 登录提示。</p>
+<p>这个 root 密码和 kindle 的 root 密码挺像的，根据串号加固定字符串算出来的，有点HMAC的意思。</p>
+<p>网上查找了一些资料，找到几个字符串，经过测试我的设备对应字符串是<code>B0168A6D-119A-F21A-DA58-980732F80A19</code>。</p>
+<p>大致算法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python2.7</span></span><br><span class="line"><span class="comment">#coding:utf8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通用说明：</span></span><br><span class="line"><span class="comment"># 1、先找到小爱音响SN码，通常在拆开后的底座里面。</span></span><br><span class="line"><span class="comment"># 例如：SN：20190/122119360</span></span><br><span class="line"><span class="comment"># 2、root登录密码=md5(SN+通配字符串)取值的前14位</span></span><br><span class="line"><span class="comment"># 通配字符串：9C78089F-83C7-3CDC-BCC9-93B378868E7F</span></span><br><span class="line"><span class="comment"># 即：20190/1221193609C78089F-83C7-3CDC-BCC9-93B378868E7F</span></span><br><span class="line"><span class="comment"># 3、使用MD5在线加密工具 https://md5jiami.51240.com/</span></span><br><span class="line"><span class="comment"># 4、将2中的最终待加密代码经md5加密后得到如下32位小写加密信息：（只看32位，且一定小写）</span></span><br><span class="line"><span class="comment"># 865027665beacb8f8240355d7300e0ac</span></span><br><span class="line"><span class="comment"># 取前14位：865027665beacb 即为root登陆密码</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"></span><br><span class="line">MAGIC_SALTS = [\</span><br><span class="line">               <span class="string">&quot;5775B10D-15C0-7827-97B9-88EA07FCA97A&quot;</span>,\</span><br><span class="line">               <span class="string">&quot;0168A6D-119A-F21A-DA58-980732F80A19&quot;</span>,\</span><br><span class="line">               <span class="string">&quot;A20EDC68-62E5-70C6-76E8-75879721B8EC&quot;</span>,\</span><br><span class="line">               <span class="string">&quot;B0168A6D-119A-F21A-DA58-980732F80A19&quot;</span>,\</span><br><span class="line">              ]</span><br><span class="line">sn = <span class="string">&quot;1****/9********&quot;</span></span><br><span class="line">root_password = md5( sn + MAGIC_SALTS[<span class="number">3</span>] ).lower()[:<span class="number">14</span>]</span><br><span class="line"><span class="built_in">print</span> root_password</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-临时打开ssh"><a href="#2-临时打开ssh" class="headerlink" title="2. 临时打开ssh"></a>2. 临时打开ssh</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@S12A:~# dropbearkey -t rsa -f /data/dropbear_rsa_host_key</span><br><span class="line">root@S12A:~# dropbear -r /data/dropbear_rsa_host_key</span><br><span class="line">root@S12A:~# ifconfig</span><br></pre></td></tr></table></figure>
+
+<p>然后通过 ssh 连入设备，界面上会比USB2TTL的CUI更完善一些。</p>
+<h3 id="3-提取文件系统"><a href="#3-提取文件系统" class="headerlink" title="3. 提取文件系统"></a>3. 提取文件系统</h3><p><code>mount</code>看一下目前挂载的分区，另外可以<code>ls -alF /dev/mtd*</code>看看还有哪些其他分区，绿板小爱同学有a/b分区备份，建议先刷1个分区，如果能够正常启动的话，再把另一个分区刷了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">root@S12A:~# mount</span><br><span class="line">/dev/mtdblock4 on / type squashfs (ro,noatime)</span><br><span class="line">proc on /proc type proc (rw,nosuid,nodev,noexec,noatime)</span><br><span class="line">sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,noatime)</span><br><span class="line">tmpfs on /tmp type tmpfs (rw,nosuid,nodev,noatime)</span><br><span class="line">tmpfs on /dev type tmpfs (rw,nosuid,relatime,size=512k,mode=755)</span><br><span class="line">devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,mode=600,ptmxmode=000)</span><br><span class="line">debugfs on /sys/kernel/debug type debugfs (rw,noatime)</span><br><span class="line">pstore on /sys/fs/pstore type pstore (rw,relatime)</span><br><span class="line">/dev/ubi0_0 on /data type ubifs (rw,relatime)</span><br><span class="line">/dev/ubi0_0 on /etc/shadow type ubifs (rw,relatime)</span><br><span class="line">root@S12A:~# ll /dev/mtd*</span><br><span class="line">crw-------    1 root     root       90,   0 Jan  1  2015 /dev/mtd0</span><br><span class="line">crw-------    1 root     root       90,   1 Jan  1  2015 /dev/mtd0ro</span><br><span class="line">crw-------    1 root     root       90,   2 Jan  1  2015 /dev/mtd1</span><br><span class="line">crw-------    1 root     root       90,   3 Jan  1  2015 /dev/mtd1ro</span><br><span class="line">crw-------    1 root     root       90,   4 Jan  1  2015 /dev/mtd2</span><br><span class="line">crw-------    1 root     root       90,   5 Jan  1  2015 /dev/mtd2ro</span><br><span class="line">crw-------    1 root     root       90,   6 Jan  1  2015 /dev/mtd3</span><br><span class="line">crw-------    1 root     root       90,   7 Jan  1  2015 /dev/mtd3ro</span><br><span class="line">crw-------    1 root     root       90,   8 Jan  1  2015 /dev/mtd4</span><br><span class="line">crw-------    1 root     root       90,   9 Jan  1  2015 /dev/mtd4ro</span><br><span class="line">crw-------    1 root     root       90,  10 Jan  1  2015 /dev/mtd5</span><br><span class="line">crw-------    1 root     root       90,  11 Jan  1  2015 /dev/mtd5ro</span><br><span class="line">crw-------    1 root     root       90,  12 Jan  1  2015 /dev/mtd6</span><br><span class="line">crw-------    1 root     root       90,  13 Jan  1  2015 /dev/mtd6ro</span><br><span class="line">brw-------    1 root     root       31,   0 Jan  1  2015 /dev/mtdblock0</span><br><span class="line">brw-------    1 root     root       31,   1 Jan  1  2015 /dev/mtdblock1</span><br><span class="line">brw-------    1 root     root       31,   2 Jan  1  2015 /dev/mtdblock2</span><br><span class="line">brw-------    1 root     root       31,   3 Jan  1  2015 /dev/mtdblock3</span><br><span class="line">brw-------    1 root     root       31,   4 Jan  1  2015 /dev/mtdblock4</span><br><span class="line">brw-------    1 root     root       31,   5 Jan  1  2015 /dev/mtdblock5</span><br><span class="line">brw-------    1 root     root       31,   6 Jan  1  2015 /dev/mtdblock6</span><br></pre></td></tr></table></figure>
+
+<p>切到/tmp临时目录，对系统镜像进行提取</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@S12A:~# cd /tmp</span><br><span class="line">root@S12A:/tmp# dd if=/dev/mtdblock4 of=/tmp/m4.img</span><br><span class="line">81920+0 records in</span><br><span class="line">81920+0 records out</span><br></pre></td></tr></table></figure>
+
+<p>scp 把 m4.img 复制到另一台 Linux 机器，再回来把 /tmp/m4.img 删除，重新 dd mtdblock5 出来做个b分区备份。</p>
+<h3 id="4-解压并修改分区"><a href="#4-解压并修改分区" class="headerlink" title="4. 解压并修改分区"></a>4. 解压并修改分区</h3><h4 id="4-1-解压分区"><a href="#4-1-解压分区" class="headerlink" title="4.1 解压分区"></a>4.1 解压分区</h4><p>在 Linux 机器上解压提取到的 m4.img 镜像，查看 block size，后面重新压缩会用到。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/home/test/Desktop/xiaomi# unsquashfs -s mtdblock4.img</span><br><span class="line">Found a valid SQUASHFS 4:0 superblock on mtdblock4.img.</span><br><span class="line">Creation or last append time Thu Jul 16 13:04:11 2020</span><br><span class="line">Filesystem size 32052.31 Kbytes (31.30 Mbytes)</span><br><span class="line">Compression xz</span><br><span class="line">xz: error reading stored compressor options from filesystem!</span><br><span class="line">Block size 131072</span><br><span class="line">Filesystem is exportable via NFS</span><br><span class="line">Inodes are compressed</span><br><span class="line">Data is compressed</span><br><span class="line">Fragments are compressed</span><br><span class="line">Always-use-fragments option is not specified</span><br><span class="line">Xattrs are not stored</span><br><span class="line">Duplicates are removed</span><br><span class="line">Number of fragments 106</span><br><span class="line">Number of inodes 1763</span><br><span class="line">Number of ids 1</span><br></pre></td></tr></table></figure>
+
+<p>解压镜像，<strong>注意这里需要用 root 解压，非 root 账户可能无法创建设备文件等特殊文件，重新打包刷入后，系统会起不来</strong>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/home/test/Desktop/xiaomi# unsquashfs -dest m4 mtdblock4.img</span><br><span class="line">Parallel unsquashfs: Using 4 processors</span><br><span class="line">1661 inodes (2074 blocks) to write</span><br><span class="line"></span><br><span class="line">[===============================================================================================================================================================/] 2074/2074 100%</span><br><span class="line"></span><br><span class="line">created 1082 files</span><br><span class="line">created 102 directories</span><br><span class="line">created 578 symlinks</span><br><span class="line">created 1 devices</span><br><span class="line">created 0 fifos</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2-添加自启动项"><a href="#4-2-添加自启动项" class="headerlink" title="4.2 添加自启动项"></a>4.2 添加自启动项</h4><p>修改 /etc/rc.local 添加 /data/init.sh（或者把自启动的命令都写入rc.local也行，反正镜像都改写了），改完的文件如下：</p>
+<h5 id="rc-local"><a href="#rc-local" class="headerlink" title="rc.local"></a>rc.local</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/home/test/Desktop/xiaomi# cat m4/etc/rc.local</span><br><span class="line"><span class="meta">#</span><span class="bash"> the system init finished. By default this file does nothing.</span></span><br><span class="line">sh /data/init.sh &amp;</span><br><span class="line">exit 0</span><br><span class="line">root@ubuntu:/home/test/Desktop/xiaomi#</span><br></pre></td></tr></table></figure>
+
+<h5 id="data-init-sh"><a href="#data-init-sh" class="headerlink" title="/data/init.sh"></a>/data/init.sh</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@S12A:~# chmod +x /data/init.sh					# 添加可执行属性</span><br><span class="line">root@S12A:~# ll /data/init.sh					</span><br><span class="line">-rwxr-xr-x    1 root     root           188 Dec 24  2019 /data/init.sh*</span><br><span class="line">root@S12A:~# cat /data/init.sh</span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line">if [ -e /data/dropbear_rsa_host_key ]</span><br><span class="line">then</span><br><span class="line">  echo &quot;exists&quot;</span><br><span class="line">else</span><br><span class="line">  echo &quot;not exist&quot;</span><br><span class="line">  dropbearkey -t rsa -f /data/dropbear_rsa_host_key</span><br><span class="line">fi</span><br><span class="line">dropbear -r /data/dropbear_rsa_host_key</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-3-写入-ssh-密钥"><a href="#4-3-写入-ssh-密钥" class="headerlink" title="4.3 写入 ssh 密钥"></a>4.3 写入 ssh 密钥</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@S12:~# cat /etc/dropbear/authorized_keys</span><br><span class="line">ssh-rsa AAA**************************************************</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-4-关闭-OTA"><a href="#4-4-关闭-OTA" class="headerlink" title="4.4 关闭 OTA"></a>4.4 关闭 OTA</h4><p>修改 crontab 文件，关闭 OTA 检查，以防系统更新后自启动项 &amp; ssh 密钥消失。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@S12:~# cat /etc/crontabs/root</span><br><span class="line"><span class="meta">#</span><span class="bash"> explain crontab <span class="keyword">in</span> https://crontab.guru/</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> At every 5th minute.</span></span><br><span class="line">*/5 * * * * /usr/sbin/easy_logcut size</span><br><span class="line"><span class="meta">#</span><span class="bash"> At every minute.</span></span><br><span class="line">* * * * * /usr/sbin/network_probe.sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> At 04:32.</span></span><br><span class="line">32 4 * * * /usr/sbin/pns refresh</span><br><span class="line"><span class="meta">#</span><span class="bash"> At every 10th minute.</span></span><br><span class="line">*/10 * * * * /usr/bin/check_mediaplayer_status</span><br><span class="line"><span class="meta">#</span><span class="bash"> At 03:00.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">0 3 * * * /bin/ota slient  <span class="comment"># check ota</span></span></span><br></pre></td></tr></table></figure>
+
+<p>通过查看 ota 脚本，发现 ota 服务器应该是 api.miwifi.com，直接在上级路由将域名屏蔽也可以。</p>
+<h3 id="5-重新打包分区，刷入设备"><a href="#5-重新打包分区，刷入设备" class="headerlink" title="5. 重新打包分区，刷入设备"></a>5. 重新打包分区，刷入设备</h3><p>按之前查看 block size 的信息作为参数重新打包分区，不同设备型号的 block size 可能不同。</p>
+<p>仍然用 root 操作，不然有些文件权限会出问题。另外一定要做一定的压缩，如果 img 过大，会出现刷写不完整，导致分区起不来，切换到 b 分区。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/home/test/Desktop/xiaomi# mksquashfs m4 m4_crack.img -b 131072 -comp xz -Xbcj arm -Xdict-size 32K -no-xattrs</span><br><span class="line">Parallel mksquashfs: Using 4 processors</span><br><span class="line">Creating 4.0 filesystem on m4_crack.img, block size 131072.</span><br><span class="line">[===============================================================================================================================================================\] 1495/1495 100%</span><br><span class="line"></span><br><span class="line">Exportable Squashfs 4.0 filesystem, xz compressed, data block size 131072</span><br><span class="line">	compressed data, compressed metadata, compressed fragments, no xattrs</span><br><span class="line">	duplicates are removed</span><br><span class="line">Filesystem size 32469.29 Kbytes (31.71 Mbytes)</span><br><span class="line">	46.00% of uncompressed filesystem size (70587.29 Kbytes)</span><br><span class="line">Inode table size 15932 bytes (15.56 Kbytes)</span><br><span class="line">	24.82% of uncompressed inode table size (64178 bytes)</span><br><span class="line">Directory table size 17978 bytes (17.56 Kbytes)</span><br><span class="line">	44.87% of uncompressed directory table size (40068 bytes)</span><br><span class="line">Number of duplicate files found 23</span><br><span class="line">Number of inodes 1763</span><br><span class="line">Number of files 1082</span><br><span class="line">Number of fragments 106</span><br><span class="line">Number of symbolic links  578</span><br><span class="line">Number of device nodes 1</span><br><span class="line">Number of fifo nodes 0</span><br><span class="line">Number of socket nodes 0</span><br><span class="line">Number of directories 102</span><br><span class="line">Number of ids (unique uids + gids) 1</span><br><span class="line">Number of uids 1</span><br><span class="line">	root (0)</span><br><span class="line">Number of gids 1</span><br><span class="line">	root (0)</span><br></pre></td></tr></table></figure>
+
+<p>在小爱同学上删除 /tmp/m4.img，将修改后的 <code>m4_crack.img</code> 复制回小爱同学的临时目录，刷写镜像到 mtdblock4</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@S12:/tmp# mtd write m4_crack.img system0</span><br><span class="line">Unlocking system0 ...</span><br><span class="line"></span><br><span class="line">Writing from m4_crack.img to system0 ...  [w]         </span><br><span class="line">root@S12:/tmp# /usr/bin/fw_env -s boot_part boot0</span><br><span class="line">[ubootenv] update_bootenv_varible name [boot_part]: value [boot0]</span><br><span class="line">[ubootenv] Save ubootenv to /dev/nand_env succeed!</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果重启OK，并且没有切到 b 分区的话，证明刷写成功，可以选择把 b 分区也刷写了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@S12:/tmp# mtd write m4_crack.img system1</span><br><span class="line">Unlocking system1 ...</span><br><span class="line"></span><br><span class="line">Writing from m4_crack.img to system1 ...  [w]         </span><br><span class="line">root@S12:/tmp# </span><br></pre></td></tr></table></figure>
+
+<h3 id="6-后记"><a href="#6-后记" class="headerlink" title="6. 后记"></a>6. 后记</h3><p>从老家寄来了在 MIDC 2017 会议上的礼品，首发版 小米AI音箱，这个拆开看是黑色板子的，大概如图。</p>
+<img src="/2021/01/04/2020-12-01/black-board.jpg" class="">
+
+<p>这个硬件型号的设备，系统没有 mount 到 ro，可以直接写。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">root@S12:~# mount</span><br><span class="line">rootfs on / type rootfs (rw)</span><br><span class="line">/dev/ubi0_0 on / type ubifs (rw,noatime)</span><br><span class="line">devtmpfs on /dev type devtmpfs (rw,relatime,size=115548k,nr_inodes=28887,mode=755)</span><br><span class="line">proc on /proc type proc (rw,nosuid,nodev,noexec,noatime)</span><br><span class="line">sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,noatime)</span><br><span class="line">cgroup on /sys/fs/cgroup type cgroup (rw,nosuid,nodev,noexec,relatime,debug,cpu,cpuacct,devices,freezer,net_cls,blkio)</span><br><span class="line">tmpfs on /tmp type tmpfs (rw,nosuid,nodev,noatime)</span><br><span class="line">tmpfs on /dev type tmpfs (rw,nosuid,relatime,size=512k,mode=755)</span><br><span class="line">debugfs on /sys/kernel/debug type debugfs (rw,noatime)</span><br><span class="line">/dev/ubi1_0 on /data type ubifs (rw,relatime)</span><br><span class="line">root@S12:~#</span><br></pre></td></tr></table></figure>
+
+<p>类似方法加入 ssh，禁用 ota 即可。</p>
+<p>另外发现 <code>/tmp/mico_aivs_lab/instruction.log</code> 文件中临时存有小爱的交流日志，后面有空可以结合 homeassistant 搞一些事情。</p>
+
+    </div>
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>谢谢老板打赏 Or2</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="badb100d Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="badb100d WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>badb100d
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://badb100d.com/2021/01/04/2020-12-01/" title="小米AI音箱(小爱同学)root记录">https://badb100d.com/2021/01/04/2020-12-01/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iot/" rel="tag"># iot</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/16/2020-11-16/" rel="prev" title="一号本 OneMix3 Pro Ubuntu屏幕校正">
+      <i class="fa fa-chevron-left"></i> 一号本 OneMix3 Pro Ubuntu屏幕校正
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/04/2021-01-04/" rel="next" title="vmware ESXi 显卡直通 & Tesla V100 显卡支持环境配置">
+      vmware ESXi 显卡直通 & Tesla V100 显卡支持环境配置 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%8B%86%E6%9C%BA%E4%B8%B2%E5%8F%A3%E7%99%BB%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">1. 拆机串口登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%B4%E6%97%B6%E6%89%93%E5%BC%80ssh"><span class="nav-number">2.</span> <span class="nav-text">2. 临时打开ssh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8F%90%E5%8F%96%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.</span> <span class="nav-text">3. 提取文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%A7%A3%E5%8E%8B%E5%B9%B6%E4%BF%AE%E6%94%B9%E5%88%86%E5%8C%BA"><span class="nav-number">4.</span> <span class="nav-text">4. 解压并修改分区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E8%A7%A3%E5%8E%8B%E5%88%86%E5%8C%BA"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 解压分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%90%AF%E5%8A%A8%E9%A1%B9"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 添加自启动项</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#rc-local"><span class="nav-number">4.2.1.</span> <span class="nav-text">rc.local</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#data-init-sh"><span class="nav-number">4.2.2.</span> <span class="nav-text">&#x2F;data&#x2F;init.sh</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-%E5%86%99%E5%85%A5-ssh-%E5%AF%86%E9%92%A5"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 写入 ssh 密钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-%E5%85%B3%E9%97%AD-OTA"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 关闭 OTA</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85%E5%88%86%E5%8C%BA%EF%BC%8C%E5%88%B7%E5%85%A5%E8%AE%BE%E5%A4%87"><span class="nav-number">5.</span> <span class="nav-text">5. 重新打包分区，刷入设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%90%8E%E8%AE%B0"><span class="nav-number">6.</span> <span class="nav-text">6. 后记</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="badb100d"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">badb100d</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">badb100d</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: true,
+      notify: false,
+      appId: 'FKw4jJEUpTDi55S57eziGl3U-MdYXbMMI',
+      appKey: 'bTO2AX9NF2izaM70VOYSuTlb',
+      placeholder: "欢迎交流讨论...",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: true,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: true,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
