@@ -51,7 +51,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="看看CVE-2016-0728">
 <meta property="og:url" content="https://badb100d.com/2016/01/27/2016-01-27/">
-<meta property="og:site_name" content="神经慢游者">
+<meta property="og:site_name" content="badb100d&#39;s blog">
 <meta property="og:description" content="上周末看了下cve-2016-0728 linux本地提权漏洞，今天记录一下。这个漏洞主要是因为keyrings内核组件的引用泄露引起的。此内核对象采用一个32位无符号整数做引用计数，但在引用计数溢出的时候没有进行合理的错误处理，所以当对此对象引用到达4G时会使引用计数回到0，内核在检测到此引用计数为0时会析构对象释放空间。而此时r3程序还保留有内核对象的引用，如此就形成了一个UAF漏洞。印象中这">
 <meta property="og:locale">
 <meta property="og:image" content="https://badb100d.com/2016/01/27/2016-01-27/1.pic.jpg">
@@ -75,7 +75,7 @@
   };
 </script>
 
-  <title>看看CVE-2016-0728 | 神经慢游者</title>
+  <title>看看CVE-2016-0728 | badb100d's blog</title>
   
 
 
@@ -115,7 +115,7 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/atom.xml" title="神经慢游者" type="application/atom+xml">
+<link rel="alternate" href="/atom.xml" title="badb100d's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -129,7 +129,7 @@
     <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">神经慢游者</span>
+        <span class="site-title">badb100d's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -215,7 +215,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="神经慢游者">
+      <meta itemprop="name" content="badb100d's blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
