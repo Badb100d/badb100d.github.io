@@ -356,12 +356,12 @@
   </entry>
   <entry>
     <title>小米AI音箱(小爱同学)root记录</title>
-    <url>/2021/01/04/2020-12-01/</url>
+    <url>/2020/12/01/2020-12-01/</url>
     <content><![CDATA[<p>最近计划搞一搞智能音箱，从网上买了一个二手的小米AI音箱（型号MDZ-25-DA）</p>
-<img src="/2021/01/04/2020-12-01/xiaomi-ai.jpg" class="">
+<img src="/2020/12/01/2020-12-01/xiaomi-ai.jpg" class="">
 
 <p>拆开看是绿板主板，应该是偏新的批次，主板外观如下图：</p>
-<img src="/2021/01/04/2020-12-01/green-board.jpg" class="">
+<img src="/2020/12/01/2020-12-01/green-board.jpg" class="">
 
 <p>参考<span class="exturl" data-url="aHR0cHM6Ly9iYnMuaGFzc2JpYW4uY29tL2ZvcnVtLnBocD9tb2Q9dmlld3RocmVhZCZ0aWQ9ODc1NCZwYWdlPTE=" title="https://bbs.hassbian.com/forum.php?mod=viewthread&tid=8754&page=1">hassbian<i class="fa fa-external-link"></i></span>的方法对设备进行root，记录一下。</p>
 <h3 id="1-拆机串口登录"><a href="#1-拆机串口登录" class="headerlink" title="1. 拆机串口登录"></a>1. 拆机串口登录</h3><p>从网上找了几个拆解图，基本知道螺丝位置后，正常进行拆解就行。调试串口为间距 1mm 的 3pin 口，淘宝买了根 SH 1.0mm 3pin 线，再焊接3根杜邦线接到 USB2TTL 设备上，波特率 115200 进入 tty，输入任意键，弹出 root 登录提示。</p>
@@ -410,7 +410,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@S12:/tmp# mtd write m4_crack.img system1</span><br><span class="line">Unlocking system1 ...</span><br><span class="line"></span><br><span class="line">Writing from m4_crack.img to system1 ...  [w]         </span><br><span class="line">root@S12:/tmp# </span><br></pre></td></tr></table></figure>
 
 <h3 id="6-后记"><a href="#6-后记" class="headerlink" title="6. 后记"></a>6. 后记</h3><p>从老家寄来了在 MIDC 2017 会议上的礼品，首发版 小米AI音箱，这个拆开看是黑色板子的，大概如图。</p>
-<img src="/2021/01/04/2020-12-01/black-board.jpg" class="">
+<img src="/2020/12/01/2020-12-01/black-board.jpg" class="">
 
 <p>这个硬件型号的设备，系统没有 mount 到 ro，可以直接写。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@S12:~# mount</span><br><span class="line">rootfs on / type rootfs (rw)</span><br><span class="line">/dev/ubi0_0 on / type ubifs (rw,noatime)</span><br><span class="line">devtmpfs on /dev type devtmpfs (rw,relatime,size=115548k,nr_inodes=28887,mode=755)</span><br><span class="line">proc on /proc type proc (rw,nosuid,nodev,noexec,noatime)</span><br><span class="line">sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,noatime)</span><br><span class="line">cgroup on /sys/fs/cgroup type cgroup (rw,nosuid,nodev,noexec,relatime,debug,cpu,cpuacct,devices,freezer,net_cls,blkio)</span><br><span class="line">tmpfs on /tmp type tmpfs (rw,nosuid,nodev,noatime)</span><br><span class="line">tmpfs on /dev type tmpfs (rw,nosuid,relatime,size=512k,mode=755)</span><br><span class="line">debugfs on /sys/kernel/debug type debugfs (rw,noatime)</span><br><span class="line">/dev/ubi1_0 on /data type ubifs (rw,relatime)</span><br><span class="line">root@S12:~#</span><br></pre></td></tr></table></figure>
