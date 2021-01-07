@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>badb100d&#39;s blog</title>
   
-  <subtitle>neurolagger</subtitle>
+  
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://badb100d.com/"/>
@@ -60,7 +60,13 @@
     
     <summary type="html">
     
-      &lt;p&gt;最近计划搞一搞智能音箱，从网上买了一个二手的小米AI音箱（型号MDZ-25-DA）&lt;/p&gt;
+      
+      
+        &lt;p&gt;最近计划搞一搞智能音箱，从网上买了一个二手的小米AI音箱（型号MDZ-25-DA）&lt;/p&gt;
+&lt;img src=&quot;/2020/12/01/2020-12-01/xiaomi-ai.jpg&quot; class=&quot;&quot;&gt;
+
+&lt;p&gt;拆开看是绿板主板，应该是偏新的批次，主板外观如下图：&lt;/p
+      
     
     </summary>
     
@@ -110,7 +116,10 @@
     
     <summary type="html">
     
-      &lt;p&gt;　　翻看历史邮件想起来前段时间farbox向bitcron进化了，于是抽时间把博客从旧平台迁移过来，还加了个https。由于之前用的“多说”评论系统失效，尝试了下disqus，不科学上网连评论框都看不到。。。　　换用“来必乐”试了试，样式倒是不错，可惜加载太慢，也不支持旧评论导入，索性就改回bitcron原生评论系统吧。原生评论系统功能比较单一，好在格式比较简单，手动把以前多说的json改成csv同步了一下，基本恢复迁移前的样子。&lt;/p&gt;
+      
+      
+        &lt;p&gt;　　翻看历史邮件想起来前段时间farbox向bitcron进化了，于是抽时间把博客从旧平台迁移过来，还加了个https。由于之前用的“多说”评论系统失效，尝试了下disqus，不科学上网连评论框都看不到。。。　　换用“来必乐”试了试，样式倒是不错，可惜加载太慢，也不支持旧评
+      
     
     </summary>
     
@@ -133,7 +142,10 @@
     
     <summary type="html">
     
-      &lt;p&gt;上周末看了下&lt;strong&gt;&lt;span class=&quot;exturl&quot; data-url=&quot;aHR0cDovL3BlcmNlcHRpb24tcG9pbnQuaW8vMjAxNi8wMS8xNC9hbmFseXNpcy1hbmQtZXhwbG9pdGF0aW9uLW9mLWEtbGludXgta2VybmVsLXZ1bG5lcmFiaWxpdHktY3ZlLTIwMTYtMDcyOC8=&quot; title=&quot;http://perception-point.io/2016/01/14/analysis-and-exploitation-of-a-linux-kernel-vulnerability-cve-2016-0728/&quot;&gt;cve-2016-0728&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/strong&gt; linux本地提权漏洞，今天记录一下。&lt;br&gt;这个漏洞主要是因为keyrings内核组件的引用泄露引起的。&lt;br&gt;此内核对象采用一个32位无符号整数做引用计数，但在引用计数溢出的时候没有进行合理的错误处理，所以当对此对象引用到达4G时会使引用计数回到0，内核在检测到此引用计数为0时会析构对象释放空间。而此时r3程序还保留有内核对象的引用，如此就形成了一个UAF漏洞。&lt;br&gt;印象中这种整形溢出造成的严重漏洞还真不少，本着实践出真知的态度实践一下。&lt;br&gt;&lt;strong&gt;&lt;span class=&quot;exturl&quot; data-url=&quot;aHR0cDovL3BlcmNlcHRpb24tcG9pbnQuaW8vMjAxNi8wMS8xNC9hbmFseXNpcy1hbmQtZXhwbG9pdGF0aW9uLW9mLWEtbGludXgta2VybmVsLXZ1bG5lcmFiaWxpdHktY3ZlLTIwMTYtMDcyOC8=&quot; title=&quot;http://perception-point.io/2016/01/14/analysis-and-exploitation-of-a-linux-kernel-vulnerability-cve-2016-0728/&quot;&gt;原文&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/strong&gt;中提到：&lt;br&gt;“Addresses of commit_creds and prepare_kernel_cred functions are static and can be determined per Linux kernel version/android device.”&lt;br&gt;所以先写了个内核模块获取这俩函数的地址：&lt;/p&gt;
+      
+      
+        &lt;p&gt;上周末看了下&lt;strong&gt;&lt;span class=&quot;exturl&quot; data-url=&quot;aHR0cDovL3BlcmNlcHRpb24tcG9pbnQuaW8vMjAxNi8wMS8xNC9hbmFseXNpcy1hbmQtZXhwbG9pdGF0aW9uLW9mLWEt
+      
     
     </summary>
     
@@ -158,7 +170,11 @@
     
     <summary type="html">
     
-      &lt;p&gt;作为国际大厂，苹果故意不支持巨硬家的ntfs文件系统未免有点小心眼。&lt;br&gt;升了el capitan后希捷自家的ntfs支持软件不能用了，只好寻求其他写入ntfs的方式。&lt;br&gt;google一番找到了个不算优雅但还凑合的方案，在此记录一下。&lt;/p&gt;
+      
+      
+        &lt;p&gt;作为国际大厂，苹果故意不支持巨硬家的ntfs文件系统未免有点小心眼。&lt;br&gt;升了el capitan后希捷自家的ntfs支持软件不能用了，只好寻求其他写入ntfs的方式。&lt;br&gt;google一番找到了个不算优雅但还凑合的方案，在此记录一下。&lt;/p&gt;
+&lt;p&gt;接入ntfs移动硬
+      
     
     </summary>
     
@@ -183,7 +199,10 @@
     
     <summary type="html">
     
-      &lt;p&gt;最近Digital Ocean的VPS直连一直连不上，怀疑是功夫王根据ssh的流量特征做了拦截，遂写了个脚本实现RC4加密的端口转发(主要目的是规避流量特征的分析)。&lt;br&gt;python的asyncore库是一个异步的socket通信库。&lt;br&gt;一个简单的使用示例如下：&lt;/p&gt;
+      
+      
+        &lt;p&gt;最近Digital Ocean的VPS直连一直连不上，怀疑是功夫王根据ssh的流量特征做了拦截，遂写了个脚本实现RC4加密的端口转发(主要目的是规避流量特征的分析)。&lt;br&gt;python的asyncore库是一个异步的socket通信库。&lt;br&gt;一个简单的使用示例如下：&lt;/
+      
     
     </summary>
     
@@ -206,7 +225,11 @@
     
     <summary type="html">
     
-      &lt;p&gt;码瘟给我发了个好玩的东西&lt;/p&gt;
+      
+      
+        &lt;p&gt;码瘟给我发了个好玩的东西&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/
+      
     
     </summary>
     
@@ -231,7 +254,10 @@
     
     <summary type="html">
     
-      &lt;p&gt;昨晚在&lt;span class=&quot;exturl&quot; data-url=&quot;aHR0cDovL3d3dy5mcmVlYnVmLmNvbS9uZXdzLzc0MTgwLmh0bWw=&quot; title=&quot;http://www.freebuf.com/news/74180.html&quot;&gt;freebuf&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/span&gt;上看到一篇mac下恶意软件的分析文章，软件利用前段时间有报道过的&lt;strong&gt;DYLD_PRINT_TO_FILE&lt;/strong&gt;环境变量来实现本地提权免密码root安装。&lt;br&gt;脚本思路大致如下：&lt;/p&gt;
+      
+      
+        &lt;p&gt;昨晚在&lt;span class=&quot;exturl&quot; data-url=&quot;aHR0cDovL3d3dy5mcmVlYnVmLmNvbS9uZXdzLzc0MTgwLmh0bWw=&quot; title=&quot;http://www.freebuf.com/news/74180.html&quot;&gt;fr
+      
     
     </summary>
     
@@ -256,7 +282,11 @@
     
     <summary type="html">
     
-      &lt;p&gt;linux下不小心把文件弄成  -sth  的文件名了。。。&lt;br&gt;上网查了查发现两种简单的方法：&lt;br&gt;eg:&lt;/p&gt;
+      
+      
+        &lt;p&gt;linux下不小心把文件弄成  -sth  的文件名了。。。&lt;br&gt;上网查了查发现两种简单的方法：&lt;br&gt;eg:&lt;/p&gt;
+&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=
+      
     
     </summary>
     
@@ -281,7 +311,10 @@
     
     <summary type="html">
     
-      &lt;p&gt;天天收几百封告警邮件简直不能忍，刚好最近学py，用py写了个outlook插件练练手。&lt;br&gt;32位outlook，32位python2.7，32位pywin32库，以pywin32关于outlook的一个插件demo作基础改了改，实在不会vba。。。&lt;br&gt;去除了脚本里的敏感内容，顺带注释国际化了一下，代码如下：&lt;/p&gt;
+      
+      
+        &lt;p&gt;天天收几百封告警邮件简直不能忍，刚好最近学py，用py写了个outlook插件练练手。&lt;br&gt;32位outlook，32位python2.7，32位pywin32库，以pywin32关于outlook的一个插件demo作基础改了改，实在不会vba。。。&lt;br&gt;去除了脚本里的
+      
     
     </summary>
     
@@ -304,7 +337,10 @@
     
     <summary type="html">
     
-      &lt;p&gt;由screen转tmux，使用的时候发现tmux的pane大小只能左右调节不能上下调节，各种搜索后发现是xshell的问题，&lt;strong&gt;xshell&lt;/strong&gt;这个坑竟然不响应ctrl+up和ctrl+down。。。&lt;br&gt;在centos下terminal里cat，然后输入ctrl+up 回车 和 ctrl+down 回车，分别得到”\x1B[1;5A”和”\x1B[1;5B”，其中\x1B代指控制符ESC，可以通过Alt+27按出来。复制输出的字符串，xshell工具-&amp;gt;选项-&amp;gt;键盘和鼠标-&amp;gt;编辑-&amp;gt;新建，加入ctrl+up，类型选择发送字符串，粘贴刚才复制的对应字符串，完成。&lt;/p&gt;
+      
+      
+        &lt;p&gt;由screen转tmux，使用的时候发现tmux的pane大小只能左右调节不能上下调节，各种搜索后发现是xshell的问题，&lt;strong&gt;xshell&lt;/strong&gt;这个坑竟然不响应ctrl+up和ctrl+down。。。&lt;br&gt;在centos下terminal里cat
+      
     
     </summary>
     
@@ -327,7 +363,10 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;添加ssh密钥验证&quot;&gt;&lt;a href=&quot;#添加ssh密钥验证&quot; class=&quot;headerlink&quot; title=&quot;添加ssh密钥验证&quot;&gt;&lt;/a&gt;添加ssh密钥验证&lt;/h1&gt;
+      
+      
+        &lt;h1 id=&quot;添加ssh密钥验证&quot;&gt;&lt;a href=&quot;#添加ssh密钥验证&quot; class=&quot;headerlink&quot; title=&quot;添加ssh密钥验证&quot;&gt;&lt;/a&gt;添加ssh密钥验证&lt;/h1&gt;&lt;p&gt;最近发现个人VPS的ssh日志中总是有很多不明IP的连接请求，天天爆破ssh也是够勤
+      
     
     </summary>
     
