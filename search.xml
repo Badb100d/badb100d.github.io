@@ -156,6 +156,19 @@
       </tags>
   </entry>
   <entry>
+    <title>博客迁移小记</title>
+    <url>/2017/08/29/2017-08-29/</url>
+    <content><![CDATA[<p>　　翻看历史邮件想起来前段时间farbox向bitcron进化了，于是抽时间把博客从旧平台迁移过来，还加了个https。由于之前用的“多说”评论系统失效，尝试了下disqus，不科学上网连评论框都看不到。。。　　换用“来必乐”试了试，样式倒是不错，可惜加载太慢，也不支持旧评论导入，索性就改回bitcron原生评论系统吧。原生评论系统功能比较单一，好在格式比较简单，手动把以前多说的json改成csv同步了一下，基本恢复迁移前的样子。</p>
+<p>　　说起来也有一年多没写点东西了，bitcron，还是要cron的，过几天记录一下能回想起来的事情吧。</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>life</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>看看CVE-2016-0728</title>
     <url>/2016/01/27/2016-01-27/</url>
     <content><![CDATA[<p>上周末看了下<strong><span class="exturl" data-url="aHR0cDovL3BlcmNlcHRpb24tcG9pbnQuaW8vMjAxNi8wMS8xNC9hbmFseXNpcy1hbmQtZXhwbG9pdGF0aW9uLW9mLWEtbGludXgta2VybmVsLXZ1bG5lcmFiaWxpdHktY3ZlLTIwMTYtMDcyOC8=" title="http://perception-point.io/2016/01/14/analysis-and-exploitation-of-a-linux-kernel-vulnerability-cve-2016-0728/">cve-2016-0728<i class="fa fa-external-link"></i></span></strong> linux本地提权漏洞，今天记录一下。<br>这个漏洞主要是因为keyrings内核组件的引用泄露引起的。<br>此内核对象采用一个32位无符号整数做引用计数，但在引用计数溢出的时候没有进行合理的错误处理，所以当对此对象引用到达4G时会使引用计数回到0，内核在检测到此引用计数为0时会析构对象释放空间。而此时r3程序还保留有内核对象的引用，如此就形成了一个UAF漏洞。<br>印象中这种整形溢出造成的严重漏洞还真不少，本着实践出真知的态度实践一下。<br><strong><span class="exturl" data-url="aHR0cDovL3BlcmNlcHRpb24tcG9pbnQuaW8vMjAxNi8wMS8xNC9hbmFseXNpcy1hbmQtZXhwbG9pdGF0aW9uLW9mLWEtbGludXgta2VybmVsLXZ1bG5lcmFiaWxpdHktY3ZlLTIwMTYtMDcyOC8=" title="http://perception-point.io/2016/01/14/analysis-and-exploitation-of-a-linux-kernel-vulnerability-cve-2016-0728/">原文<i class="fa fa-external-link"></i></span></strong>中提到：<br>“Addresses of commit_creds and prepare_kernel_cred functions are static and can be determined per Linux kernel version/android device.”<br>所以先写了个内核模块获取这俩函数的地址：</p>
@@ -186,19 +199,6 @@
       <tags>
         <tag>ubuntu</tag>
         <tag>vulns</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>博客迁移小记</title>
-    <url>/2017/08/29/2017-08-29/</url>
-    <content><![CDATA[<p>　　翻看历史邮件想起来前段时间farbox向bitcron进化了，于是抽时间把博客从旧平台迁移过来，还加了个https。由于之前用的“多说”评论系统失效，尝试了下disqus，不科学上网连评论框都看不到。。。　　换用“来必乐”试了试，样式倒是不错，可惜加载太慢，也不支持旧评论导入，索性就改回bitcron原生评论系统吧。原生评论系统功能比较单一，好在格式比较简单，手动把以前多说的json改成csv同步了一下，基本恢复迁移前的样子。</p>
-<p>　　说起来也有一年多没写点东西了，bitcron，还是要cron的，过几天记录一下能回想起来的事情吧。</p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>life</tag>
       </tags>
   </entry>
   <entry>

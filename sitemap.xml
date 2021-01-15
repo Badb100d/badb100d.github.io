@@ -123,7 +123,7 @@
 
   <url>
     <loc>https://badb100d.com/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -131,119 +131,119 @@
   
   <url>
     <loc>https://badb100d.com/tags/linux/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/vps/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/tools/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/python/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/tips/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/osx/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/macos/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/pentest/</loc>
-    <lastmod>2021-01-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://badb100d.com/tags/ubuntu/</loc>
-    <lastmod>2021-01-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://badb100d.com/tags/vulns/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/life/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/ubuntu/</loc>
+    <lastmod>2021-01-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/vulns/</loc>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/iot/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/vmware/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/ESXi/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/environment/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/nvidia/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/tags/deeplearning/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -252,14 +252,14 @@
   
   <url>
     <loc>https://badb100d.com/categories/tech/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://badb100d.com/categories/life/</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
