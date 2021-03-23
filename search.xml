@@ -148,6 +148,9 @@
     <content><![CDATA[<p>作为国际大厂，苹果故意不支持巨硬家的ntfs文件系统未免有点小心眼。<br>升了el capitan后希捷自家的ntfs支持软件不能用了，只好寻求其他写入ntfs的方式。<br>google一番找到了个不算优雅但还凑合的方案，在此记录一下。</p>
 <p>接入ntfs移动硬盘root shell编辑/etc/fstab内容<br>如：<br>LABEL=DRIVE_NAME none ntfs rw,auto,nobrowse<br>其中DRIVE_NAME是连入设备的卷标，注意若卷标含空格则使用“\ ”转义符。<br>此时重连设备可在/Volumes下看到卷。<br>这种方法无法在GUI环境读写磁盘文件，但是能在终端下操作，只能说凑合能用。。。</p>
 ]]></content>
+      <categories>
+        <category>tech</category>
+      </categories>
       <tags>
         <tag>tools</tag>
         <tag>macos</tag>
