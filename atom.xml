@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://badb100d.com/"/>
-  <updated>2021-03-20T05:50:16.000Z</updated>
+  <updated>2021-04-24T13:16:32.000Z</updated>
   <id>https://badb100d.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一加 Oneplus 7 pro 禁用系统更新提醒</title>
+    <link href="https://badb100d.com/2021/04/24/2021-04-24/"/>
+    <id>https://badb100d.com/2021/04/24/2021-04-24/</id>
+    <published>2021-04-24T13:16:32.000Z</published>
+    <updated>2021-04-24T13:16:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>手头的一加7pro最近总是提醒升级ColorOS11，目前nethunter只支持到Android 10，所以还是保持低版本系统禁用掉升级提醒。</p><a id="more"></a><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">test@One-Mix3-Pro:~$ adb shell</span><br><span class="line">kali:/ $ su</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 禁用 opbackup app，需root</span></span><br><span class="line">kali:/ # pm disable --user 0 com.oneplus.opbackup</span><br><span class="line">Package com.oneplus.opbackup new state: disabled</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 清除设置中系统更新菜单旁的红点</span></span><br><span class="line">kali:/ # pm clear com.oneplus.opbackup</span><br><span class="line">Success</span><br><span class="line">kali:/ #</span><br></pre></td></tr></table></figure><p>xda 论坛看到另一种方法(未实测)，将<code>/system/app/OPBACKUP/OPBackup.apk</code>重命名为<code>OPBackup.apk.bak</code>。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;手头的一加7pro最近总是提醒升级ColorOS11，目前nethunter只支持到Android 10，所以还是保持低版本系统禁用掉升级提醒。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="tech" scheme="https://badb100d.com/categories/tech/"/>
+    
+    
+      <category term="tips" scheme="https://badb100d.com/tags/tips/"/>
+    
+      <category term="android" scheme="https://badb100d.com/tags/android/"/>
+    
+  </entry>
   
   <entry>
     <title>macOS 11.2.3 Big Sur 安装 ALFA 网卡驱动</title>
