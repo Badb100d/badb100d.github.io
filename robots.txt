@@ -13,5 +13,5 @@ Disallow: /vendors/
 Disallow: /fancybox/
 
 Sitemap: https://badb100d.com/sitemap.xml
-Sitemap: https://badb100d.com/baidusitemap.xml
+#Sitemap: https://badb100d.com/baidusitemap.xml
 

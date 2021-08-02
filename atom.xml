@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://badb100d.com/"/>
-  <updated>2021-04-24T13:16:32.000Z</updated>
+  <updated>2021-07-31T02:50:31.000Z</updated>
   <id>https://badb100d.com/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker停止服务原因排查，Ubuntu自动更新服务加白</title>
+    <link href="https://badb100d.com/2021/07/31/2021-07-31/"/>
+    <id>https://badb100d.com/2021/07/31/2021-07-31/</id>
+    <published>2021-07-31T02:48:31.000Z</published>
+    <updated>2021-07-31T02:50:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>服务器443端口突然停止服务，登上去看docker停止了，在/var/log下grep docker，查看<code>/var/log/syslog.*</code>、<code>/var/log/unattended-upgrades/unattended-upgrades.log</code>、<code>/var/log/apt/history.log</code>发现是因为unattended-upgrades服务升级导致的-_-!</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> 87 Start-Date: 2021-07-27  06:42:24</span><br><span class="line"> 88 Commandline: &#x2F;usr&#x2F;bin&#x2F;unattended-upgrade</span><br><span class="line"> 89 Upgrade: docker-doc:amd64 (19.03.6-0ubuntu1~18.04.2, 20.10.2-0ubuntu1~18.04.3)</span><br><span class="line"> 90 End-Date: 2021-07-27  06:42:33</span><br><span class="line"> 91</span><br><span class="line"> 92 Start-Date: 2021-07-27  06:42:41</span><br><span class="line"> 93 Commandline: &#x2F;usr&#x2F;bin&#x2F;unattended-upgrade</span><br><span class="line"> 94 Upgrade: docker.io:amd64 (19.03.6-0ubuntu1~18.04.2, 20.10.2-0ubuntu1~18.04.3)</span><br><span class="line"> 95 End-Date: 2021-07-27  06:43:15</span><br><span class="line">...</span><br><span class="line">117 Start-Date: 2021-07-27  06:43:52</span><br><span class="line">118 Commandline: &#x2F;usr&#x2F;bin&#x2F;unattended-upgrade</span><br><span class="line">119 Upgrade: runc:amd64 (1.0.0~rc93-0ubuntu1~18.04.2, 1.0.0~rc95-0ubuntu1~18.04.2)</span><br><span class="line">120 End-Date: 2021-07-27  06:43:54</span><br><span class="line">...</span><br><span class="line">127 Start-Date: 2021-07-27  06:44:04</span><br><span class="line">128 Commandline: &#x2F;usr&#x2F;bin&#x2F;unattended-upgrade</span><br><span class="line">129 Upgrade: containerd:amd64 (1.3.3-0ubuntu1~18.04.2, 1.5.2-0ubuntu1~18.04.2)</span><br><span class="line">130 End-Date: 2021-07-27  06:44:16</span><br></pre></td></tr></table></figure><p>修改<code>/etc/apt/apt.conf.d/50unattended-upgrade</code>对docker相关的软件包加白</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">20 &#x2F;&#x2F; List of packages to not update (regexp are supported)</span><br><span class="line">21 Unattended-Upgrade::Package-Blacklist &#123;</span><br><span class="line">22 &#x2F;&#x2F;  &quot;vim&quot;;</span><br><span class="line">23 &#x2F;&#x2F;  &quot;libc6&quot;;</span><br><span class="line">24 &#x2F;&#x2F;  &quot;libc6-dev&quot;;</span><br><span class="line">25 &#x2F;&#x2F;  &quot;libc6-i686&quot;;</span><br><span class="line">26     &quot;docker*&quot;;</span><br><span class="line">27     &quot;containerd&quot;;</span><br><span class="line">28     &quot;runc&quot;;</span><br><span class="line">29 &#125;;</span><br></pre></td></tr></table></figure><p>或者配置apt将软件包设置为不更新（手动upgrade也不更新，不推荐）</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">使用 apt</span></span><br><span class="line">apt-mark hold package_name  # 恢复 apt-mark unhold package_name </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">使用 dpkg</span></span><br><span class="line">echo &quot;package_name hold&quot; | sudo dpkg --set-selections  # 恢复 echo &quot;package_name install&quot; | sudo dpkg --set-selections</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">使用 aptitude</span></span><br><span class="line">aptitude hold package_name# 恢复 aptitude unhold package_name </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">查看已经hold的软件包</span></span><br><span class="line">dpkg --get-selections | grep &quot;hold&quot; </span><br></pre></td></tr></table></figure><p>或者重新配置<code>unattended-upgrade</code>服务</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg-reconfigure unattended-upgrades</span><br></pre></td></tr></table></figure><p>或者直接关闭<code>unattended-upgrade</code>服务</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl status apt-daily-upgrade.timer</span><br><span class="line">systemctl stop apt-daily-upgrade.timer</span><br><span class="line">systemctl disable --now apt-daily-upgrade.timer</span><br><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure><p>或者卸载</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt remove unattended-upgrades</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;服务器443端口突然停止服务，登上去看docker停止了，在/var/log下grep docker，查看&lt;code&gt;/var/log/syslog.*&lt;/code&gt;、&lt;code&gt;/var/log/unattended-upgrades/unattended-upgrades.log&lt;/code&gt;、&lt;code&gt;/var/log/apt/history.log&lt;/code&gt;发现是因为unattended-upgrades服务升级导致的-_-!&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="tech" scheme="https://badb100d.com/categories/tech/"/>
+    
+    
+      <category term="linux" scheme="https://badb100d.com/tags/linux/"/>
+    
+      <category term="vps" scheme="https://badb100d.com/tags/vps/"/>
+    
+      <category term="tips" scheme="https://badb100d.com/tags/tips/"/>
+    
+      <category term="ubuntu" scheme="https://badb100d.com/tags/ubuntu/"/>
+    
+      <category term="environment" scheme="https://badb100d.com/tags/environment/"/>
+    
+  </entry>
   
   <entry>
     <title>一加 Oneplus 7 pro 禁用系统更新提醒</title>
