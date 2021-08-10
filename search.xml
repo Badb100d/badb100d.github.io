@@ -282,6 +282,10 @@
 <h3 id="盒盖不休眠"><a href="#盒盖不休眠" class="headerlink" title="盒盖不休眠"></a>盒盖不休眠</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@One-Mix3-Pro:~# echo &quot;HandleLidSwitchExternalPower=ignore&quot; &gt;&gt; /etc/systemd/logind.conf</span><br><span class="line">root@One-Mix3-Pro:~# systemctl restart systemd-logind</span><br></pre></td></tr></table></figure>
 
 <p>再装些有的没的常用软件，差不多基本配置就OK了，后面各个环境全部docker化吧，Ubuntu环境乱了很难受。</p>
+<h3 id="后续更新"><a href="#后续更新" class="headerlink" title="后续更新"></a>后续更新</h3><h5 id="2021-08-07"><a href="#2021-08-07" class="headerlink" title="2021-08-07"></a>2021-08-07</h5><ul>
+<li>最近设备经常高温重启，从<code>https://extensions.gnome.org/extension/945/cpu-power-manager/</code>处添加gnome插件控制CPU频率，另外后续可以看一下<code>/sys/devices/virtual/thermal/cooling_device\*</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@One-Mix3-Pro:/# for i in `ls /sys/devices/virtual/thermal`;do cat /sys/devices/virtual/thermal/$i/type;done</span><br><span class="line">Fan</span><br><span class="line">Fan</span><br><span class="line">Processor</span><br><span class="line">Processor</span><br><span class="line">Processor</span><br><span class="line">intel_powerclamp</span><br><span class="line">Fan</span><br><span class="line">Fan</span><br><span class="line">Fan</span><br><span class="line">Processor</span><br><span class="line">Processor</span><br><span class="line">Processor</span><br><span class="line">Processor</span><br><span class="line">Processor</span><br><span class="line">INT3400 Thermal</span><br><span class="line">SEN3</span><br><span class="line">pch_skylake</span><br><span class="line">B0D4</span><br><span class="line">iwlwifi_1</span><br><span class="line">x86_pkg_temp</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>tech</category>
