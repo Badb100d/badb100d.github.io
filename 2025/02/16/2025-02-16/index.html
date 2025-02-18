@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/black-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/black-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/black-16x16.png">
+  <link rel="mask-icon" href="/images/black.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://badb100d.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="背景新年换新机，买了一台顶配 GPD-Pocket4 替换掉之前的 GPD-Pocket3 作为手边的备机（KVM模块真香）, 正好把Windows&#x2F;Ubuntu系统一起升级一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GPD-Pocket 4 初始化记录">
+<meta property="og:url" content="https://badb100d.com/2025/02/16/2025-02-16/">
+<meta property="og:site_name" content="badb100d&#39;s blog">
+<meta property="og:description" content="背景新年换新机，买了一台顶配 GPD-Pocket4 替换掉之前的 GPD-Pocket3 作为手边的备机（KVM模块真香）, 正好把Windows&#x2F;Ubuntu系统一起升级一下。">
+<meta property="og:locale">
+<meta property="og:image" content="https://badb100d.com/2025/02/16/2025-02-16/installer_radio_buttons.png">
+<meta property="og:image" content="https://badb100d.com/2025/02/16/2025-02-16/installer_ready.png">
+<meta property="og:image" content="https://badb100d.com/2025/02/16/2025-02-16/hide_win_vol.jpg">
+<meta property="og:image" content="https://badb100d.com/2025/02/16/2025-02-16/rEFInd_ui.jpg">
+<meta property="og:image" content="https://badb100d.com/2025/02/16/2025-02-16/firmware_protection.jpg">
+<meta property="og:image" content="https://badb100d.com/2025/02/16/2025-02-16/ollama_ubuntu.jpg">
+<meta property="og:image" content="https://badb100d.com/2025/02/16/2025-02-16/gpd_pocket4_vram.jpg">
+<meta property="article:published_time" content="2025-02-16T05:00:23.000Z">
+<meta property="article:modified_time" content="2025-02-18T11:30:02.000Z">
+<meta property="article:author" content="badb100d">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="ubuntu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://badb100d.com/2025/02/16/2025-02-16/installer_radio_buttons.png">
+
+<link rel="canonical" href="https://badb100d.com/2025/02/16/2025-02-16/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>GPD-Pocket 4 初始化记录 | badb100d's blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1ca2b5f92839d7e9bcc9959b6d203a0c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="badb100d's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">badb100d's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">18</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-rss">
+
+    <a href="/atom.xml" rel="section"><i class="fa fa-fw fa-rss"></i>rss</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>Sitemap</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://badb100d.com/2025/02/16/2025-02-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="badb100d">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="badb100d's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GPD-Pocket 4 初始化记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-02-16 13:00:23" itemprop="dateCreated datePublished" datetime="2025-02-16T13:00:23+08:00">2025-02-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-02-18 19:30:02" itemprop="dateModified" datetime="2025-02-18T19:30:02+08:00">2025-02-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2025/02/16/2025-02-16/" class="post-meta-item leancloud_visitors" data-flag-title="GPD-Pocket 4 初始化记录" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2025/02/16/2025-02-16/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2025/02/16/2025-02-16/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>新年换新机，买了一台顶配 <span class="exturl" data-url="aHR0cHM6Ly9zb2Z0d2luY24uY29tL2dwZHBvY2tldDRjcw==" title="https://softwincn.com/gpdpocket4cs">GPD-Pocket4<i class="fa fa-external-link"></i></span> 替换掉之前的 GPD-Pocket3 作为手边的备机（KVM模块真香）, 正好把Windows&#x2F;Ubuntu系统一起升级一下。</p>
+<span id="more"></span>
+<p>看了一下屏幕原生还是祖传的竖屏（BIOS里是通过配置旋转来实现BIOS横屏的），和p3、壹号本3pro都一样，估计用了部分手机屏幕的芯片方案降低成本吧。</p>
+<h1 id="Windows升级Win11专业版-基本配置"><a href="#Windows升级Win11专业版-基本配置" class="headerlink" title="Windows升级Win11专业版 &amp; 基本配置"></a>Windows升级Win11专业版 &amp; 基本配置</h1><h2 id="升级专业版"><a href="#升级专业版" class="headerlink" title="升级专业版"></a>升级专业版</h2><p>GPD预装系统是家庭版，RDP、BitLocker 之类的要啥啥没有。<br>查了一下<em>专业工作站版</em>比<em>专业版</em>多了弹性文件系统(ReFS)功能，<em>用于检测镜像设备上的数据是否损坏并使用其他设备上的健康数据副本来修正和保护数据</em>，感觉个人机用处不是很大，换个专业版够了。参考<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC82ODIyNzM1NTU=" title="https://zhuanlan.zhihu.com/p/682273555">知乎<i class="fa fa-external-link"></i></span>的专业版key升级一下，或者用自建 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1dpbmQ0L3ZsbWNzZA==" title="https://github.com/Wind4/vlmcsd">vlmcsd<i class="fa fa-external-link"></i></span> 服务的方法定期认证一下也行。</p>
+<p>查看原来的激活码&#x2F;密钥的几种方法（有些key看起来不一样）。</p>
+<ol>
+<li>管理员权限运行<code>wmic path softwarelicensingservice get OA3xOriginalProductKey</code>，这个貌似是OEM的，会被下面那个覆盖。（如果没装wmic需要在设置-&gt;系统-&gt;可选功能里添加wmic）。</li>
+<li>注册表<code>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform</code>，<code>BackupProductKeyDefault</code>键（AIDA64软件里查看的貌似和这个一样）。</li>
+</ol>
+<p>使用网上的key的升级步骤如下：<br>1.断网，设置-系统-激活-升级，输入激活码，电脑重启。<br>2.重启后，显示升级失败，联网，此时按下win键-windows管理工具-右键powershell-以管理员身份打开-输入 <code>irm massgrave.dev/get.ps1|iex</code> ，弹出窗口输入<code>1</code>，激活成功。</p>
+<h2 id="系统初始配置修改"><a href="#系统初始配置修改" class="headerlink" title="系统初始配置修改"></a>系统初始配置修改</h2><p>Windows 杂项配置：</p>
+<ol>
+<li>资源管理器-&gt;文件夹选项-&gt;查看，取消勾选“使用复选框以选择项”，取消勾选“隐藏已知文件类型的扩展名”，选择“显示隐藏的文件、文件夹和驱动器”。</li>
+<li>桌面右键-&gt;个性化-&gt;主题-&gt;桌面图标设定，勾选需要的图标。</li>
+<li>设置-&gt;系统-&gt;电源和电池，“电源模式”里，接通电源-最佳性能，使用电池-平衡，“屏幕、睡眠和休眠超时”里，把接通电源的睡眠关掉，其他随偏好。“节能模式”调个20%&#x2F;30%之类的，“盖子、电源和睡眠 按钮控件”里，把“按电源按钮”都调到“不执行任何操作”以防误触，把接通电源的盖上盖子调成不执行任何操作，其他随偏好。如果要更精细化的配置可以在控制面板里的电源里改（旧版UI）。</li>
+<li>设置-&gt;系统-&gt;远程桌面（打开）-&gt;勾选“要求设备使用网络级别身份验证连接”，改默认端口为自己偏好的端口号，改电脑名称。（如果端口改了没啥变化的话可以改注册表试试，路径<code>HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp</code>，PortNumber(dword)改成偏好的十进制值）。</li>
+<li>设置-&gt;网络和Internet-&gt;WLAN-&gt;打开“随机硬件地址”，家庭网络等个别WiFi需要手动在对应的网络配置文件里关闭随机MAC，以防DHCP地址变化。</li>
+<li>安装Windows Subsystem Linux，并设置默认版本为2（独立内核）<code>wsl --set-default-version 2</code>。</li>
+<li>保存以下内容为“管理员取得所有权.reg”，并双击导入注册表。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_CLASSES_ROOT\*\shell\runas]</span><br><span class="line">@=&quot;管理员取得所有权&quot;</span><br><span class="line">&quot;NoWorkingDirectory&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\*\shell\runas\command]</span><br><span class="line">@=&quot;cmd.exe /c takeown /f \&quot;%1\&quot; &amp;&amp; icacls \&quot;%1\&quot; /grant administrators:F&quot;</span><br><span class="line">&quot;IsolatedCommand&quot;=&quot;cmd.exe /c takeown /f \&quot;%1\&quot; &amp;&amp; icacls \&quot;%1\&quot; /grant administrators:F&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\exefile\shell\runas2]</span><br><span class="line">@=&quot;管理员取得所有权&quot;</span><br><span class="line">&quot;NoWorkingDirectory&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\exefile\shell\runas2\command]</span><br><span class="line">@=&quot;cmd.exe /c takeown /f \&quot;%1\&quot; &amp;&amp; icacls \&quot;%1\&quot; /grant administrators:F&quot;</span><br><span class="line">&quot;IsolatedCommand&quot;=&quot;cmd.exe /c takeown /f \&quot;%1\&quot; &amp;&amp; icacls \&quot;%1\&quot; /grant administrators:F&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Directory\shell\runas]</span><br><span class="line">@=&quot;管理员取得所有权&quot;</span><br><span class="line">&quot;NoWorkingDirectory&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Directory\shell\runas\command]</span><br><span class="line">@=&quot;cmd.exe /c takeown /f \&quot;%1\&quot; /r /d y &amp;&amp; icacls \&quot;%1\&quot; /grant administrators:F /t&quot;</span><br><span class="line">&quot;IsolatedCommand&quot;=&quot;cmd.exe /c takeown /f \&quot;%1\&quot; /r /d y &amp;&amp; icacls \&quot;%1\&quot; /grant administrators:F /t&quot;</span><br></pre></td></tr></table></figure>
+<ol start="8">
+<li>有好的线路的话，更改地区到新加坡，保存以下内容为“copilot_enable.reg”，并双击导入注册表，开启copilot（方法可能过时）。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"> [HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Copilot\BingChat]</span><br><span class="line"> &quot;IsUserEligible&quot;=dword:00000001</span><br></pre></td></tr></table></figure>
+<ol start="9">
+<li>安装<span class="exturl" data-url="aHR0cHM6Ly93d3cuZGlza3Rvb2wuY24vZ28vZG93bmxvYWQvUEFJbnN0YWxsLnppcA==" title="https://www.disktool.cn/go/download/PAInstall.zip">分区助手<i class="fa fa-external-link"></i></span>或者类似的磁盘分区软件，调整一下分区，空出来1T左右或者其他大小的未分配空间给Ubuntu系统备用。</li>
+<li>（可选）rEFInder引导兼容设置：<br>由于rEFInd引导每次切系统会写引导区（<em>参考<span class="exturl" data-url="aHR0cHM6Ly93d3cucm9kc2Jvb2tzLmNvbS9yZWZpbmQvY29uZmlnZmlsZS5odG1sI2Jvb3RuZXh0" title="https://www.rodsbooks.com/refind/configfile.html#bootnext">1<i class="fa fa-external-link"></i></span> <span class="exturl" data-url="aHR0cHM6Ly9zb3VyY2Vmb3JnZS5uZXQvcC9yZWZpbmQvZGlzY3Vzc2lvbi9nZW5lcmFsL3RocmVhZC81NTlmMTE3NC8jOTk5Zg==" title="https://sourceforge.net/p/refind/discussion/general/thread/559f1174/#999f">2<i class="fa fa-external-link"></i></span></em>），此时默认配置下的BitLocker会认为引导区改变已不可信任，存在安全风险，需要重新输入UUID解锁BitLocker。有两种方法可以让BitLocker保持SecureBoot自动解密磁盘：<br> (1). 在组策略里修改BitLocker的UEFI安全启动配置，运行（win+R）-&gt;gpedit.msc-&gt;计算机配置-&gt;管理模板-&gt;Windows组件-&gt;BitLocker驱动器加密-&gt;操作系统驱动器-&gt;为本地UEFI固件配置配置TPM平台验证配置文件，启用配置，左下选项勾选 PCR0、2、11，注意取消PCR7，应用&#x2F;确定（<span class="exturl" data-url="aHR0cHM6Ly9zdXBlcnVzZXIuY29tL3F1ZXN0aW9ucy8xNjQwOTg1L2hvdy10by1lbmFibGUtQml0TG9ja2VyLXdoZW4tYm9vdGluZy13aW5kb3dzLTEwLWZyb20tYS1ub24tbWljcm9zb2Z0LWJvb3QtbWFuYWdlLzE2NDEwMDAjMTY0MTAwMA==" title="https://superuser.com/questions/1640985/how-to-enable-BitLocker-when-booting-windows-10-from-a-non-microsoft-boot-manage/1641000#1641000">参考链接<i class="fa fa-external-link"></i></span>）。<br> (2). 在Ubuntu下rEFInd.conf里将Windows配置为<code>firmware_bootnum</code>方式启动（参考链接<span class="exturl" data-url="aHR0cHM6Ly93d3cucm9kc2Jvb2tzLmNvbS9yZWZpbmQvY29uZmlnZmlsZS5odG1sI2Jvb3RuZXh0" title="https://www.rodsbooks.com/refind/configfile.html#bootnext">1<i class="fa fa-external-link"></i></span> <span class="exturl" data-url="aHR0cHM6Ly9iYnMuYXJjaGxpbnV4Lm9yZy92aWV3dG9waWMucGhwP3BpZD0xOTY3Mjc5I3AxOTY3Mjc5" title="https://bbs.archlinux.org/viewtopic.php?pid=1967279#p1967279">2<i class="fa fa-external-link"></i></span> <span class="exturl" data-url="aHR0cHM6Ly9iYnMuYXJjaGxpbnV4Lm9yZy92aWV3dG9waWMucGhwP2lkPTI2NTM4NA==" title="https://bbs.archlinux.org/viewtopic.php?id=265384">3<i class="fa fa-external-link"></i></span>），这种方法等后面安装Ubuntu时再详细说明。</li>
+<li>BitLocker、还原点和各种程序安装等到Ubuntu安装完了再配置。</li>
+</ol>
+<h1 id="Ubuntu-24-10-安装"><a href="#Ubuntu-24-10-安装" class="headerlink" title="Ubuntu 24.10 安装"></a>Ubuntu 24.10 安装</h1><p>之前旧的gpd-pocket3参考了<span class="exturl" data-url="aHR0cHM6Ly93d3cubWlrZWthc2JlcmcuY29tL2Jsb2cvMjAyMC8wNC8wOC9kdWFsLWJvb3QtdWJ1bnR1LWFuZC13aW5kb3dzLXdpdGgtZW5jcnlwdGlvbi5odG1s" title="https://www.mikekasberg.com/blog/2020/04/08/dual-boot-ubuntu-and-windows-with-encryption.html">这个方法<i class="fa fa-external-link"></i></span>做了windows + ubuntu 双系统的全磁盘加密，这次装系统发现<span class="exturl" data-url="aHR0cHM6Ly93d3cubWlrZWthc2JlcmcuY29tL2Jsb2cvMjAyNC8wNS8yMC9kdWFsLWJvb3QtdWJ1bnR1LTI0LTA0LWFuZC13aW5kb3dzLXdpdGgtZW5jcnlwdGlvbi5odG1s" title="https://www.mikekasberg.com/blog/2024/05/20/dual-boot-ubuntu-24-04-and-windows-with-encryption.html">参考博客有更新<i class="fa fa-external-link"></i></span>，最新版的Ubuntu 24.10 GUI安装流程支持了双系统加密了，以下为用新方法安装Ubuntu24.10。</p>
+<h2 id="安装Ubuntu并开启加密"><a href="#安装Ubuntu并开启加密" class="headerlink" title="安装Ubuntu并开启加密"></a>安装Ubuntu并开启加密</h2><ol>
+<li>找个U盘刷入<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3ZlbnRveS9WZW50b3k=" title="https://github.com/ventoy/Ventoy">Ventoy<i class="fa fa-external-link"></i></span>，然后从官网下载<span class="exturl" data-url="aHR0cHM6Ly9yZWxlYXNlcy51YnVudHUuY29tLzI0LjEwL3VidW50dS0yNC4xMC1kZXNrdG9wLWFtZDY0Lmlzbw==" title="https://releases.ubuntu.com/24.10/ubuntu-24.10-desktop-amd64.iso">Ubuntu-24.10-desktop-amd64.iso<i class="fa fa-external-link"></i></span>系统镜像并放入U盘。</li>
+<li>重启到BIOS，从Ventoy引导，选择Ubuntu的镜像，把Ubuntu也安装成UEFI方案引导（安全启动必须）。</li>
+<li><strong>开启LVM磁盘加密</strong>：<br>Ubuntu安装程序在加密双启动这块有一点误导性，需要一个小技巧来达成我们的目的。在GUI安装系统的流程中，选择语言、键盘、网络这些比较常规，选择交互式安装，当要进行磁盘安装时，先选择“<strong>擦除磁盘并安装Ubuntu</strong>(<strong>Erase disk and install Ubuntu</strong>)，点击<strong>高级功能</strong>(<strong>Advanced features</strong>)，选择<strong>使用LVM并加密</strong>(<strong>Use LVM and encryption</strong>)并点击OK结束高级功能的配置，在原来的界面上将选项调整为<strong>在Windows启动管理器之外安装Ubuntu</strong>(<strong>Install Ubuntu alongside Windows Boot Manager</strong>)，注意虽然<strong>高级选项变成灰色不可选</strong>，但是“<strong>使用LVM并加密</strong>(<strong>Use LVM and encryption</strong>)”仍然<strong>保持开启状态</strong>，用这个技巧就完成了使用LVM加密的高级功能，同时安装双系统启动（如下图）点击下一步，检查一下磁盘配置，继续完成剩下的常规安装步骤。</li>
+</ol>
+<img src="/2025/02/16/2025-02-16/installer_radio_buttons.png" class="">
+
+<img src="/2025/02/16/2025-02-16/installer_ready.png" class="">
+<p><em>从网上找的截图，pocket4的安装略有区别</em> </p>
+<h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><ol>
+<li>先在Ubuntu设置里面溜一圈，把一些有的没的按偏好调一调。</li>
+<li>设置调的差不多后，在系统-&gt;远程桌面里，打开远程登录。这里“桌面共享”类似于mac的屏幕共享或者老的vnc（与物理屏幕共用session），远程登录类似于有独立session的mstsc，试了一下远程登录更好一点（除了经常需要额外输密码授权）。另外，相比22.04，24.10版本的远程桌面使用的是兼容RDP的协议，终于不用额外安装VNC了，试了一下还是挺稳定的，不知道是不是也用的GDI重绘技术。另外在“远程桌面”的同级菜单里把“安全外壳(ssh)”打开，不用手动安装openssh-server了。<br>补充说明1：Ubuntu远程登录的默认端口也是3389，可以通过<code>sudo grdctl --system rdp set-port &#123;YOUR_NEW_PORT&#125;; sudo systemctl restart gnome-remote-desktop.service</code>修改为自己习惯的端口（十进制数字端口号替换命令中的YOUR_NEW_PORT）。<br>补充说明2：mac版RDP客户端“Windows App”在连接pocket ubuntu时总是没法显示桌面，参考<span class="exturl" data-url="aHR0cHM6Ly9hc2t1YnVudHUuY29tL3F1ZXN0aW9ucy8xNTIxNzY0L3JkcC1ibGFjay1zY3JlZW4td2l0aC13aGl0ZS1jdXJzb3Itb24tMjQtMDRsdHM=" title="https://askubuntu.com/questions/1521764/rdp-black-screen-with-white-cursor-on-24-04lts">这个链接<i class="fa fa-external-link"></i></span>，先在Windows App中右键点击pocket3导出rdp文件，编辑rdp文件，修改对应参数<code>use redirection server name:i:1</code>并保存，然后Windows App标题栏点 连接-&gt;从rdp文件导入 导入刚才修改后的rdp文件，新的rdp可以正常访问Ubuntu桌面了。</li>
+<li>Ubuntu Dock上默认会显示Windows BitLocker分区，可以通过在设置-Ubuntu桌面-Configure Dock Behavior，取消“包括已卸载的卷”之前的钩，从而在Dock上隐藏windows的BitLocker卷（<span class="exturl" data-url="aHR0cHM6Ly93d3cub21ndWJ1bnR1LmNvLnVrLzIwMTkvMTEvaGlkZS1tb3VudGVkLWRyaXZlcy11YnVudHUtZG9jaw==" title="https://www.omgubuntu.co.uk/2019/11/hide-mounted-drives-ubuntu-dock">参考链接<i class="fa fa-external-link"></i></span>）。</li>
+</ol>
+<img src="/2025/02/16/2025-02-16/hide_win_vol.jpg" class="">
+<p>或者，在系统全局隐藏BitLocker卷（Ubuntu资源管理器里也看不到），按以下方法实现（<span class="exturl" data-url="aHR0cHM6Ly9hc2t1YnVudHUuY29tL3F1ZXN0aW9ucy8xMjQwOTQvaG93LXRvLWhpZGUtYW4tbnRmcy1wYXJ0aXRpb24tZnJvbS11YnVudHU=" title="https://askubuntu.com/questions/124094/how-to-hide-an-ntfs-partition-from-ubuntu">参考链接<i class="fa fa-external-link"></i></span>）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 目前分区结构如下：</span><br><span class="line">root@pocket:~# fdisk -l /dev/nvme0n1</span><br><span class="line">Disk /dev/nvme0n1：1.82 TiB，2000398934016 字节，3907029168 个扇区</span><br><span class="line">Disk model: WD Blue SN580 2TB</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：gpt</span><br><span class="line">磁盘标识符：********-****-****-****-************</span><br><span class="line"></span><br><span class="line">设备                 起点       末尾       扇区   大小 类型</span><br><span class="line">/dev/nvme0n1p1       2048     206847     204800   100M EFI 系统</span><br><span class="line">/dev/nvme0n1p2     206848     468991     262144   128M Microsoft 保留</span><br><span class="line">/dev/nvme0n1p3     468992  629614591  629145600   300G Microsoft 基本数据</span><br><span class="line">/dev/nvme0n1p4  629614592 1936989179 1307374588 623.4G Microsoft 基本数据</span><br><span class="line">/dev/nvme0n1p5 3873474560 3907028991   33554432    16G Windows 恢复环境</span><br><span class="line">/dev/nvme0n1p6 1936990208 1941184511    4194304     2G Linux 文件系统</span><br><span class="line">/dev/nvme0n1p7 1941184512 3873474559 1932290048 921.4G Linux 文件系统</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">需要隐藏的分区为 /dev/nvme0n1p3 和 /dev/nvme0n1p4</span></span><br><span class="line">cat &lt;&lt; EOF &gt; /etc/udev/rules.d/99-hide-windows-bitlocker-partitions.rules</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 如果使用PARTUUID方法，需要自行修改对应的UUID，use blkid to see UUIDs</span></span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># hide /dev/nvme0n1p2 &quot;Microsoft reserved partition&quot; PARTUUID=&quot;11111111-1111-1111-1111-111111111111&quot; IdUUID=&quot;&quot; from `udisksctl info -b /dev/nvme0n1p2` so use PARTUUID</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">SUBSYSTEM==<span class="string">&quot;block&quot;</span>, ENV&#123;ID_FS_UUID&#125;==<span class="string">&quot;11111111-1111-1111-1111-111111111111&quot;</span>, ENV&#123;UDISKS_IGNORE&#125;=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## hide /dev/nvme0n1p3 &quot;Windows BitLocker partition1&quot; PARTUUID=&quot;22222222-2222-2222-2222-222222222222&quot; IdUUID=&quot;33333333-3333-3333-3333-333333333333&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#SUBSYSTEM==&quot;block&quot;, ENV&#123;ID_FS_UUID&#125;==&quot;22222222-2222-2222-2222-222222222222&quot;, ENV&#123;UDISKS_IGNORE&#125;=&quot;1&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## hide /dev/nvme0n1p4 &quot;Windows BitLocker partition2&quot; PARTUUID=&quot;44444444-4444-4444-4444-444444444444&quot; IdUUID=&quot;55555555-5555-5555-5555-555555555555&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#SUBSYSTEM==&quot;block&quot;, ENV&#123;ID_FS_UUID&#125;==&quot;44444444-4444-4444-4444-444444444444&quot;, ENV&#123;UDISKS_IGNORE&#125;=&quot;1&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># hide /dev/nvme0n1p5 &quot;Windows Recovery partition&quot;   PARTUUID=&quot;66666666-6666-6666-6666-666666666666&quot; IdUUID=&quot;7777777777777777&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">SUBSYSTEM==<span class="string">&quot;block&quot;</span>, ENV&#123;ID_FS_UUID&#125;==<span class="string">&quot;7777777777777777&quot;</span>, ENV&#123;UDISKS_IGNORE&#125;=<span class="string">&quot;1&quot;</span></span></span><br><span class="line">KERNEL==&quot;nvme0n1p3&quot;, ENV&#123;UDISKS_IGNORE&#125;=&quot;1&quot;</span><br><span class="line">KERNEL==&quot;nvme0n1p4&quot;, ENV&#123;UDISKS_IGNORE&#125;=&quot;1&quot;</span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重新加载udev rules</span></span><br><span class="line">udevadm control --reload</span><br><span class="line">udevadm trigger --subsystem-match=block</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">see <span class="keyword">if</span> Ignored</span></span><br><span class="line">for i in `seq 1 7`;do echo -n &quot;nvme0n1p$&#123;i&#125;:&quot;;udisksctl info -b /dev/nvme0n1p$&#123;i&#125;|grep &quot;HintIgnore&quot;;done</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他命令行杂项"><a href="#其他命令行杂项" class="headerlink" title="其他命令行杂项"></a>其他命令行杂项</h2><ol>
+<li>shell命令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">环境变量及rc文件初始化略过</span></span><br><span class="line">apt update &amp;&amp; apt upgrade -y &amp;&amp; apt install -y vim tmux locale fonts-unifont unifont fbterm ncdu lm-sensors iotop iftop htop autoconf g++ make dconf-editor mesa-utils rocm-smi libdrm-dev radeontop conntrack &quot;linux-headers-$(uname -r)&quot; &quot;linux-modules-extra-$(uname -r)&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">加入一些组，fbterm 需要在video组里</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">&quot;Can&#x27;t open the framebuffer device&quot;</span> Error occured, /dev/fb0 is owned by root/video, add user to video group.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ref:https://dingyichen.wordpress.com/2009/12/21/fbterm-cant-open-framebuffer-device/</span></span><br><span class="line">usermod -aG plugdev,dialout,render,video king</span><br><span class="line">setcap &#x27;cap_sys_tty_config+ep&#x27; /usr/bin/fbterm</span><br><span class="line">cat &lt;&lt; EOF &gt; /root/.fbtermrc</span><br><span class="line">font-names=Ubuntu Mono</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">font-names=Terminus</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">screen-rotate=3</span></span><br><span class="line">font-size=64</span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">以上.fbtermrc 记得给user也复制一份，用于<span class="built_in">tty</span>终端显示中文</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">注意fbterm未启动前<span class="built_in">tty</span>字体可能比较小，修改 /etc/default/console-setup 文件中的以下参数：</span></span><br><span class="line">cat &lt;&lt; EOF &gt;&gt; /etc/default/console-setup</span><br><span class="line">FONTFACE=&quot;TerminusBold&quot;</span><br><span class="line">FONTSIZE=&quot;16x32&quot;</span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开启rc.local自启动脚本</span></span><br><span class="line">chmod +x /etc/rc.local &amp;&amp; systemctl enable rc-local &amp;&amp; systemctl start rc-local</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关闭WiFi节能，以免待机的时候网掉了</span></span><br><span class="line">iw dev wlan0 get power_save &amp;&amp; iw dev wlan0 set power_save off</span><br><span class="line">cat &lt;&lt; EOF &gt; /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf</span><br><span class="line">[connection]</span><br><span class="line">wifi.powersave = 2</span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">外接电源的情况下，盒盖不休眠</span></span><br><span class="line">sed -i &quot;s/^[#]HandleLidSwitchExternalPower=[a-z]\+/HandleLidSwitchExternalPower=ignore/&quot; /etc/systemd/logind.conf ; systemctl restart systemd-logind</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置硬件时钟为本地时间，默认Ubuntu认为其为UTC时间，如果不在0时区的话，会和windows冲突</span></span><br><span class="line">timedatectl set-local-rtc 1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>安装beyondcompare的过程忽略，记得strings搜索并修改RSA密钥，改key，注释掉<code>/etc/apt/sources.list.d/scootersoftware.list</code>里的repo。<br>另外注意如果以root权限启动beyondcompare，需要导出<code>QT_GRAPHICSSYSTEM</code>环境变量，比如<code>sudo QT_GRAPHICSSYSTEM=native bcompare</code><br>2. grub修改，以下参数改成对应的值（rEFInd安装时会继承部分grub参数）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GRUB_DEFAULT=0</span><br><span class="line">GRUB_TIMEOUT=2</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;net.ifnames=0 biosdevname=0 quiet splash&quot;       # 旧版网卡名(如eth0，wlan0)</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;video=efifb:panel_orientation=right_side_up video=eDP-1:panel_orientation=right_side_up fbcon=rotate:1 fbcon=rotate_all:1&quot;  # 和屏幕旋转有关，磁盘解密后会自动旋转过来。</span><br><span class="line"># GRUB_GFXMODE=1600x2560x32    # 先注释掉</span><br><span class="line"># GRUB_GFXPAYLOAD_LINUX=keep   # 先注释掉</span><br></pre></td></tr></table></figure>
+<p>改完记得<code>update-grub2</code>，再安装<code>rEFInd</code>，<code>apt install -y refind</code>。<br>rEFInd 可以考虑更新 repo 到官方最新版(<code>add-apt-repository ppa:rodsmith/refind &amp;&amp; apt update</code>)，配置和主题直接从pocket3复制过来，记得执行<code>refind-install &amp;&amp; refind-mkdefault</code>。<br>refind可以参考<span class="exturl" data-url="aHR0cHM6Ly91YnVudHVoYW5kYm9vay5vcmcvaW5kZXgucGhwLzIwMjMvMTIvc2V0dXAtcmVmaW5kLWJvb3QtbWFuYWdlci11YnVudHUv" title="https://ubuntuhandbook.org/index.php/2023/12/setup-refind-boot-manager-ubuntu/">这个链接<i class="fa fa-external-link"></i></span>，不过因为实际是竖屏不能改方向，所以win和ubuntu的logo是竖着排列的，如下图。</p>
+<img src="/2025/02/16/2025-02-16/rEFInd_ui.jpg" class="">
+
+<p>关于rEFInd &amp; BitLocker 自动解密，除了上述Windows配置禁用PCR7以外，可以使用如下firmware_bootnum配置来设置windows启动（<span class="exturl" data-url="aHR0cHM6Ly93d3cucm9kc2Jvb2tzLmNvbS9yZWZpbmQvY29uZmlnZmlsZS5odG1sI2Jvb3RuZXh0" title="https://www.rodsbooks.com/refind/configfile.html#bootnext">参考链接<i class="fa fa-external-link"></i></span>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># cat /boot/efi/EFI/refind/refind.conf</span><br><span class="line">...</span><br><span class="line">menuentry &quot;Windows&quot; &#123;</span><br><span class="line">    icon /EFI/refind/themes/refind-ambience-black/icons/os_win8.png</span><br><span class="line">    firmware_bootnum 04</span><br><span class="line">    disabled</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这样配置后，refind会先设置BootNext为<code>efibootmgr</code>中对应的UEFI引导（本机4号引导为Windows自己的引导），再重启，重启后会临时使用BootNext的UEFI引导。<br>有时候Windows更新后会调整BootManager，如果rEFInd进不了Windows，需要在Ubuntu下<code>efibootmgr</code>看看Windows具体的BootNum。<br>当前环境的rEFInd完整的有效配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">root@pocket:~# cat /boot/efi/EFI/refind/refind.conf | grep -Ev &quot;^(#|\s*$)&quot;</span><br><span class="line">timeout 5</span><br><span class="line">use_nvram false</span><br><span class="line">hideui singleuser,hints,arrows,label,badges</span><br><span class="line">banner digital.png</span><br><span class="line">banner_scale fillscreen</span><br><span class="line">small_icon_size 96</span><br><span class="line">resolution 1600 2560</span><br><span class="line">use_graphics_for linux,windows,osx</span><br><span class="line">scanfor manual,internal     # 更改默认顺序，将manual设置的Windows提到Ubuntu前面（因为屏幕旋转的缘故，Windows实际在Ubuntu之下，但selection编号为1）</span><br><span class="line">dont_scan_dirs + EFI/Boot,EFI/ubuntu,EFI/Microsoft,EFI/Microsoft/Boot  # 这里忽略微软所有包含的efi文件的目录</span><br><span class="line">scan_all_linux_kernels true     # 不手动指定Ubuntu入口，由rEFInd搜索Linux内核</span><br><span class="line">fold_linux_kernels true</span><br><span class="line">write_systemd_vars false</span><br><span class="line">default_selection 1</span><br><span class="line">menuentry &quot;Windows&quot; &#123;       # 手动指定Windows到BootNext，重启经过微软自带的EFI进行引导</span><br><span class="line">    icon /EFI/refind/themes/refind-ambience-black/icons/os_win8.png</span><br><span class="line">    firmware_bootnum 04</span><br><span class="line">    #disabled</span><br><span class="line">&#125;</span><br><span class="line">include themes/refind-ambience-black/theme.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 这里是rEFInd初始化时继承自grub的参数，也可以在这直接改</span><br><span class="line">root@pocket:~# cat /boot/refind_linux.conf</span><br><span class="line">&quot;Boot with standard options&quot;  &quot;root=/dev/mapper/ubuntu--vg-ubuntu--lv ro net.ifnames=0 biosdevname=0 video=efifb:panel_orientation=right_side_up video=eDP-1:panel_orientation=right_side_up fbcon=rotate:1 fbcon=rotate_all:1 quiet splash crashkernel=2G-4G:320M,4G-32G:512M,32G-64G:1024M,64G-128G:2048M,128G-:4096M vt.handoff=7&quot;</span><br><span class="line">&quot;Boot to single-user mode&quot;    &quot;root=/dev/mapper/ubuntu--vg-ubuntu--lv ro net.ifnames=0 biosdevname=0 video=efifb:panel_orientation=right_side_up video=eDP-1:panel_orientation=right_side_up fbcon=rotate:1 fbcon=rotate_all:1 quiet splash crashkernel=2G-4G:320M,4G-32G:512M,32G-64G:1024M,64G-128G:2048M,128G-:4096M vt.handoff=7 single&quot;</span><br><span class="line">&quot;Boot with minimal options&quot;   &quot;ro root=/dev/mapper/ubuntu--vg-ubuntu--lv&quot;</span><br></pre></td></tr></table></figure>
+<p>用BootNext的方式，Windows 组策略可以不配置“<code>为本地UEFI固件配置配置TPM平台验证配置文件</code>”选项。<br>另外，引导界面Windows系统右上角的小Logo，可以通过将refind图标目录下的transparent.png覆盖vol_efi.png实现关闭。</p>
+<ol start="3">
+<li>机器内存比较大，暂时用不着swap，把<code>/etc/fstab</code>里的swap注释掉：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## disable default swap</span><br><span class="line">##/swap.img none    swap    sw  0   0</span><br></pre></td></tr></table></figure>
+<p>重启后删除<code>/swap.img</code>。<br>4. 设置基于TPM的磁盘自动解密，实现不用每次进Ubuntu都输入磁盘密码（<span class="exturl" data-url="aHR0cHM6Ly9hc2t1YnVudHUuY29tL3F1ZXN0aW9ucy8xNDcwMzkxL2x1a3MtdHBtMi1hdXRvLXVubG9jay1hdC1ib290LXN5c3RlbWQtY3J5cHRlbnJvbGw=" title="https://askubuntu.com/questions/1470391/luks-tpm2-auto-unlock-at-boot-systemd-cryptenroll">参考链接<i class="fa fa-external-link"></i></span>）：<br>目前分区结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">root@pocket:~# fdisk -l /dev/nvme0n1</span><br><span class="line">Disk /dev/nvme0n1：1.82 TiB，2000398934016 字节，3907029168 个扇区</span><br><span class="line">Disk model: WD Blue SN580 2TB</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：gpt</span><br><span class="line">磁盘标识符：********-****-****-****-************</span><br><span class="line"></span><br><span class="line">设备                 起点       末尾       扇区   大小 类型</span><br><span class="line">/dev/nvme0n1p1       2048     206847     204800   100M EFI 系统</span><br><span class="line">/dev/nvme0n1p2     206848     468991     262144   128M Microsoft 保留</span><br><span class="line">/dev/nvme0n1p3     468992  629614591  629145600   300G Microsoft 基本数据</span><br><span class="line">/dev/nvme0n1p4  629614592 1936989179 1307374588 623.4G Microsoft 基本数据</span><br><span class="line">/dev/nvme0n1p5 3873474560 3907028991   33554432    16G Windows 恢复环境</span><br><span class="line">/dev/nvme0n1p6 1936990208 1941184511    4194304     2G Linux 文件系统</span><br><span class="line">/dev/nvme0n1p7 1941184512 3873474559 1932290048 921.4G Linux 文件系统</span><br></pre></td></tr></table></figure>
+<p>参考这个分区结构配置Ubuntu磁盘解密：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">TPM自动解密磁盘，注意使用前修改并核对 /dev/nvme 分区号</span></span><br><span class="line">cat &lt;&lt; EOF &gt; /root/installers/ubuntu_auto_unlock_decrypt_encrypted_disk.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ref: https://askubuntu.com/questions/1470391/luks-tpm2-auto-unlock-at-boot-systemd-cryptenroll</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">This is what I<span class="string">&#x27;m using to allow LUKS decryption using TPM2 in the same Ubuntu 22.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Not using systemd-cryptenroll, but clevis.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">The only &#x27;</span>downside<span class="string">&#x27; is that it shows the password prompt at boot, but disappears after getting the key from tpm.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string"></span></span></span><br><span class="line"><span class="string"><span class="language-bash"># No need to modify anything else(not even crypttab file).</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Update: also tested and working with Ubuntu 24.04 LTS; change device nvme0n1p3 to whatever suits your system.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">Update 2: Tested and works on Debian 12 as well.</span></span></span><br><span class="line"></span><br><span class="line">export TARGET_DISK=&quot;/dev/nvme0n1p7&quot;     # pocket4 in 2025/01/24，注意使用前修改并核对 /dev/nvme 分区号</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">install needed packages</span></span></span><br><span class="line">apt-get -y install clevis clevis-tpm2 clevis-luks clevis-initramfs initramfs-tools tss2</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">proceed</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">这里需要输入磁盘的解密密码，以便绑上TPM</span></span></span><br><span class="line">echo -n Enter LUKS password:</span><br><span class="line">read -s LUKSKEY</span><br><span class="line">echo &quot;&quot;</span><br><span class="line">clevis luks bind -d \$TARGET_DISK tpm2 &#x27;&#123;&quot;pcr_bank&quot;:&quot;sha256&quot;&#125;&#x27; &lt;&lt;&lt; &quot;\$LUKSKEY&quot;</span><br><span class="line">update-initramfs -u -k all</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">check</span></span></span><br><span class="line">clevis luks list -d \$TARGET_DISK       # pocket4 in 20250124，注意使用前修改并核对 /dev/nvme 分区号</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">delete example; -s is one of the slots reported by the previous command</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">clevis luks unbind -d \$TARGET_DISK -s 1 tpm2</span></span></span><br><span class="line">EOF</span><br><span class="line">sudo /root/installers/ubuntu_auto_unlock_decrypt_encrypted_disk.sh</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>在磁盘解密界面，开始的时候屏幕的方向不对，找了好几种方法试了试，也不知道哪种最后生效的，都记录一下：<br>部分参考了<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3dpbXB5c3dvcmxkL3VtcGMtdWJ1bnR1" title="https://github.com/wimpysworld/umpc-ubuntu">这个项目<i class="fa fa-external-link"></i></span></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt; EOF &gt; /usr/share/X11/xorg.conf.d/40-gpd-pocket4-monitor.conf</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">custom add and modified from old pocket3</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">GPD Pocket 4 (modesetting)</span></span><br><span class="line">Section &quot;Monitor&quot;</span><br><span class="line">  Identifier &quot;eDP-1&quot; # name changed from p3 DSI-1</span><br><span class="line">    Option     &quot;Rotate&quot;  &quot;right&quot;</span><br><span class="line">    EndSection</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">GPD Pocket 4 (xorg-video)</span></span><br><span class="line">Section &quot;Monitor&quot;</span><br><span class="line">  Identifier &quot;eDP1&quot; # name changed from p3 DSI1</span><br><span class="line">    Option     &quot;Rotate&quot;  &quot;right&quot;</span><br><span class="line">    EndSection</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">cat &lt;&lt; EOF &gt; /var/lib/gdm3/.config/monitors.xml</span><br><span class="line">&lt;monitors version=&quot;2&quot;&gt;</span><br><span class="line">  &lt;configuration&gt;</span><br><span class="line">    &lt;logicalmonitor&gt;</span><br><span class="line">      &lt;x&gt;0&lt;/x&gt;</span><br><span class="line">      &lt;y&gt;0&lt;/y&gt;</span><br><span class="line">      &lt;scale&gt;2&lt;/scale&gt;</span><br><span class="line">      &lt;primary&gt;yes&lt;/primary&gt;</span><br><span class="line">      &lt;transform&gt;</span><br><span class="line">        &lt;rotation&gt;right&lt;/rotation&gt;</span><br><span class="line">        &lt;flipped&gt;no&lt;/flipped&gt;</span><br><span class="line">      &lt;/transform&gt;</span><br><span class="line">      &lt;monitor&gt;</span><br><span class="line">        &lt;monitorspec&gt;</span><br><span class="line">          &lt;connector&gt;eDP-1&lt;/connector&gt;</span><br><span class="line">          &lt;vendor&gt;unknown&lt;/vendor&gt;</span><br><span class="line">          &lt;product&gt;unknown&lt;/product&gt;</span><br><span class="line">          &lt;serial&gt;unknown&lt;/serial&gt;</span><br><span class="line">        &lt;/monitorspec&gt;</span><br><span class="line">        &lt;mode&gt;</span><br><span class="line">          &lt;width&gt;1600&lt;/width&gt;</span><br><span class="line">          &lt;height&gt;2560&lt;/height&gt;</span><br><span class="line">          &lt;rate&gt;143.999&lt;/rate&gt;</span><br><span class="line">        &lt;/mode&gt;</span><br><span class="line">      &lt;/monitor&gt;</span><br><span class="line">    &lt;/logicalmonitor&gt;</span><br><span class="line">  &lt;/configuration&gt;</span><br><span class="line">&lt;/monitors&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">cat &lt;&lt; EOF &gt; /home/$USERNAME/.config/monitors.xml</span><br><span class="line">&lt;monitors version=&quot;2&quot;&gt;</span><br><span class="line">  &lt;configuration&gt;</span><br><span class="line">    &lt;layoutmode&gt;physical&lt;/layoutmode&gt;</span><br><span class="line">    &lt;logicalmonitor&gt;</span><br><span class="line">      &lt;x&gt;0&lt;/x&gt;</span><br><span class="line">      &lt;y&gt;0&lt;/y&gt;</span><br><span class="line">      &lt;scale&gt;2&lt;/scale&gt;</span><br><span class="line">      &lt;primary&gt;yes&lt;/primary&gt;</span><br><span class="line">      &lt;monitor&gt;</span><br><span class="line">        &lt;monitorspec&gt;</span><br><span class="line">          &lt;connector&gt;eDP-1&lt;/connector&gt;</span><br><span class="line">          &lt;vendor&gt;HSX&lt;/vendor&gt;</span><br><span class="line">          &lt;product&gt;YHB03P24&lt;/product&gt;</span><br><span class="line">          &lt;serial&gt;0x00888888&lt;/serial&gt;</span><br><span class="line">        &lt;/monitorspec&gt;</span><br><span class="line">        &lt;mode&gt;</span><br><span class="line">          &lt;width&gt;2560&lt;/width&gt;</span><br><span class="line">          &lt;height&gt;1600&lt;/height&gt;</span><br><span class="line">          &lt;rate&gt;143.999&lt;/rate&gt;</span><br><span class="line">        &lt;/mode&gt;</span><br><span class="line">      &lt;/monitor&gt;</span><br><span class="line">    &lt;/logicalmonitor&gt;</span><br><span class="line">  &lt;/configuration&gt;</span><br><span class="line">&lt;/monitors&gt;</span><br><span class="line">EOF</span><br><span class="line">udevadm control --reload-rules</span><br><span class="line">udevadm trigger</span><br></pre></td></tr></table></figure>
+<p>其中显示器设备名从gpd-pocket3原来的DSI-1变成了eDP-1了（和壹号本3pro好像一样），在本地图形界面打开的用户权限终端里，可以用<code>xrandr --query</code>查看屏幕的详细信息。</p>
+<ol start="6">
+<li>一如既往的，<span class="exturl" data-url="aHR0cHM6Ly9saW51eC1oYXJkd2FyZS5vcmcvP2lkPXVzYjoyODA4LTA3NTI=" title="https://linux-hardware.org/?id=usb:2808-0752">指纹模块貌似不兼容Linux<i class="fa fa-external-link"></i></span>不过从<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Z0ZnB0ZWFtcy9mb2NhbHRlY2gtbGludXgtZmluZ2VycHJpbnQtZHJpdmVy" title="https://github.com/ftfpteams/focaltech-linux-fingerprint-driver">这里<i class="fa fa-external-link"></i></span>看，貌似22.04版已经支持了，24.04还有些问题无法识别。</li>
+<li>安装<strong>amdgpu_top</strong>，有点像jtop，可以查看amdgpu的占用，后面跑大模型可以看是不是在GPU上跑的，以及负载情况。</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ~/installers</span><br><span class="line">git clone https://github.com/Umio-Yasuno/amdgpu_top</span><br><span class="line">cd amdgpu_top &amp;&amp; git checkout v0.10.1</span><br><span class="line">sudo apt install cargo &amp;&amp; cargo install --locked amdgpu_top &amp;&amp; sudo cp ~/.cargo/bin/amdgpu_top /usr/local/bin/amdgpu_top</span><br></pre></td></tr></table></figure>
+
+<h1 id="Windows-BitLocker-磁盘加密，配置安全启动"><a href="#Windows-BitLocker-磁盘加密，配置安全启动" class="headerlink" title="Windows BitLocker 磁盘加密，配置安全启动"></a>Windows BitLocker 磁盘加密，配置安全启动</h1><ol>
+<li>回到Windows系统，设置-&gt;隐私和安全性-&gt;设备加密，系统盘打开BitLocker，数据盘也打开BitLocker，找个U盘或者NAS备份一下解密用的key，然后也配置一下自动解密。</li>
+<li>设置-&gt;隐私和安全性-&gt;Windows安全中心-&gt;设备安全性，把可以配置的一些安全选项都配置一下。Secured-core PC的安全细节里好像有bug，固件保护实际是打开的，但显示的是未打开。</li>
+</ol>
+<img src="/2025/02/16/2025-02-16/firmware_protection.jpg" class="">
+
+<ol start="3">
+<li>打开还原点设置，设置-&gt;系统-&gt;系统信息-&gt;系统保护（设备规格栏），在系统驱动器上启用保护，配置里分配合适的大小即可（这里最大使用量分配了30G，占系统盘总空间的10%）。</li>
+</ol>
+<h1 id="Windows各种程序安装"><a href="#Windows各种程序安装" class="headerlink" title="Windows各种程序安装"></a>Windows各种程序安装</h1><ol>
+<li>控制面板里把onedrive卸载了。</li>
+<li>BitLocker设置好之后可以装各种应用了（这样的顺序会让BitLocker初始化的速度快一点），目前安装的一些应用（仅列出部分）：</li>
+</ol>
+<ul>
+<li>控制面板：</li>
+<li>3DMark</li>
+<li>7-Zip</li>
+<li>AMD Chipset Software</li>
+<li>AMD Software</li>
+<li>API Monitor v2</li>
+<li>Beyond Compare</li>
+<li>DbGate</li>
+<li>Everything</li>
+<li>Google Chrome</li>
+<li>GPDKeyboardAssistantTool</li>
+<li>HashTab</li>
+<li>HDMI IN</li>
+<li>Microsoft Visual Studio Code</li>
+<li>MiniLPA</li>
+<li>MotionAssistant</li>
+<li>Nmap</li>
+<li>NVIDIA PhysX System Software</li>
+<li>OBS Studio</li>
+<li>Picasa 3</li>
+<li>PotPlayer-64 bit</li>
+<li>Recuva</li>
+<li>RivaTuner Statistics Server</li>
+<li>Sandboxie-Plus</li>
+<li>SideQuest</li>
+<li>Steam</li>
+<li>SumatraPDF</li>
+<li>Typora</li>
+<li>USBPcap</li>
+<li>Vim</li>
+<li>WinRAR</li>
+<li>Wireshark</li>
+<li>分区助手</li>
+<li>火绒安全软件</li>
+<li>微信</li>
+<li>远程桌面连接</li>
+<li>Microsoft Store</li>
+<li>English (United States) Local Experience Pack</li>
+<li>HEIF Image Extension</li>
+<li>HEVC Video Extensions from Device Manufacturer</li>
+<li>Microsoft 365 Copilot</li>
+<li>Microsoft Bing</li>
+<li>Microsoft Clipchamp</li>
+<li>Microsoft Copilot</li>
+<li>…</li>
+<li>Microsoft Xiaoxiao (Natural) - Chinese (Simplified, China)</li>
+<li>MPEG-2 Video Extension</li>
+<li>Phone Link</li>
+<li>Raw Image Extension</li>
+<li>Speech Pack - Chinese (Simplified)</li>
+<li>Speech Pack - English (United States)</li>
+<li>Ubuntu</li>
+<li>Windows Camera</li>
+<li>Windows Subsystem for Linux</li>
+<li>Windows Terminal</li>
+</ul>
+<h1 id="番外：未曾设想的道路之UMPC跑大模型（Deepseek-R1-qwen32b-distill）"><a href="#番外：未曾设想的道路之UMPC跑大模型（Deepseek-R1-qwen32b-distill）" class="headerlink" title="番外：未曾设想的道路之UMPC跑大模型（Deepseek-R1-qwen32b-distill）"></a>番外：未曾设想的道路之UMPC跑大模型（Deepseek-R1-qwen32b-distill）</h1><ol>
+<li>Ubuntu下docker部署：<br>参考open-webui的compose.yml文件，添加环境变量<code>HSA_OVERRIDE_GFX_VERSION=11.0.2</code>后成功使用GPU进行推理，具体命令如下：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">refer1 https://github.com/open-webui/open-webui/blob/main/docker-compose.amdgpu.yaml</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">refer2 https://github.com/ollama/ollama/blob/main/docs/gpu.md#overrides-on-linux</span></span><br><span class="line">docker run -dit --name ollama \</span><br><span class="line">    --device /dev/kfd --device /dev/dri \</span><br><span class="line">    -e HSA_OVERRIDE_GFX_VERSION=11.0.2 \</span><br><span class="line">    -p 11434:11434 \</span><br><span class="line">    -v /path_to_model_dir:/root/.ollama \</span><br><span class="line">    ollama/ollama:0.5.11-rocm</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Now you can run a model:</span></span></span><br><span class="line">docker exec -it ollama ollama run deepseek-r1:32b-qwen-distill-q4_K_M</span><br></pre></td></tr></table></figure>
+<img src="/2025/02/16/2025-02-16/ollama_ubuntu.jpg" class="">
+
+<ol start="2">
+<li>补充一下，48G&#x2F;16G的内存&#x2F;显存分配方案可以在Windows下更改，不过修改后Ubuntu下ollama container申请ROCm0设备内存时会失败，怀疑其是先加载到内存再加载到缓存的方案，没有AGX Orin那么灵活，所以还是保持默认方案分配吧。<br>具体修改显存分配的方法：打开<strong>AMD Software: Adrenalin</strong>，在<strong>Performance</strong>-&gt;<strong>Tuning</strong>下，将<strong>Variable Graphics Memory</strong>改成High&#x2F;Custom自由调节，UMPC能给到48GB的VRAM也是夸张👀。</li>
+</ol>
+<img src="/2025/02/16/2025-02-16/gpd_pocket4_vram.jpg" class="">
+
+    </div>
+
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2025/02/16/2025-02-16/">GPD-Pocket 4 初始化记录</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问  的个人博客"></a></p>
+  <p><span>发布时间:</span>2025年02月16日 - 13:02</p>
+  <p><span>最后更新:</span>2025年02月18日 - 19:02</p>
+  <p><span>原始链接:</span><a href="/2025/02/16/2025-02-16/" title="GPD-Pocket 4 初始化记录">https://badb100d.com/2025/02/16/2025-02-16/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://badb100d.com/2025/02/16/2025-02-16/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>谢谢老板打赏 Or2</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="badb100d Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="badb100d WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/31/2021-07-31/" rel="prev" title="docker停止服务原因排查，Ubuntu自动更新服务加白">
+      <i class="fa fa-chevron-left"></i> docker停止服务原因排查，Ubuntu自动更新服务加白
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows%E5%8D%87%E7%BA%A7Win11%E4%B8%93%E4%B8%9A%E7%89%88-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">Windows升级Win11专业版 &amp; 基本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7%E4%B8%93%E4%B8%9A%E7%89%88"><span class="nav-number">2.1.</span> <span class="nav-text">升级专业版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE%E4%BF%AE%E6%94%B9"><span class="nav-number">2.2.</span> <span class="nav-text">系统初始配置修改</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ubuntu-24-10-%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">Ubuntu 24.10 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Ubuntu%E5%B9%B6%E5%BC%80%E5%90%AF%E5%8A%A0%E5%AF%86"><span class="nav-number">3.1.</span> <span class="nav-text">安装Ubuntu并开启加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.</span> <span class="nav-text">系统配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%9D%82%E9%A1%B9"><span class="nav-number">3.3.</span> <span class="nav-text">其他命令行杂项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows-BitLocker-%E7%A3%81%E7%9B%98%E5%8A%A0%E5%AF%86%EF%BC%8C%E9%85%8D%E7%BD%AE%E5%AE%89%E5%85%A8%E5%90%AF%E5%8A%A8"><span class="nav-number">4.</span> <span class="nav-text">Windows BitLocker 磁盘加密，配置安全启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows%E5%90%84%E7%A7%8D%E7%A8%8B%E5%BA%8F%E5%AE%89%E8%A3%85"><span class="nav-number">5.</span> <span class="nav-text">Windows各种程序安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%95%AA%E5%A4%96%EF%BC%9A%E6%9C%AA%E6%9B%BE%E8%AE%BE%E6%83%B3%E7%9A%84%E9%81%93%E8%B7%AF%E4%B9%8BUMPC%E8%B7%91%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%88Deepseek-R1-qwen32b-distill%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">番外：未曾设想的道路之UMPC跑大模型（Deepseek-R1-qwen32b-distill）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="badb100d"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">badb100d</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+<!-- 添加访客地球 -->
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5c8t3lpnbtg&amp;m=1c&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33&amp;cw=ffffff&amp;cb=000000" async="async"></script>
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">badb100d</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: true,
+      notify: false,
+      appId: 'FKw4jJEUpTDi55S57eziGl3U-MdYXbMMI',
+      appKey: 'bTO2AX9NF2izaM70VOYSuTlb',
+      placeholder: "欢迎交流讨论...",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: true,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: true,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"mobile":{"show":false,"scale":0.2},"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right"},"react":{"opacity":0.8}});</script></body>
+</html>

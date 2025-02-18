@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 7.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/black-180x180.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/black-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/black-16x16.png">
@@ -172,7 +172,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">16</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">17</span></a>
 
   </li>
         <li class="menu-item menu-item-rss">
@@ -280,16 +280,16 @@
         <h1 id="添加ssh密钥验证"><a href="#添加ssh密钥验证" class="headerlink" title="添加ssh密钥验证"></a>添加ssh密钥验证</h1><p>最近发现个人VPS的ssh日志中总是有很多不明IP的连接请求，天天爆破ssh也是够勤奋的。<br>为了防止某天VPS真被爆了先给ssh加个密钥认证，首先执行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
 <img src="/2015/03/30/2015-03-30/ssh-keygen.jpg" class="">
-<p>将生成好的密钥对妥善保存(在生成中可选将私钥用口令加密)。<br>将公钥(id_rsa.pub)上传到VPS上，并将其内容添加到对应登录账户的~/.ssh/authorized_keys文件中，注意.ssh目录的权限最好是700(我的是755好像也行)，authorized_keys的权限必须是600或644。这里权限问题坑比较多，属主貌似没多大问题(我的登录账户不是root，但文件和目录的属主都是root)。<br>修改/etc/ssh/sshd_config文件，分别修改如下三项:</p>
+<p>将生成好的密钥对妥善保存(在生成中可选将私钥用口令加密)。<br>将公钥(id_rsa.pub)上传到VPS上，并将其内容添加到对应登录账户的~&#x2F;.ssh&#x2F;authorized_keys文件中，注意.ssh目录的权限最好是700(我的是755好像也行)，authorized_keys的权限必须是600或644。这里权限问题坑比较多，属主貌似没多大问题(我的登录账户不是root，但文件和目录的属主都是root)。<br>修改&#x2F;etc&#x2F;ssh&#x2F;sshd_config文件，分别修改如下三项:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSAAuthentication yes</span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure>
 <p>一般不用root登的话也设置一下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PermitRootLogin no</span><br></pre></td></tr></table></figure>
 <p>重启sshd服务<br>本地用Xshell添加刚才生成的私钥就可以连接VPS了(如果设置了加密口令则需要输入口令解密私钥)。<br>此时最基本的设置密钥登录就完成了，接下来我们修改open-ssh的代码来实现输出验证错误时的密码。</p>
-<h1 id="修改ssh源码"><a href="#修改ssh源码" class="headerlink" title="修改ssh源码"></a>修改ssh源码</h1><p>首先切换到一个临时目录执行apt-get source ssh，执行完后直接有一个openssh-6.6p1/ 目录和几个压缩包(我的VPS装的是DigitalOcean官方提供的Ubuntu镜像)，进入源码目录后首先写个patch:</p>
+<h1 id="修改ssh源码"><a href="#修改ssh源码" class="headerlink" title="修改ssh源码"></a>修改ssh源码</h1><p>首先切换到一个临时目录执行apt-get source ssh，执行完后直接有一个openssh-6.6p1&#x2F; 目录和几个压缩包(我的VPS装的是DigitalOcean官方提供的Ubuntu镜像)，进入源码目录后首先写个patch:</p>
 <img src="/2015/03/30/2015-03-30/patch-shot.jpg" class="">
 <p>用ssh工程内的logit来写SYSLOG。写完patch后先</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">patch --dry-run &lt;sshlog.patch</span><br></pre></td></tr></table></figure>
-<p>看是否有错误，没有错误的话就可以直接patch了。<br>到这里建议先备份一下/etc/ssh文件夹，再建个VPS的快照以防悲剧。。。<br>在源码目录执行配置</p>
+<p>看是否有错误，没有错误的话就可以直接patch了。<br>到这里建议先备份一下&#x2F;etc&#x2F;ssh文件夹，再建个VPS的快照以防悲剧。。。<br>在源码目录执行配置</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr --sysconfdir=/etc/ssh --without-zlib-version-check --with-md5-passwords --mandir=/usr/share/man</span><br></pre></td></tr></table></figure>
 <p>如果出错就安装缺少的软件包，下面是我安装时缺少的软件包:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install zlib1g zlib1g.dev openssl libssl-dev</span><br></pre></td></tr></table></figure>
@@ -302,7 +302,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Match Group sudo    #这里可能组名会不一样，wheel、sudoer什么的视情况而定</span><br><span class="line">PasswordAuthentication no  #禁止sudoers密码登录</span><br></pre></td></tr></table></figure>
 <p>经过如上配置后只要用户名在sudoer里VPS是不允许密码登录的。<br>此时如果恰巧有人在爆破你的VPS你可以通过</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -F /var/log/auth.log | grep sshlog</span><br></pre></td></tr></table></figure>
-<p>看到，有些主机的日志可能在/var/log/secure内，具体情况参照syslog.conf或rsyslog.conf的配置。</p>
+<p>看到，有些主机的日志可能在&#x2F;var&#x2F;log&#x2F;secure内，具体情况参照syslog.conf或rsyslog.conf的配置。</p>
 <img src="/2015/03/30/2015-03-30/brute-log.jpg" class="">
 <p>感受到了世界深深的恶意。。。</p>
 <p>可以写个脚本或程序来定期提取这些密码记录，送上门的字典不要白不要。</p>
@@ -462,7 +462,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -510,7 +510,7 @@
 <div class="copyright">
   
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
