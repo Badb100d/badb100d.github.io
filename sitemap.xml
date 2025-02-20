@@ -200,13 +200,6 @@
 
   
   <url>
-    <loc>https://badb100d.com/tags/tools/</loc>
-    <lastmod>2025-02-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://badb100d.com/tags/linux/</loc>
     <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -221,7 +214,7 @@
   </url>
   
   <url>
-    <loc>https://badb100d.com/tags/python/</loc>
+    <loc>https://badb100d.com/tags/tools/</loc>
     <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -235,6 +228,13 @@
   </url>
   
   <url>
+    <loc>https://badb100d.com/tags/python/</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://badb100d.com/tags/macos/</loc>
     <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -242,7 +242,42 @@
   </url>
   
   <url>
+    <loc>https://badb100d.com/tags/tips/</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/ubuntu/</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/vulns/</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/life/</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://badb100d.com/tags/iot/</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/environment/</loc>
     <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -263,13 +298,6 @@
   </url>
   
   <url>
-    <loc>https://badb100d.com/tags/environment/</loc>
-    <lastmod>2025-02-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://badb100d.com/tags/nvidia/</loc>
     <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -284,34 +312,6 @@
   </url>
   
   <url>
-    <loc>https://badb100d.com/tags/tips/</loc>
-    <lastmod>2025-02-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://badb100d.com/tags/life/</loc>
-    <lastmod>2025-02-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://badb100d.com/tags/android/</loc>
-    <lastmod>2025-02-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://badb100d.com/tags/ubuntu/</loc>
-    <lastmod>2025-02-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://badb100d.com/tags/WiFi/</loc>
     <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -319,7 +319,7 @@
   </url>
   
   <url>
-    <loc>https://badb100d.com/tags/vulns/</loc>
+    <loc>https://badb100d.com/tags/android/</loc>
     <lastmod>2025-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
