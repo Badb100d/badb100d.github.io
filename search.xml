@@ -723,6 +723,8 @@
 <li>补充一下，48G&#x2F;16G的内存&#x2F;显存分配方案可以在Windows下更改，不过修改后Ubuntu下ollama container申请ROCm0设备内存时会失败，怀疑其是先加载到内存再加载到缓存的方案，没有AGX Orin那么灵活，所以还是保持默认方案分配吧。<br>具体修改显存分配的方法：打开<strong>AMD Software: Adrenalin</strong>，在<strong>Performance</strong>-&gt;<strong>Tuning</strong>下，将<strong>Variable Graphics Memory</strong>改成High&#x2F;Custom自由调节，UMPC能给到48GB的VRAM也是夸张👀。</li>
 </ol>
 <img src="/2025/02/16/2025-02-16/gpd_pocket4_vram.jpg" class="">
+
+<style>p{text-indent:2em}</style>
 ]]></content>
       <categories>
         <category>tech</category>
