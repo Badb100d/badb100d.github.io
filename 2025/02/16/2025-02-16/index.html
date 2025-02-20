@@ -324,8 +324,7 @@
 </ol>
 <img src="/2025/02/16/2025-02-16/installer_radio_buttons.png" class="">
 <img src="/2025/02/16/2025-02-16/installer_ready.png" class="">
-<center>从网上找的截图，pocket4的安装略有区别</center>
-
+<p>从网上找的截图，<strong>pocket4的安装略有区别</strong></p>
 <h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><p>先在Ubuntu设置里面溜一圈，把一些有的没的按偏好调一调。</p>
 <h3 id="远程桌面：-1"><a href="#远程桌面：-1" class="headerlink" title="远程桌面："></a>远程桌面：</h3><p>系统-&gt;远程桌面里，打开远程登录。这里“桌面共享”类似于mac的屏幕共享或者老的vnc（与物理屏幕共用session），远程登录类似于有独立session的mstsc，试了一下远程登录更好一点（除了经常需要额外输密码授权）。另外，相比22.04，24.10版本的远程桌面使用的是兼容RDP的协议，终于不用额外安装VNC了，试了一下还是挺稳定的，不知道是不是也用的GDI重绘技术。另外在“远程桌面”的同级菜单里把“安全外壳(ssh)”打开，不用手动安装openssh-server了。</p>
 <p>补充说明1：Ubuntu远程登录的默认端口也是3389，可以通过 <code>sudo grdctl --system rdp set-port &#123;YOUR_NEW_PORT&#125;; sudo systemctl restart gnome-remote-desktop.service</code> 修改为自己习惯的端口（十进制数字端口号替换命令中的YOUR_NEW_PORT）。</p>
