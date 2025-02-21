@@ -200,6 +200,13 @@
 
   
   <url>
+    <loc>https://badb100d.com/tags/tools/</loc>
+    <lastmod>2025-02-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://badb100d.com/tags/linux/</loc>
     <lastmod>2025-02-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -221,7 +228,7 @@
   </url>
   
   <url>
-    <loc>https://badb100d.com/tags/tools/</loc>
+    <loc>https://badb100d.com/tags/pentest/</loc>
     <lastmod>2025-02-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -229,13 +236,6 @@
   
   <url>
     <loc>https://badb100d.com/tags/tips/</loc>
-    <lastmod>2025-02-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://badb100d.com/tags/pentest/</loc>
     <lastmod>2025-02-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -277,20 +277,6 @@
   </url>
   
   <url>
-    <loc>https://badb100d.com/tags/environment/</loc>
-    <lastmod>2025-02-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://badb100d.com/tags/android/</loc>
-    <lastmod>2025-02-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://badb100d.com/tags/vmware/</loc>
     <lastmod>2025-02-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -299,6 +285,13 @@
   
   <url>
     <loc>https://badb100d.com/tags/ESXi/</loc>
+    <lastmod>2025-02-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/environment/</loc>
     <lastmod>2025-02-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -320,6 +313,13 @@
   
   <url>
     <loc>https://badb100d.com/tags/WiFi/</loc>
+    <lastmod>2025-02-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://badb100d.com/tags/android/</loc>
     <lastmod>2025-02-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
