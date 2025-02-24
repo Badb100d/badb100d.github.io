@@ -296,7 +296,7 @@
 <p>查看原来的激活码&#x2F;密钥的几种方法（有些key看起来不一样）。</p>
 <ol>
 <li>管理员权限运行 <code>wmic path softwarelicensingservice get OA3xOriginalProductKey</code>，这个貌似是OEM的，会被下面注册表里的那个覆盖。（如果没装wmic需要在设置-&gt;系统-&gt;可选功能里添加wmic）。</li>
-<li>如下注册表路径对应的键值，这个值貌似和AIDA64软件里查看的一样。<br><strong>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform</strong> ，对应<strong>BackupProductKeyDefault</strong>键的值。</li>
+<li>如下注册表路径对应的键值，这个值貌似和AIDA64软件里查看的一样。<br><strong>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform</strong><br>对应<strong>BackupProductKeyDefault</strong>键的值。</li>
 </ol>
 <p>使用网上的key的升级步骤如下：</p>
 <ol>
@@ -383,9 +383,10 @@
 <ul>
 <li>下载<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Z0ZnB0ZWFtcy9mb2NhbHRlY2gtbGludXgtZmluZ2VycHJpbnQtZHJpdmVyL3Jhdy9yZWZzL2hlYWRzL21haW4vVWJ1bnR1X0RlYmlhbi94ODYvbGliZnByaW50LTItMl8xLjk0LjQrdG9kMS0wdWJ1bnR1MX4yMi4wNC4yX2FtZDY0XzIwMjUwMjE5LmRlYg==" title="https://github.com/ftfpteams/focaltech-linux-fingerprint-driver/raw/refs/heads/main/Ubuntu_Debian/x86/libfprint-2-2_1.94.4+tod1-0ubuntu1~22.04.2_amd64_20250219.deb">第三方libfprint程序<i class="fa fa-external-link"></i></span>（找最新版）。</li>
 <li>下载文件对应目录，执行 <code>dpkg -c libfprint-2-2_1.94.4+tod1-0ubuntu1~22.04.2_amd64_20250219.deb</code> 可以先看一下将会安装哪些文件。</li>
+<li>执行<code>sudo apt install -y fprintd libfprint-2-2 libpam-fprintd</code>安装其他配套程序。</li>
 <li>执行<code>sudo dpkg -i ./libfprint-2-2_1.94.4+tod1-0ubuntu1~22.04.2_amd64_20250219.deb</code>进行安装。</li>
-<li>执行<code>sudo apt install -yfprintd libfprint-2-2 libpam-fprintd</code>安装其他配套程序。</li>
 <li>执行<code>sudo pam-auth-update</code>开启pam认证配置程序，勾选<strong>Fingerprint authentication</strong>，确定。</li>
+<li>执行<code>sudo apt-mark hold libfprint-2-2</code>保持当前第三方版本的libfprint-2-2不被更新替换。</li>
 </ul>
 <p><strong>命令行方式添加指纹</strong>：</p>
 <ul>
